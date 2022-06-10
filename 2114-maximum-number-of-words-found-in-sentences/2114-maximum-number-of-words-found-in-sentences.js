@@ -3,10 +3,10 @@
  * @return {number}
  */
 var mostWordsFound = function(sentences) {
-    let result = 0;
+    let count = 0;
     for(let i = 0; i < sentences.length; i++){
-        let stest = sentences[i].split(" ");
-        if(result <= stest.length) result = stest.length
+        let wordCount = sentences[i].split(" ").length;
+        if(count <= wordCount) count = wordCount
     }
-    return result
+    return count
 };
