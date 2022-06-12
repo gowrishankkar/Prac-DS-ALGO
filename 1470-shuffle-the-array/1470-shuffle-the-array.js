@@ -4,26 +4,9 @@
  * @return {number[]}
  */
 var shuffle = function(nums, n) {
-    console.log('nums', nums);
-    console.log('n', n);
-    let leftPointer = 0 ;
-    let rightPointer = nums.length/2
-        console.log('leftPointer', leftPointer);
-        console.log('rightPointer', rightPointer);
-    let pushLeft = true;
-    let result = []
-    while(leftPointer < rightPointer && leftPointer < nums.length/2 ||rightPointer < nums.length){
-        if(pushLeft){
-            result.push(nums[leftPointer])
-            leftPointer++;
-            pushLeft = false;
-        } else {
-             result.push(nums[rightPointer])
-            rightPointer++;
-            pushLeft = true;
-        }
-        
+     let res = []
+    for(let i = 0; i < n; i++){
+        res.push(nums[i], nums[i+n])
     }
-    console.log('result', result)
-    return result;
+    return res
 };
