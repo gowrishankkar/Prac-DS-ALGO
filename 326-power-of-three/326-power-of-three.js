@@ -3,6 +3,8 @@
  * @return {boolean}
  */
 var isPowerOfThree = function(n) {
+    
+//     solution 1 - recursively
 //             let initialValue = 0;
 //     // console.log(Math.pow(2, 3))
 //     let result = checkFunction(n, initialValue); 
