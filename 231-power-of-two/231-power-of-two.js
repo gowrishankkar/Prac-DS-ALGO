@@ -3,7 +3,10 @@
  * @return {boolean}
  */
 var isPowerOfTwo = function(n) {
-    let initialValue = 0;
+    
+    
+    // Solution 1 - recursively
+    // let initialValue = 0;
     // console.log(Math.pow(2, 3))
 //     let result = checkFunction(n, initialValue); 
 //     function checkFunction(input, power){
@@ -14,7 +17,19 @@ var isPowerOfTwo = function(n) {
     
 //     console.log('result', result)
 //     return result
-     if (n < 1) return false;
-  return (n & (n - 1)) === 0; 
+    
+    
+      // Solution 2
+  //    if (n < 1) return false;
+  // return (n & (n - 1)) === 0; 
+    
+    
+      // Solution 3
+    let i = 1;
+    while(i < n) {
+        i *= 2;
+    }
+    
+    return i === n
    
 };
