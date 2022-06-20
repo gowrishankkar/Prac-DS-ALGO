@@ -11,7 +11,6 @@ var decompressRLElist = function(nums) {
             arr.push(nums[i+1])
         }
     }
-    console.log('arr', arr)
     return arr;    
 
 };
