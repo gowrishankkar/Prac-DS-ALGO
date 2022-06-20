@@ -7,10 +7,20 @@ var countGoodRectangles = function(rectangles) {
                     return Math.min(...rec)
                 })
    
-  
-    let result = arr.filter(function(value){
-                     return value === Math.max(...arr);
-                    }).length  
+//   method 1
+//     let result = arr.filter(function(value){
+//                      return value === Math.max(...arr);
+//                     }).length  
 
-    return result
+//     return result
+    
+    // method 2
+    const count = {};
+
+        arr.forEach(element => {
+          count[element] = (count[element] || 0) + 1;
+        });
+    
+    // console.log('count', count[Math.max(...arr)])
+    return count[Math.max(...arr)]
 };
