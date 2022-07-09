@@ -15,7 +15,7 @@ var maxSubArray = function(nums) {
          maxValue = Math.max(maxValue, currentSum)
         
     }
-    console.log('maxValue', maxValue)
+    // console.log('maxValue', maxValue)
     
     return maxValue;
     
