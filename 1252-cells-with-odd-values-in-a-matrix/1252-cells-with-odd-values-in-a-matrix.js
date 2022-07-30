@@ -6,15 +6,18 @@
  */
 var oddCells = function(m, n, indices) {
     // console.log('m, n, indices', m, n, indices)
-    let grid = []
-    for (let i = 0; i < m; i += 1) {
-        let row = []
-        for (let j = 0; j < n; j += 1) {
-            row.push(0)
+//     let grid = []
+//     for (let i = 0; i < m; i += 1) {
+//         let row = []
+//         for (let j = 0; j < n; j += 1) {
+//             row.push(0)
            
-        }
-        grid.push(row)
-    }
+//         }
+//         grid.push(row)
+//     }
+
+    
+    let grid = Array(m).fill().map(() => Array(n).fill(0));
 
     
       for (let i = 0; i < indices.length; i += 1) {
