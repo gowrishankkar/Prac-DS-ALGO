@@ -21,4 +21,5 @@ var sortColors = function(nums) {
                 break;
         }
     }
+    return nums
 };
