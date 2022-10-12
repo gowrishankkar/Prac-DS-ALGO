@@ -22,20 +22,35 @@ var majorityElement = function(nums) {
 //     }
 
 //     return arr
-     let obj = {};
+//      let obj = {};
     
-    for (let i = 0; i < nums.length; i++){
-      if (!obj[nums[i]]){
-          obj[nums[i]] = 0;
-      }
-      obj[nums[i]]++;
-    }
+//     for (let i = 0; i < nums.length; i++){
+//       if (!obj[nums[i]]){
+//           obj[nums[i]] = 0;
+//       }
+//       obj[nums[i]]++;
+//     }
     
-    let res = [];
-    for (let m in obj){
-      if (obj[m] > nums.length / 3){
-          res.push(parseInt(m));
-      }
+//     let res = [];
+//     for (let m in obj){
+//       if (obj[m] > nums.length / 3){
+//           res.push(parseInt(m));
+//       }
+//     }
+//     return res;
+    const map = {};
+  const majEl = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    map[nums[i]] = nums[i] in map ? map[nums[i]] + 1 : 1;
+  }
+
+  Object.keys(map).map(key => {
+    const n = nums.length / 3;
+    if (map[key] > n || n < 1) {
+      majEl.push(key);
     }
-    return res;
+  });
+
+  return majEl;
 };
