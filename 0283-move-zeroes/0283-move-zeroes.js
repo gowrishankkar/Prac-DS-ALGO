@@ -4,15 +4,29 @@
  */
 var moveZeroes = function(nums) {
 
-    let [ left, right ] = [ 0, 0 ];
+//     let [ left, right ] = [ 0, 0 ];
 
-    while (right < nums.length) {
-        const canSwap = (nums[right] !== 0)
-        if (canSwap) {
-            [nums[left], nums[right]] = [nums[right], nums[left]];
-            left++;
-        }
+//     while (right < nums.length) {
+//         const canSwap = (nums[right] !== 0)
+//         if (canSwap) {
+//             [nums[left], nums[right]] = [nums[right], nums[left]];
+//             left++;
+//         }
 
-        right++;
-    }
+//         right++;
+//     }
+    
+     let start = 0, end = 0
+     while(end < nums.length){
+       if(nums[end]==0){
+           end++
+       }
+       else{
+           let temp = nums[start]
+           nums[start] = nums[end]
+           nums[end] = temp
+           start++
+           end++
+       }
+   }
 };
