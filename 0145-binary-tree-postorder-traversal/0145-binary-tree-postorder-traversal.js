@@ -46,3 +46,28 @@ var postorderTraversal = function(root) {
     }
     return result
 };
+
+
+
+
+var postorderTraversal = function(root) {
+   let s1 = []
+   let s2 = [];
+    let result = []
+    if(root ==  null) return []
+    s1.push(root);
+    while(s1.length){
+        let node = s1.pop();
+        result.unshift(node.val);
+        if(node.left !== null) s1.push(node.left)
+        if(node.right !== null) s1.push(node.right)
+        
+    }
+    
+    console.log(s2,'test')
+    
+    // while(s2.length){
+    //     result.push(s2.pop())
+    // }
+    return result
+};
