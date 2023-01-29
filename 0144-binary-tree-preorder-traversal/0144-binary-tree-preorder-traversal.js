@@ -26,14 +26,32 @@
 // 	}
 
 
+// var preorderTraversal = function(root) {
+//     let output = [];
+//     function foo (node) {
+//         if(!node) return;
+//         output.push(node.val);
+//         foo(node.left);
+//         foo(node.right);
+//     }
+//     foo(root);
+//     return output;
+// };
+
+
 var preorderTraversal = function(root) {
     let output = [];
-    function foo (node) {
-        if(!node) return;
-        output.push(node.val);
-        foo(node.left);
-        foo(node.right);
+    let stack = []
+    if(root ===  null) return [];
+    stack.push(root);
+   while(stack.length) {
+       
+       let node = stack.pop();
+       output.push(node.val)
+       if(node.right!== null) stack.push(node.right)
+       if(node.left!== null) stack.push(node.left)
+       
     }
-    foo(root);
+
     return output;
 };
