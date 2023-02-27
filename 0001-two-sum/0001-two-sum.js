@@ -20,27 +20,43 @@
 
 
 
-var twoSum = (nums, target) => {
-    const map = getMap(nums);       /* Time O(N) | Space O(N) */
-    console.log('map', map)
-    return getSum(nums, target, map)/* Time O(N) */
-}
+// var twoSum = (nums, target) => {
+//     const map = getMap(nums);       /* Time O(N) | Space O(N) */
+//     console.log('map', map)
+//     return getSum(nums, target, map)/* Time O(N) */
+// }
 
-const getMap = (nums, map = new Map()) => {
+// const getMap = (nums, map = new Map()) => {
+//     for (let index = 0; index < nums.length; index++) {/* Time O(N) */
+//         map.set(nums[index], index);                        /* Space O(N) */
+//     }
+
+//     return map
+// }
+
+// const getSum = (nums, target, map) => {
+//     for (let index = 0; index < nums.length; index++) {/* Time O(N) */
+//         const complement = target - nums[index];
+//         const sumIndex = map.get(complement);
+
+//         const isTarget = map.has(complement) && (map.get(complement) !== index)
+//         if (isTarget) return [ index, sumIndex ]
+//     }
+
+//     return [ -1, -1 ];
+// }
+
+
+var twoSum = (nums, target, map = new Map()) => {
     for (let index = 0; index < nums.length; index++) {/* Time O(N) */
-        map.set(nums[index], index);                        /* Space O(N) */
-    }
-
-    return map
-}
-
-const getSum = (nums, target, map) => {
-    for (let index = 0; index < nums.length; index++) {/* Time O(N) */
-        const complement = target - nums[index];
+        const num = nums[index];
+        const complement = (target - num);
         const sumIndex = map.get(complement);
 
-        const isTarget = map.has(complement) && (map.get(complement) !== index)
-        if (isTarget) return [ index, sumIndex ]
+        const isTarget = map.has(complement)
+        if (isTarget) return [ index, sumIndex ];
+
+        map.set(num, index);                                /* Space O(N) */
     }
 
     return [ -1, -1 ];
