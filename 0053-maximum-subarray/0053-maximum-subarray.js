@@ -17,15 +17,15 @@
 // var maxSubArray = function(nums) {
 
 
-//         let res = nums[0]
+//         let res = -Infinity
 //         for(let  i = 0; i<nums.length; i++){
 //             let currSum = 0
-//             let L = Number.NEGATIVE_INFINITY
+           
 //             for(let j = i; j<nums.length; j++){
 //                 currSum += nums[j]
-//                 L = Math.max(L, currSum)
+//                 res = Math.max(res, currSum)
 //             }
-//              res = Math.max(L, res)
+         
            
 //         }
 //     console.log('res', res)
@@ -36,14 +36,13 @@
 var maxSubArray = function(nums) {
 
 
-        let res = nums[0]
-         let currSum = 0
-        for(const num of nums){
-            if(currSum < 0) currSum = 0
-            currSum += num
-            
-            res = Math.max(currSum, res)
-        }
-    console.log('res', res)
+    let res = nums[0]
+    let currSum = 0
+    for(const num of nums){
+        if(currSum < 0) currSum = 0
+        currSum += num
+        res = Math.max(currSum, res)
+    }
+  
     return res
 };
