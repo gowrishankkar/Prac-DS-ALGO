@@ -2,36 +2,36 @@
  * @param {number[]} nums
  * @return {number}
  */
-// var maxSubarraySumCircular = function(nums) {
-//     let [globalMax, globalMin] = [nums[0], nums[0]];
-//     let [currentMax, currentMin] = [0, 0];
-//     let total = 0;
-    
-//     for(num of nums){
-//        currentMax = Math.max(num, currentMax + num);
-//         currentMin = Math.min(num, currentMin + num);
-//             total += num
-//         globalMax = Math.max(globalMax, currentMax);
-//         globalMin = Math.min(currentMin, globalMin );
-    
-//     }
-    
-//     if(globalMax >0){ return Math.max(globalMax, total - globalMin)}
-//     else {return globalMin;}
-// };
-
-var maxSubarraySumCircular = function (nums) {
+var maxSubarraySumCircular = function(nums) {
     let [globalMax, globalMin] = [nums[0], nums[0]];
     let [currentMax, currentMin] = [0, 0];
     let total = 0;
-
-    for (num of nums) {
-        currentMax = Math.max(num, currentMax + num);
+    
+    for(num of nums){
+       currentMax = Math.max(num, currentMax + num);
         currentMin = Math.min(num, currentMin + num);
-        total += num;
+            total += num
         globalMax = Math.max(globalMax, currentMax);
-        globalMin = Math.min(globalMin, currentMin);
+        globalMin = Math.min(currentMin, globalMin );
+    
     }
-
-    return globalMax > 0 ? Math.max(globalMax, total - globalMin) : globalMax;
+    
+    if(globalMax >0){ return Math.max(globalMax, total - globalMin)}
+    else {return globalMax;}
 };
+
+// var maxSubarraySumCircular = function (nums) {
+//     let [globalMax, globalMin] = [nums[0], nums[0]];
+//     let [currentMax, currentMin] = [0, 0];
+//     let total = 0;
+
+//     for (num of nums) {
+//         currentMax = Math.max(num, currentMax + num);
+//         currentMin = Math.min(num, currentMin + num);
+//         total += num;
+//         globalMax = Math.max(globalMax, currentMax);
+//         globalMin = Math.min(globalMin, currentMin);
+//     }
+
+//     return globalMax > 0 ? Math.max(globalMax, total - globalMin) : globalMax;
+// };
