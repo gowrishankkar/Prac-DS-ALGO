@@ -10,7 +10,7 @@ function check(arr) {
 
 /**
  * @param {number[]} matchsticks
- * @return {boolean}
+ * @return {boolean} 
  */
 var makesquare = function (matchsticks) {
     let sides = new Array(4).fill(0),
