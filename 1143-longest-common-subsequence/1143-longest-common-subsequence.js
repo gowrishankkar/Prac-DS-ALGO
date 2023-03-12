@@ -1,31 +1,23 @@
-/**
- * @param {string} text1
- * @param {string} text2
- * @return {number}
- */
- var longestCommonSubsequence = (text1, text2, p1 = 0, p2 = 0, memo = initMemo(text1, text2)) => {
-    const isBaseCase = ((p1 === text1.length) || (p2 === text2.length));
-    if (isBaseCase) return 0;
+var longestCommonSubsequence = (text1, text2) => {
+    const tabu = initTabu(text1, text2);/* Time O(N * M) | Space O(N * M) */
 
-    const hasSeen = (memo[p1][p2] !== null);
-    if (hasSeen) return memo[p1][p2];
+    search(text1, text2, tabu);         /* Time O(N * M) | Space O(N * M) */
 
-    return dfs(text1, text2, p1, p2, memo);/* Time O((N * M) * M)) | Space O((N * M) + HEIGHT) */
-}
+    return tabu[0][0];
+};
 
-var initMemo = (text1, text2) => new Array((text1.length + 1)).fill()/* Time O(N) | Space O(N) */
-    .map(() => new Array((text2.length + 1)).fill(null));                /* Time O(M) | Space O(M) */
+var initTabu = (text1, text2) => 
+    new Array((text1.length + 1)).fill()                /* Time O(N) | Space O(N) */
+        .map(() => new Array((text2.length + 1)).fill(0));/* Time O(M) | Space O(M) */
 
-var dfs = (text1, text2, p1, p2, memo) => {
-    const left = longestCommonSubsequence(text1, text2, (p1 + 1), p2, memo);       /* Time O(N * M) | Space O(HEIGHT) */
-
-    const index = text2.indexOf(text1[p1], p2);                                        /* Time O(M) */
-    const isPrefix = (index !== -1);
-
-    const right = isPrefix
-        ? (longestCommonSubsequence(text1, text2, (p1 + 1), (index + 1), memo) + 1)/* Time O(N * M) | Space O(HEIGHT) */
-        : 0;
-
-    memo[p1][p2] = Math.max(left, right);                                          /*               | Space O(N * M) */
-    return memo[p1][p2];
+var search = (text1, text2, tabu) => {
+    const [ n, m ] = [ text1.length, text2.length ];
+    
+    for (let x = (n - 1); (0 <= x); x--) {/* Time O(N) */
+        for (let y = (m - 1); (0 <= y); y--) {/* Time O(M) */
+            tabu[x][y] = (text1[x] === text2[y])   /* Space O(N * M) */
+                ? (tabu[x + 1][y + 1] + 1)
+                : Math.max(tabu[x + 1][y], tabu[x][y + 1]);
+        }
+    }
 }
