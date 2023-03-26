@@ -29,18 +29,40 @@
 // };
 
 
+// var longestPalindromeSubseq = function(s) {
+//     const n = s.length;
+//     const dp = Array.from({length: n}, () => new Array(n).fill(0));
+//     for (let subLen = 1; subLen <= n; subLen++) {
+//         for (let left = 0; left <= n - subLen; left++) {
+//             const right = left + subLen - 1;
+//             if (subLen == 1) dp[left][right] = 1;
+//             else {
+//                 if (s[left] == s[right]) dp[left][right] = dp[left + 1][right - 1] + 2;
+//                 else dp[left][right] = Math.max(dp[left + 1][right], dp[left][right - 1]);
+//             }
+//         }
+//     }
+//     return dp[0][n - 1];
+// };
+
 var longestPalindromeSubseq = function(s) {
-    const n = s.length;
-    const dp = Array.from({length: n}, () => new Array(n).fill(0));
-    for (let subLen = 1; subLen <= n; subLen++) {
-        for (let left = 0; left <= n - subLen; left++) {
-            const right = left + subLen - 1;
-            if (subLen == 1) dp[left][right] = 1;
-            else {
-                if (s[left] == s[right]) dp[left][right] = dp[left + 1][right - 1] + 2;
-                else dp[left][right] = Math.max(dp[left + 1][right], dp[left][right - 1]);
+    const dp = Array(s.length).fill(1);
+
+    for (let i = s.length - 2; i >= 0; --i) {
+        let count = 0;
+
+        for (let j = i + 1; j < s.length; ++j) {
+            const temp = dp[j];
+
+            if (s[i] === s[j]) {
+                dp[j] = count + 2;
+            } else {
+                dp[j] = Math.max(dp[j], dp[j - 1]);
             }
+
+            count = temp;
         }
     }
-    return dp[0][n - 1];
+
+    return dp.at(-1);
 };
