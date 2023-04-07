@@ -11,26 +11,22 @@
  * @return {ListNode}
  */
 var mergeTwoLists = function(list1, list2) {
-    let sentinel = tail = new ListNode();
-
-    while (list1 && list2) {/* Time O(N + M) */
-        const isL2Greater = list1.val <= list2.val;
-        const isL2Less = list2.val < list1.val;
-
-        if (isL2Greater) {
-            tail.next = list1;
-            list1 = list1.next;
+        let h3 = new ListNode('dummy')
+        let t = h3;
+        let p1 = list1
+        let p2 = list2
+        while (p1 && p2) {
+            if (p1.val < p2.val) {
+                t.next = p1;
+                p1 = p1.next;
+                t = t.next
+            } else {
+                t.next = p2;
+                p2 = p2.next;
+                t = t.next
+            }
         }
-
-        if (isL2Less) {
-            tail.next = list2;
-            list2 = list2.next;
-        }
-
-        tail = tail.next;
-    }
-
-    tail.next = list1 || list2;
-
-    return sentinel.next;
+        if(p2 === null) t.next= p1
+        else t.next = p2
+        return h3.next;
 };
