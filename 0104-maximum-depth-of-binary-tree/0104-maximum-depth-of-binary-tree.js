@@ -11,17 +11,16 @@
  * @return {number}
  */
  var maxDepth = function(root) {
-    const isBaseCase = root === null;
-    if (isBaseCase) return 0;
+  
+    const dfs = (root) => {
+          if (!root) return 0;
+        const left = maxDepth(root.left);
+        const right = maxDepth(root.right);
 
+        return Math.max(left, right) +1 ;
+
+
+    }
     return dfs(root);
 };
 
-const dfs = (root) => {
-    const left = maxDepth(root.left);
-    const right = maxDepth(root.right);
-
-    const height = Math.max(left, right);
-
-    return height + 1;
-}
