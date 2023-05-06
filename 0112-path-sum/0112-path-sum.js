@@ -12,17 +12,15 @@
  * @return {boolean}
  */
 var hasPathSum = function(root, targetSum) {
-
-    const ans = [];
-    function goDFS(node, curruntSum) {
+    let sum = []
+   dfs(root, 0)
+    function dfs(node, currSum){
         if(!node) return;
-        if(!node.left && !node.right) {
-            ans.push(node.val + curruntSum);
-        }
-        goDFS(node.left, curruntSum + node.val);
-        goDFS(node.right, curruntSum + node.val);
+        if(!node.left && !node.right) sum.push(node.val + currSum)
+        
+        dfs(node.left, node.val + currSum)
+        dfs(node.right, node.val +  currSum)
     }
-    goDFS(root, 0);
     
-    return ans.includes(targetSum);
+    return sum.includes(targetSum)    
 };
