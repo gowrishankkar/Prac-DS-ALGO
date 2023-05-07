@@ -30,7 +30,8 @@ const bfs = (queue, levels = []) => {
             level.push(node.val);
         }
 
-        levels.push(level.slice());
+        console.log('level', level)
+        levels.push(level);
     }
 
     return levels;
