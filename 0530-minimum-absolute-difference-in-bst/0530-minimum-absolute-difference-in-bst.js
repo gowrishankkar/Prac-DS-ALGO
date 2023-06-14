@@ -11,29 +11,19 @@
  * @return {number}
  */
 var getMinimumDifference = function(root) {
-    let nodeValues = []
-
+	let prev = Infinity;
+	let min = Infinity;
+    console.log('prev', prev)
     function dfs(node) {
         if (node == null) {
             return;
         }
-
-        nodeValues.push(node.val);
         dfs(node.left);
+        min = Math.min(min, Math.abs(node.val - prev))
+        prev = node.val
         dfs(node.right);
     }
 
-    function minimumDifference(root) {
-        dfs(root);
-
-        nodeValues.sort((a,b)=>a-b);
-        let minDifference = Number.MAX_VALUE;
-        // Find the diff between every two consecutive values in the list.
-        for (let i = 1; i < nodeValues.length; i++) {
-            minDifference = Math.min(minDifference, nodeValues[i] - nodeValues[i -1 ] );
-        }
-
-        return minDifference;
-    }
-    return minimumDifference(root)
+    dfs(root)
+    return min
 };
