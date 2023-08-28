@@ -10,7 +10,9 @@ var validPalindrome = function (s) {
         console.log(l, r);
         if (s[l] !== s[r]) {
             const skipL = s.slice(l + 1, r + 1);
+            console.log('skipL', skipL)
             const skipR = s.slice(l, r);
+             console.log('skipR', skipR)
             return isPalindrome(skipL) || isPalindrome(skipR);
         }
         l++;
