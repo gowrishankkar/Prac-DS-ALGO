@@ -6,8 +6,10 @@
 var shipWithinDays = function(weights, days) {
     let l =  Math.max(...weights);
     let h = 0;
-    weights.forEach((ele) => h += ele);
-    
+    for (let i = 0; i < weights.length; i++) {
+        h += weights[i];
+    }
+
     while(l <= h) {
         let mid = l + Math.floor((h - l) / 2); 
         let noD =  filter(weights, mid);
