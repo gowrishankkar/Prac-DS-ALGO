@@ -7,7 +7,6 @@ var shipWithinDays = function(weights, days) {
     let l =  Math.max(...weights);
     let h = 0;
     weights.forEach((ele) => h += ele);
-    console.log(l, h)
     
     while(l <= h) {
         let mid = l + Math.floor((h - l) / 2); 
