@@ -18,18 +18,38 @@
 //     }
 // };
 
-var arrangeCoins = function(n) {
-    let l = 1 , r = n;
-    let res = 0;
-    while(l <= r){
-        let mid = l + Math.floor((r - l) / 2);
-        let coins = (mid / 2) * (mid + 1 );
-        if(coins > n) r = mid - 1;
-        else{
-            l = mid + 1;
-            res = Math.max(mid , res);
-        }
+// var arrangeCoins = function(n) {
+//     let l = 1 , r = n;
+//     let res = 0;
+//     while(l <= r){
+//         let mid = l + Math.floor((r - l) / 2);
+//         let coins = (mid / 2) * (mid + 1 );
+//         if(coins > n) r = mid - 1;
+//         else{
+//             l = mid + 1;
+//             res = Math.max(mid , res);
+//         }
         
+//     }
+//     return res;
+// };
+
+
+var arrangeCoins = function(n) {
+    let left = 1
+    let right = n
+
+    while(left <= right) {
+        const mid = Math.floor((left + right) / 2)
+
+        const amount = (mid*(mid + 1))/2
+
+        if(amount > n) {
+            right = mid - 1
+        } else {
+            left = mid + 1
+        }
     }
-    return res;
+
+    return left - 1
 };
