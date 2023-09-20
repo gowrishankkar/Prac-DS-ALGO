@@ -24,23 +24,34 @@
 // };
 
 
-var findMin = function (nums) {
-    let [left, right] = [0, nums.length - 1];
+// var findMin = function (nums) {
+//     let [left, right] = [0, nums.length - 1];
 
-    let res = Number.MAX_VALUE
-    while(left <= right){
-        let mid  = Math.floor((left + right) / 2);
-        if(nums[left] <= nums[right]){
-            res = Math.min(res, nums[left]); 
-            break;
-        }
-        if(nums[left] <= nums[mid]){
-            left = mid + 1; 
-             res = Math.min(res, nums[left]); 
-        }else {
-             right = mid ; 
-             res = Math.min(res, nums[right]); 
+//     let res = Number.MAX_VALUE
+//     while(left <= right){
+//         let mid  = Math.floor((left + right) / 2);
+//         if(nums[left] <= nums[right]){
+//             res = Math.min(res, nums[left]); 
+//             break;
+//         }
+//         if(nums[left] <= nums[mid]){
+//             left = mid + 1; 
+//              res = Math.min(res, nums[left]); 
+//         }else {
+//              right = mid ; 
+//              res = Math.min(res, nums[right]); 
+//         }
+//     }
+//     return res;
+// };
+
+
+var findMin = function(nums) {
+    let save = nums[0];
+    for(let i = 0; i < nums.length; i++){
+        if(save > nums[i]){
+            save = nums[i];
         }
     }
-    return res;
+    return save;
 };
