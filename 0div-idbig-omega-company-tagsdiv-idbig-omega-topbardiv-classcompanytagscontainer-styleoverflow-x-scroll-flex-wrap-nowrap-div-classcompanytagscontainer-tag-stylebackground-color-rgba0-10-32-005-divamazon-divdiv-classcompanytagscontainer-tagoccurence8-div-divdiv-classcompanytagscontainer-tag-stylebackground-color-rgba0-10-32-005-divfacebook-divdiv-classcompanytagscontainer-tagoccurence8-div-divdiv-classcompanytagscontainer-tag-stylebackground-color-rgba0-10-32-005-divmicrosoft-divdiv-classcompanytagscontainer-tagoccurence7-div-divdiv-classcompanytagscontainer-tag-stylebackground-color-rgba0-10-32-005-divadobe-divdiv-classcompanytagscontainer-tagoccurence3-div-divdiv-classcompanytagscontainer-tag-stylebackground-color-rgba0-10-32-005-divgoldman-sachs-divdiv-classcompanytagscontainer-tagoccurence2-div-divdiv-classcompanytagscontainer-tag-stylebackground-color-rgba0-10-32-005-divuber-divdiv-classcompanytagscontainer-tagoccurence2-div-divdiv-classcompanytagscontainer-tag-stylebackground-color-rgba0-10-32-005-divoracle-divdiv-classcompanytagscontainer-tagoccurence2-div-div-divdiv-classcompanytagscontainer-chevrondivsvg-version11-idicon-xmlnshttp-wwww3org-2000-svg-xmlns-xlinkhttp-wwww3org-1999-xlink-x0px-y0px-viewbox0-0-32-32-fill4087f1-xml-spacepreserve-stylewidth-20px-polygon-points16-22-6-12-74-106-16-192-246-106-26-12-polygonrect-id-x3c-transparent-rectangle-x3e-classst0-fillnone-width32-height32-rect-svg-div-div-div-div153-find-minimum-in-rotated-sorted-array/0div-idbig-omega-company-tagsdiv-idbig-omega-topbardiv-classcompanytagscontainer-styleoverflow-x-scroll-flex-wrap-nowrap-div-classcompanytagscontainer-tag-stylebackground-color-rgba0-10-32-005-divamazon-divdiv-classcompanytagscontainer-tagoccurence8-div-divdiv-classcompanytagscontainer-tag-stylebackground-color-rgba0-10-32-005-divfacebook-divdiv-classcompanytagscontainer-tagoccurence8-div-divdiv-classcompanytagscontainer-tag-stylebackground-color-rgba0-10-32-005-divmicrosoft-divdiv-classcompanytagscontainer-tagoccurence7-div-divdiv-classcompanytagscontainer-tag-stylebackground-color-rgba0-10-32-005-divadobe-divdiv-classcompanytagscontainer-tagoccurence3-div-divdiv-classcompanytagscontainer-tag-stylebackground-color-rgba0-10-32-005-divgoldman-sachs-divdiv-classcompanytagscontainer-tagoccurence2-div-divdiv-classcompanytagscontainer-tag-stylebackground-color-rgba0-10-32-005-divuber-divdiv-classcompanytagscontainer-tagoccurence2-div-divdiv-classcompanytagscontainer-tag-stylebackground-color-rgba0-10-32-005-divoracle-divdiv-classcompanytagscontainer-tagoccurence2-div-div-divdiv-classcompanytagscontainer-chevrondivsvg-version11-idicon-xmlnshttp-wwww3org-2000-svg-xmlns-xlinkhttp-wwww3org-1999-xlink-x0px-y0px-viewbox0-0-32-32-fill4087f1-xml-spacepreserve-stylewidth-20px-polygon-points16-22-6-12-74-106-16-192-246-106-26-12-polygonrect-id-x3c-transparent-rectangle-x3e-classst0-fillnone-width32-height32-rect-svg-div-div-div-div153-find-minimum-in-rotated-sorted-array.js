@@ -46,12 +46,19 @@
 // };
 
 
+// var findMin = function(nums) {
+//     let save = nums[0];
+//     for(let i = 0; i < nums.length; i++){
+//         if(save > nums[i]){
+//             save = nums[i];
+//         }
+//     }
+//     return save;
+// };
+
+
+
 var findMin = function(nums) {
-    let save = nums[0];
-    for(let i = 0; i < nums.length; i++){
-        if(save > nums[i]){
-            save = nums[i];
-        }
-    }
-    return save;
+   
+    return Math.min(...nums);
 };
