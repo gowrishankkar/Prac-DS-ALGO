@@ -43,42 +43,42 @@
 
 
 
-// var mySqrt = function(x) {
-//     if(x < 2) return x;
-//     let l = 0, r = x;
-//     let res = 0;
-//     while(l <= r){
-//         let mid = l + Math.floor((l + r) / 2);
-//         let power = mid * mid;
-//         if(power < x) {
-//             l = mid + 1;
-//             res = mid;
-//         }
-//         else if(power > x) {
-//             r = mid - 1
-            
-//         }
-//         else if(power == x) return mid;
-//     }
-//     return res;
- 
-// };
-
-const mySqrt = (t) => {
-    if(t < 2) return t;
-    let s = 0, e = t;
-    let ans = -1;
-    while(s <= e) {
-        const m = Math.floor((s+e) / 2);
-        if(m * m === t) {
-            return m;
-        } else if(m * m > t) {
-            e = m - 1;
-        } else {
-            s = m + 1;
-            ans = m;
+var mySqrt = function(x) {
+    if(x < 2) return x;
+    let l = 0, r = x;
+    let res = 0;
+    while(l <= r){
+        let mid = l + Math.floor((r - l) / 2);
+        let power = mid * mid;
+        if(power < x) {
+            l = mid + 1;
+            res = mid;
         }
+        else if(power > x) {
+            r = mid - 1
+            
+        }
+        else if(power == x) return mid;
     }
-
-    return ans;
+    return res;
+ 
 };
+
+// const mySqrt = (t) => {
+//     if(t < 2) return t;
+//     let s = 0, e = t;
+//     let ans = -1;
+//     while(s <= e) {
+//         const m = Math.floor((s+e) / 2);
+//         if(m * m === t) {
+//             return m;
+//         } else if(m * m > t) {
+//             e = m - 1;
+//         } else {
+//             s = m + 1;
+//             ans = m;
+//         }
+//     }
+
+//     return ans;
+// };
