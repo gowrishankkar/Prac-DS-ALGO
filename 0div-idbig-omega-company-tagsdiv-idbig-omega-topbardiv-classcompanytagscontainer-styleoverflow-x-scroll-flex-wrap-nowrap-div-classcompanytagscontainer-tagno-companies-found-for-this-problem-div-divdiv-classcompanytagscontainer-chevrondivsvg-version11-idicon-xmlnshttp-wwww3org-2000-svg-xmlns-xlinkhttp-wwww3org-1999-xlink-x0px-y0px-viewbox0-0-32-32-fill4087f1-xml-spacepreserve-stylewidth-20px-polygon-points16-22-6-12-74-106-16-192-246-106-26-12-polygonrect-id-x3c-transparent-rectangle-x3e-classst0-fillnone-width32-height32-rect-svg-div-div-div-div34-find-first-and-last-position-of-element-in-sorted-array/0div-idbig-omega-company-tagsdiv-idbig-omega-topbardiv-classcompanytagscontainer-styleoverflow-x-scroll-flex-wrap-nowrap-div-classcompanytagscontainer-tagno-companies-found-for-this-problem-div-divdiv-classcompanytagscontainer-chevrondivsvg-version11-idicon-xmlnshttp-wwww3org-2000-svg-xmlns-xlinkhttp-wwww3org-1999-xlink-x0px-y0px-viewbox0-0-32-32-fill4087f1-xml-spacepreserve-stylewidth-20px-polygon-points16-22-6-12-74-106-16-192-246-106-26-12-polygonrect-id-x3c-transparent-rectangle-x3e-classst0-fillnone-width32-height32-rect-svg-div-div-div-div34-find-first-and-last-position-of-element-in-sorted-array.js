@@ -12,7 +12,6 @@ var searchRange = function(nums, target) {
     let res = 0, contains = false;
     while(l <= r){
         let m = l + Math.floor((r - l) / 2);
-        console.log('m', m)
         if(target == nums[m]){
             contains = true;
             res = m;
@@ -21,8 +20,6 @@ var searchRange = function(nums, target) {
             r = m - 1;
         } else l = m + 1;
     }
-    
-    console.log('contains', contains, res)
     if(contains){
         let i = res, j = res;
         while(nums[i - 1] == target) i--;
