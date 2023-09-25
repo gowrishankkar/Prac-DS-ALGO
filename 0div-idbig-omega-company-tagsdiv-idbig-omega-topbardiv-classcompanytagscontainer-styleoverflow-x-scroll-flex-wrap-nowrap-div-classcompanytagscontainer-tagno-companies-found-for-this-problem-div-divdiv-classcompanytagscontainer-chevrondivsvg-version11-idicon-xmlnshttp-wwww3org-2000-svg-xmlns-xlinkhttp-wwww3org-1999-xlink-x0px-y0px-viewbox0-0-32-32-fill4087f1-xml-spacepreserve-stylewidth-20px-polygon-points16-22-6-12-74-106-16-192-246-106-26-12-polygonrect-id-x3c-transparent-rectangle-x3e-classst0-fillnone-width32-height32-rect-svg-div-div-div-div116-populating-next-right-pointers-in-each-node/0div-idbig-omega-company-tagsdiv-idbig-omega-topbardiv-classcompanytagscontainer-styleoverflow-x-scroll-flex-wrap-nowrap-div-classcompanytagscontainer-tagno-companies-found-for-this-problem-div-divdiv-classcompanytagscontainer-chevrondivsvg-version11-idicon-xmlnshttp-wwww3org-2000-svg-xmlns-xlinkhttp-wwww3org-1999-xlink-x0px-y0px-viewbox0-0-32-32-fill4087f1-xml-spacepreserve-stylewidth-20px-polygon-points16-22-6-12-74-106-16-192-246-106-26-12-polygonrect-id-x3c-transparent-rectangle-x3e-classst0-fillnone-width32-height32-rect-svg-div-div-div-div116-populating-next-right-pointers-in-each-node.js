@@ -40,7 +40,7 @@ var connect = function(root) {
         while(queue.length) {
             let node = queue.shift();
             node.next = queue[0]||null;
-            if (node.left) {
+            if (node.left!=null) {
                 next.push(node.left);
                 next.push(node.right);
             }
