@@ -19,15 +19,15 @@ var minimizeMax = function(nums, p) {
 };
 
 // var isValid = (t, nums, p) => {
-//     let i = 0, count = 0;
-//     while(i < nums.length - 1){
-//         if(Math.abs(nums[i] - nums[i + 1]) <= t){
+//     let i = 1, count = 0;
+//     while(i < nums.length){
+//         if(nums[i] - nums[i - 1] <= t){
 //             count++;
 //             i++;
 //         } else i++;
-//         if(count == p) return true;
+//         // if(count == p) return true;
 //     }
-//     return false;
+//     return count>=p;;
     
 // }
 function isValid(maxDiff, nums, p, ){
