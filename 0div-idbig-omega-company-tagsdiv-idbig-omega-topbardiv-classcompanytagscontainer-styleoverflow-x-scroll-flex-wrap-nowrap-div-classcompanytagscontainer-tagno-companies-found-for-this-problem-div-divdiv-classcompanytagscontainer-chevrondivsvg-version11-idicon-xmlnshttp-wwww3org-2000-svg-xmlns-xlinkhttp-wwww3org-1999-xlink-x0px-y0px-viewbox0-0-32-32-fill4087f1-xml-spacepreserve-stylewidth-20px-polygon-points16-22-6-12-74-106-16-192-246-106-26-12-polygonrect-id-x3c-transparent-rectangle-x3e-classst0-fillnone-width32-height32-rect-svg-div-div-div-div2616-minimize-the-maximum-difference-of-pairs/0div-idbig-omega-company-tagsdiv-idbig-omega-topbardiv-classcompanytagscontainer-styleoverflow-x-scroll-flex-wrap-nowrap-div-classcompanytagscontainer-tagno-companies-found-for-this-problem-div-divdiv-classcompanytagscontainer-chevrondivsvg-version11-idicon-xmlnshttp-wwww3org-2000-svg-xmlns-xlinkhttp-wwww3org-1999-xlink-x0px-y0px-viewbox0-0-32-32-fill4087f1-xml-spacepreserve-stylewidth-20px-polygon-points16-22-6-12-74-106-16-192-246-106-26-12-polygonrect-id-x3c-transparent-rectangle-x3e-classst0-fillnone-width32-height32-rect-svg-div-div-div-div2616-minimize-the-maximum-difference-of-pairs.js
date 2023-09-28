@@ -6,7 +6,7 @@
 var minimizeMax = function(nums, p) {
     nums.sort((a, b) => a - b);
     let l = 0, r = nums[nums.length - 1];
-    let res = Math.pow(10 , 9);
+    let res = nums[nums.length - 1];
     while( l <= r){
         let m =  l + Math.floor((r - l)/ 2);
         if(isValid(m, nums, p)){
