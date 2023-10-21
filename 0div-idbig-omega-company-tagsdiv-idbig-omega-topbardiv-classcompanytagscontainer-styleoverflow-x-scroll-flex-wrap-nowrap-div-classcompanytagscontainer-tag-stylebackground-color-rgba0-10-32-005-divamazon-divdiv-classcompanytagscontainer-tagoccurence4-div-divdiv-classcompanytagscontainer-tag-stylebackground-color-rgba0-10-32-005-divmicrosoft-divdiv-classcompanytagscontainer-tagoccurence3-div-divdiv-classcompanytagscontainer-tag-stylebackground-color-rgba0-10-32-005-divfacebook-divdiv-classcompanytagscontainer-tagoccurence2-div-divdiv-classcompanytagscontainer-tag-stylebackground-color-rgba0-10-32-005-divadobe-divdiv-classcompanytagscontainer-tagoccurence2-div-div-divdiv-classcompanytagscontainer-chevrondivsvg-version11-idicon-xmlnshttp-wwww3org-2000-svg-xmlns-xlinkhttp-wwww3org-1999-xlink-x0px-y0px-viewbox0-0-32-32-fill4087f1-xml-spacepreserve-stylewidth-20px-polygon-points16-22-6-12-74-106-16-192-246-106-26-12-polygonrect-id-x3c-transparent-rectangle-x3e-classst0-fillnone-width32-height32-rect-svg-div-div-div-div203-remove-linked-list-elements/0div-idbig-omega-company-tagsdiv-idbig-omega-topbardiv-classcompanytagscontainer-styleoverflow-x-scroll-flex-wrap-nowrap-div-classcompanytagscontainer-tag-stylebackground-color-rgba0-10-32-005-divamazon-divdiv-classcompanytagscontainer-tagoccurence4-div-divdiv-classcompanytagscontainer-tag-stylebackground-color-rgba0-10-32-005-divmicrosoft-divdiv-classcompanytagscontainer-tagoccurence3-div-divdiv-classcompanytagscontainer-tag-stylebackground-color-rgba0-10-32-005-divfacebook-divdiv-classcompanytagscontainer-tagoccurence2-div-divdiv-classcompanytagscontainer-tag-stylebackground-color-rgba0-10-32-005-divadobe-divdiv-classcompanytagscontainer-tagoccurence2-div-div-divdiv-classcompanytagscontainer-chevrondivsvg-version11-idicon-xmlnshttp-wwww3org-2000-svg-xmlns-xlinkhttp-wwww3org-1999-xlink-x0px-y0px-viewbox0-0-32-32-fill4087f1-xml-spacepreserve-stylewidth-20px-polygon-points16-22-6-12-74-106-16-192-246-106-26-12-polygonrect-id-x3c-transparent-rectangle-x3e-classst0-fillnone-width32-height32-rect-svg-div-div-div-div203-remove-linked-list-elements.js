@@ -31,18 +31,46 @@
 //     return sentinel_node.next;
 // };
 
-var removeElements = function (head, val) {
+// var removeElements = function (head, val) {
     
-    let dummy = new ListNode(0, head);
-    let prev = dummy;
-    let curr = head;
+//     let dummy = new ListNode(0, head);
+//     let prev = dummy;
+//     let curr = head;
 
-    while (curr) {
+//     while (curr) {
 
-       if(curr.val == val) prev.next = curr.next;
-       else prev = curr;
-        curr = curr.next;
+//        if(curr.val == val) prev.next = curr.next;
+//        else prev = curr;
+//         curr = curr.next;
+//     }
+
+//     return dummy.next;
+// };
+
+
+
+var removeElements = function(head, val) {
+    let current = head;
+    // Handle scenario, where "bad" nodes are at the beginning of a linked list
+    while (current && current.val === val) {
+        previous = current;
+        current = current.next;
+        previous.next = null;
     }
 
-    return dummy.next;
+	// Introduce h and point it to the c, which is currently a head of the resulting linked list 
+    head = current;
+    while (current) {
+        if (current.val === val) {
+			// Handle case when c points to a "bad" node, where we link p to the next node of c
+            previous.next = current.next;
+            current = current.next;
+        } else {
+			// Handle case when c points to a "good" node, where we simply advance to the next node of c 
+            previous = current;
+            current = current.next;
+        }
+    }
+    return head;
+
 };
