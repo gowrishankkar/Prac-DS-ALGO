@@ -46,20 +46,42 @@ At each step, prev.next = curr.next, curr.next = prev,
 
 O(n) time, O(1) space
 */
-var swapPairs = function(head) {
-    if (head === null) {
-        return head
-    }
+// var swapPairs = function(head) {
+//     if (head === null) {
+//         return head
+//     }
 
-    const dummy = new ListNode(0, head);
-    let prev = dummy, slow = head, fast = head.next;
-    while (fast !== null) {
-        prev.next = fast;
-        prev = slow;
-        slow.next = fast.next;
-        fast.next = slow;
-        slow = slow.next;
-        fast = slow === null ? null : slow.next
-    }
-    return dummy.next;
+//     const dummy = new ListNode(0, head);
+//     let prev = dummy, slow = head, fast = head.next;
+//     while (fast !== null) {
+//         prev.next = fast;
+//         prev = slow;
+//         slow.next = fast.next;
+//         fast.next = slow;
+//         slow = slow.next;
+//         fast = slow === null ? null : slow.next
+//     }
+//     return dummy.next;
+// };
+
+
+var swapPairs = function(head) {
+        let dummy = new ListNode(0, head);
+        let [prev, curr] = [dummy, head];
+        if(!head || !head.next ) return head;
+        while (curr && curr.next) {
+            let nextPair = curr.next.next;
+            let second = curr.next;
+            
+            second.next = curr;
+            curr.next = nextPair;
+            prev.next = second;
+            
+            prev= curr;
+            curr = nextPair;
+        }
+        return dummy.next;
 };
+
+
+  
