@@ -40,19 +40,39 @@
 
 
 
+// var pairSum = function (head) {
+//   let stack = [], ans = 0;
+//     let [slow, fast] = [head, head]
+//       while (fast &&  fast.next) {
+//         stack.push(slow.val);
+//         slow = slow.next;
+//         fast = fast.next.next;
+//       }
+//     // console.log('stack', stack, slow)
+//       while (stack.length && slow ) {
+//         var curr = stack.pop();
+//         ans = Math.max(ans, curr + slow.val);
+//         slow = slow.next;
+//       }
+
+//   return ans;
+// };
+
+
+
 var pairSum = function (head) {
-  let stack = [], ans = 0;
-    let [slow, fast] = [head, head]
+    let [slow, fast, prev, ans] = [head, head, null, 0]
       while (fast &&  fast.next) {
-        stack.push(slow.val);
-        slow = slow.next;
         fast = fast.next.next;
+        let temp = slow.next;
+        slow.next = prev;
+        prev= slow;
+        slow = temp;
       }
-    // console.log('stack', stack, slow)
-      while (stack.length && slow ) {
-        var curr = stack.pop();
-        ans = Math.max(ans, curr + slow.val);
+      while ( slow ) {
+        ans = Math.max(ans, prev.val + slow.val);
         slow = slow.next;
+        prev = prev.next
       }
 
   return ans;
