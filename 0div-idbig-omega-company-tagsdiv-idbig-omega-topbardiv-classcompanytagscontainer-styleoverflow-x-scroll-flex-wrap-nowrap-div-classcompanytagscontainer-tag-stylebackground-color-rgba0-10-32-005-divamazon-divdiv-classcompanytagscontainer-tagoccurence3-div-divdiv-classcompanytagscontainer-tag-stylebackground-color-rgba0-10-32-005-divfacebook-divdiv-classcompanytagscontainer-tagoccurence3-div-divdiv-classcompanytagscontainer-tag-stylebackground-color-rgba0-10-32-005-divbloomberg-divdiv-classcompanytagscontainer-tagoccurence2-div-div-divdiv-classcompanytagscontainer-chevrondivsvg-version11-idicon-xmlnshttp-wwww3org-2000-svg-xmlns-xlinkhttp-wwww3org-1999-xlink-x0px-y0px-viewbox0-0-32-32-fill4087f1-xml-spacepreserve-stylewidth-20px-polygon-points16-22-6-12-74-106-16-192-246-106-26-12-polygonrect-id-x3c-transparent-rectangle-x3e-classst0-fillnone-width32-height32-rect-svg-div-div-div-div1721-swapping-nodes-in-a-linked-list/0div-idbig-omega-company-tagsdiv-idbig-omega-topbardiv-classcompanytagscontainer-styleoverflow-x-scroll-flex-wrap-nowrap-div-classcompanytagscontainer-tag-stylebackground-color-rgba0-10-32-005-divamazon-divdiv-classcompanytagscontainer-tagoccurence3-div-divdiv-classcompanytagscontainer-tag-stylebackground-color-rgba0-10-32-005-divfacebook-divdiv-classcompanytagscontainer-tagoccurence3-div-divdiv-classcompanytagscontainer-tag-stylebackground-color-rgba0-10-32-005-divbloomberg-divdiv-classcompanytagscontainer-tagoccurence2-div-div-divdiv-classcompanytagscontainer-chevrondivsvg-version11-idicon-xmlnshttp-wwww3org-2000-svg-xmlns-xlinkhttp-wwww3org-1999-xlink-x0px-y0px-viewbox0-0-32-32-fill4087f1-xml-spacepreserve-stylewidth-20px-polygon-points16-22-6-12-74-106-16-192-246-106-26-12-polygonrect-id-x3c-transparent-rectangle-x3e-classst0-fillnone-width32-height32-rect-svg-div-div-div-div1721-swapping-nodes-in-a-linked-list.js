@@ -34,42 +34,43 @@
 //     return head
 // };
 
-// var swapNodes = function(head, k) {
-//     let [left, right, curr] = [null, head, head];
-//     for(let i = 1; i<= k - 1; i++){
-//         curr = curr.next
-//     }
-//     left = curr;
-//     while(curr.next){
-//         curr = curr.next
-//         right = right.next
-//     }
-//     [left.val, right.val] = [right.val, left.val]
-//     return head;
-// };
-
-
 var swapNodes = function(head, k) {
-
-    let fast = new ListNode(0, head)
-    let slow = fast
-
-    while (k > 0) {
-        fast = fast.next
-        k--
+    let [left, right, curr] = [null, head, new ListNode(0, head)];
+    while(k > 0){
+         curr = curr.next;
+         k--;
+    } 
+    left = curr;
+    while(curr.next){
+        curr = curr.next
+        right = right.next
     }
-    // Fast node is at Kth node from the start
-    let leftNode = fast
-
-    while (fast) {
-        fast = fast.next
-        slow = slow.next
-    }
-    // Now slow is at Kth node from the end
-
-    let temp = slow.val
-    slow.val = leftNode.val
-    leftNode.val = temp
-
-    return head
+    [left.val, right.val] = [right.val, left.val]
+    return head;
 };
+
+
+// var swapNodes = function(head, k) {
+
+//     let fast = new ListNode(0, head)
+//     let slow = fast
+
+//     while (k > 0) {
+//         fast = fast.next
+//         k--
+//     }
+//     // Fast node is at Kth node from the start
+//     let leftNode = fast
+
+//     while (fast) {
+//         fast = fast.next
+//         slow = slow.next
+//     }
+//     // Now slow is at Kth node from the end
+
+//     let temp = slow.val
+//     slow.val = leftNode.val
+//     leftNode.val = temp
+
+//     return head
+// };
