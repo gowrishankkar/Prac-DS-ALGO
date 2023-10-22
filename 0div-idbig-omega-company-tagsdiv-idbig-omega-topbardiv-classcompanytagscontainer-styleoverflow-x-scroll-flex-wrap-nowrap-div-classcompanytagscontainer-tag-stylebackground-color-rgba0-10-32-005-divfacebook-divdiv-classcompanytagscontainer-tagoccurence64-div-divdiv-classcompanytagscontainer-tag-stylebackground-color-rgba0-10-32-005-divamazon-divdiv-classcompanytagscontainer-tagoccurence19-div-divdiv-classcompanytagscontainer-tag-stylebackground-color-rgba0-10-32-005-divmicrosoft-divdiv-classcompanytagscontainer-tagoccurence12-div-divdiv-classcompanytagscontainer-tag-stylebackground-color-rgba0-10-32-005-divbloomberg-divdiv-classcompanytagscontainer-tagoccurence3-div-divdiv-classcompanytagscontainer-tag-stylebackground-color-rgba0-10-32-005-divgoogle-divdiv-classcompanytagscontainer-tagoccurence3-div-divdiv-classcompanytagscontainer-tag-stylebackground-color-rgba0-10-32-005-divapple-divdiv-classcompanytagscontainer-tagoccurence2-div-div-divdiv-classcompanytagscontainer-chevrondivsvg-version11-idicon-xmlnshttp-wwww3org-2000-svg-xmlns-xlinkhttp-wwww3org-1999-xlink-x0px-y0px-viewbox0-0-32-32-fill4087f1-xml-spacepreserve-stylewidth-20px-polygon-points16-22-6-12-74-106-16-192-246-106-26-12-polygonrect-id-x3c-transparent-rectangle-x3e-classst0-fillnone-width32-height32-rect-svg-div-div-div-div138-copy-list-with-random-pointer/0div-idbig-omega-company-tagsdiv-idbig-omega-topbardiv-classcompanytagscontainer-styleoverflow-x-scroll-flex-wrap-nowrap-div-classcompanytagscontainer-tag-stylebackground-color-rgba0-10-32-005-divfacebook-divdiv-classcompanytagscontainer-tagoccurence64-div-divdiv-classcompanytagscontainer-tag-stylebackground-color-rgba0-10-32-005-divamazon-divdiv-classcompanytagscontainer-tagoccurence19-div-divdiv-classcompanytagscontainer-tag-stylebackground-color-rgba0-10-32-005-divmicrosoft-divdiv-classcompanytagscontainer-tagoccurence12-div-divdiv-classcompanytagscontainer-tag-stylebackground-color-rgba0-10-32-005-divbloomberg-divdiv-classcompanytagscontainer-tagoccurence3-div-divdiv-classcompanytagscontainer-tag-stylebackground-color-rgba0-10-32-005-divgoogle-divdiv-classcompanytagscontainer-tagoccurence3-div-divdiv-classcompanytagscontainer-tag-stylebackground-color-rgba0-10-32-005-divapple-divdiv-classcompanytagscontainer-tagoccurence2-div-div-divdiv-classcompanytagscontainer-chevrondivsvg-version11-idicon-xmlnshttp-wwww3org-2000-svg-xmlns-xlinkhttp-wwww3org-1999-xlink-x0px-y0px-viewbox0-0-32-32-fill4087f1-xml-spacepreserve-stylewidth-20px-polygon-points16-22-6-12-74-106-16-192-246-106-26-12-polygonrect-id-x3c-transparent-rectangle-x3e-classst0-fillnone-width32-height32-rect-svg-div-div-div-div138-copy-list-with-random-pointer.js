@@ -25,26 +25,47 @@
 // }
 
 
-var copyRandomList = function(head) {
-    let map = new Map();
-    let curr = head;
-    while(curr){
-        let copy = new Node(curr.val);
-        map.set( curr, copy);
-        curr = curr.next;
-    }
-    curr = head;
-    while(curr){
-        let copy =  map.get(curr);
-        if(copy){
-            copy.next = curr.next ? map.get(curr.next) : null;
-            copy.random = curr.random ? map.get(curr.random) : null;
-        }
+// var copyRandomList = function(head) {
+//     let map = new Map();
+//     let curr = head;
+//     while(curr){
+//         let copy = new Node(curr.val);
+//         map.set( curr, copy);
+//         curr = curr.next;
+//     }
+//     curr = head;
+//     while(curr){
+//         let copy =  map.get(curr);
+//         if(copy){
+//             copy.next = curr.next ? map.get(curr.next) : null;
+//             copy.random = curr.random ? map.get(curr.random) : null;
+//         }
 
-        curr = curr.next
-    }
-    console.log('map',map)
-   return  map.get(head)
+//         curr = curr.next
+//     }
+//     console.log('map',map)
+//    return  map.get(head)
     
    
+// }
+
+
+
+let visited;
+var copyRandomList = function(head) {
+    visited = new Map();
+    return oneRunRec(head);    
+};
+
+let oneRunRec = (node) => {
+    if(!node) return null;
+    if(visited.has(node)) return visited.get(node);
+    
+    let copy = new ListNode(node.val);
+    visited.set(node, copy);
+    
+    copy.next = oneRunRec(node.next);
+    copy.random = oneRunRec(node.random);
+    
+    return copy;
 }
