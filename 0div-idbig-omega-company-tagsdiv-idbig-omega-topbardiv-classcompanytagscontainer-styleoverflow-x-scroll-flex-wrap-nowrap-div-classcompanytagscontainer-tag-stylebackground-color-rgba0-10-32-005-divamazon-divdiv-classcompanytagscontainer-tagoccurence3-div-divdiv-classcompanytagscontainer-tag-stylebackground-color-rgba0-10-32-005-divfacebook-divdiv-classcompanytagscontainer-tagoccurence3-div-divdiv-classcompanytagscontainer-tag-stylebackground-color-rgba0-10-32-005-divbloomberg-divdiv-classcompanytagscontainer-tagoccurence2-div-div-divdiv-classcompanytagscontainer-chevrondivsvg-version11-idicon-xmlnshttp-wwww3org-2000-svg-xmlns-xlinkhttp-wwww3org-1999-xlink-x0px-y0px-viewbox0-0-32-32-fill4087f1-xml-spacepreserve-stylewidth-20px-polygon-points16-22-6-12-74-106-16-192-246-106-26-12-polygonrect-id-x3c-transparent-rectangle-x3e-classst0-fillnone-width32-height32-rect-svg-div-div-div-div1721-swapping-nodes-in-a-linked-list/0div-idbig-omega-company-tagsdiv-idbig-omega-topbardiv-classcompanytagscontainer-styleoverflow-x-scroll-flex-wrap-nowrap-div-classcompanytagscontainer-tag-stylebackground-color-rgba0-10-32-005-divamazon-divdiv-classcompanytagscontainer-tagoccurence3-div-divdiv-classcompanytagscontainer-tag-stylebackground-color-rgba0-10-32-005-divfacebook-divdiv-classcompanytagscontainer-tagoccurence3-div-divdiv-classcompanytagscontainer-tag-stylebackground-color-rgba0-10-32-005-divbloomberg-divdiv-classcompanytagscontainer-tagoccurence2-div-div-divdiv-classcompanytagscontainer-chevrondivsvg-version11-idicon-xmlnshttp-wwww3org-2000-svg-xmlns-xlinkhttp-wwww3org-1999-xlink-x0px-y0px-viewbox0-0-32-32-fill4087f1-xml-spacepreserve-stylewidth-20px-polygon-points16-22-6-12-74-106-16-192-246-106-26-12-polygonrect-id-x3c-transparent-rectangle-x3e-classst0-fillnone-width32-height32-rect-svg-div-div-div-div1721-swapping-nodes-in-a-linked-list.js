@@ -35,7 +35,6 @@
 // };
 
 var swapNodes = function(head, k) {
-
     let [left, right, curr] = [null, head, head];
     for(let i = 1; i<= k - 1; i++){
         curr = curr.next
@@ -46,5 +45,5 @@ var swapNodes = function(head, k) {
         right = right.next
     }
     [left.val, right.val] = [right.val, left.val]
-    return head
+    return head;
 };
