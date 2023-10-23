@@ -25,7 +25,7 @@ var findDuplicate = function(nums) {
     while(true){
         slow = nums[slow];
         slow2 = nums[slow2];
-        if(slow == slow2) break;
+        if(slow == slow2)  return slow;
     }
-    return slow;
+   
 }
