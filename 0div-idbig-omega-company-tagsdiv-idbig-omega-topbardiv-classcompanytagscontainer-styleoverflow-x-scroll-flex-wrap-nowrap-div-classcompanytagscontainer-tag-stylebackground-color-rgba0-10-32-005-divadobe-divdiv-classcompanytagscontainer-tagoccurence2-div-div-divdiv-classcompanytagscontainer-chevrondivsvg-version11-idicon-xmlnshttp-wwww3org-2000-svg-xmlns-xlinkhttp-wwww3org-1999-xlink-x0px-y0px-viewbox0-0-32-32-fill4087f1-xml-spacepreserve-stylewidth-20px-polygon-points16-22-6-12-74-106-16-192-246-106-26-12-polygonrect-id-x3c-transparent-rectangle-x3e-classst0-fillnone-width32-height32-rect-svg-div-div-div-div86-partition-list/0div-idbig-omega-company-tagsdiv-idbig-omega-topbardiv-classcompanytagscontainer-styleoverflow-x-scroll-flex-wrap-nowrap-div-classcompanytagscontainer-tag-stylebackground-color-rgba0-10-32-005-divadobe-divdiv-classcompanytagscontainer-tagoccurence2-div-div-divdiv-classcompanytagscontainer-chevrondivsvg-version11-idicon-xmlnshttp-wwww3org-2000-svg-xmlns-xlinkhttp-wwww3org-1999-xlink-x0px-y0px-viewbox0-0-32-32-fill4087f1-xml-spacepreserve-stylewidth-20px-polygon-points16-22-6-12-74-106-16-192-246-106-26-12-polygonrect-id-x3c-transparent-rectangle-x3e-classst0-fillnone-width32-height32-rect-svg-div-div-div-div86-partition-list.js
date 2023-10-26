@@ -28,20 +28,40 @@
 //   return lessHead.next;
 // };
 
-const partition = (head, x) => {
-    const left = new ListNode(), right = new ListNode();
-    let leftT = left, rightT = right, curr = head;
-    while(curr){
-        if(curr.val >= x){
-            rightT.next = curr;
-            rightT = rightT.next;
-        }else {
-            leftT.next = curr;
-            leftT = leftT.next;
+// const partition = (head, x) => {
+//     const left = new ListNode(), right = new ListNode();
+//     let leftT = left, rightT = right, curr = head;
+//     while(curr){
+//         if(curr.val >= x){
+//             rightT.next = curr;
+//             rightT = rightT.next;
+//         }else {
+//             leftT.next = curr;
+//             leftT = leftT.next;
+//         }
+//         curr = curr.next;
+//     }
+//     leftT.next = right.next;
+//     rightT.next = null;
+//     return left.next;
+// };
+
+var partition = function(head, x) {
+    let smallHead = new ListNode();
+    let small = smallHead;
+    let largeHead = new ListNode();
+    let large = largeHead;
+    while(head){
+        if(head.val < x){
+            small.next = head;
+            small = small.next;
+        }else{
+            large.next = head;
+            large = large.next;
         }
-        curr = curr.next;
+        head = head.next;
     }
-    leftT.next = right.next;
-    rightT.next = null;
-    return left.next;
+    large.next = null;
+    small.next = largeHead.next;
+    return smallHead.next;
 };
