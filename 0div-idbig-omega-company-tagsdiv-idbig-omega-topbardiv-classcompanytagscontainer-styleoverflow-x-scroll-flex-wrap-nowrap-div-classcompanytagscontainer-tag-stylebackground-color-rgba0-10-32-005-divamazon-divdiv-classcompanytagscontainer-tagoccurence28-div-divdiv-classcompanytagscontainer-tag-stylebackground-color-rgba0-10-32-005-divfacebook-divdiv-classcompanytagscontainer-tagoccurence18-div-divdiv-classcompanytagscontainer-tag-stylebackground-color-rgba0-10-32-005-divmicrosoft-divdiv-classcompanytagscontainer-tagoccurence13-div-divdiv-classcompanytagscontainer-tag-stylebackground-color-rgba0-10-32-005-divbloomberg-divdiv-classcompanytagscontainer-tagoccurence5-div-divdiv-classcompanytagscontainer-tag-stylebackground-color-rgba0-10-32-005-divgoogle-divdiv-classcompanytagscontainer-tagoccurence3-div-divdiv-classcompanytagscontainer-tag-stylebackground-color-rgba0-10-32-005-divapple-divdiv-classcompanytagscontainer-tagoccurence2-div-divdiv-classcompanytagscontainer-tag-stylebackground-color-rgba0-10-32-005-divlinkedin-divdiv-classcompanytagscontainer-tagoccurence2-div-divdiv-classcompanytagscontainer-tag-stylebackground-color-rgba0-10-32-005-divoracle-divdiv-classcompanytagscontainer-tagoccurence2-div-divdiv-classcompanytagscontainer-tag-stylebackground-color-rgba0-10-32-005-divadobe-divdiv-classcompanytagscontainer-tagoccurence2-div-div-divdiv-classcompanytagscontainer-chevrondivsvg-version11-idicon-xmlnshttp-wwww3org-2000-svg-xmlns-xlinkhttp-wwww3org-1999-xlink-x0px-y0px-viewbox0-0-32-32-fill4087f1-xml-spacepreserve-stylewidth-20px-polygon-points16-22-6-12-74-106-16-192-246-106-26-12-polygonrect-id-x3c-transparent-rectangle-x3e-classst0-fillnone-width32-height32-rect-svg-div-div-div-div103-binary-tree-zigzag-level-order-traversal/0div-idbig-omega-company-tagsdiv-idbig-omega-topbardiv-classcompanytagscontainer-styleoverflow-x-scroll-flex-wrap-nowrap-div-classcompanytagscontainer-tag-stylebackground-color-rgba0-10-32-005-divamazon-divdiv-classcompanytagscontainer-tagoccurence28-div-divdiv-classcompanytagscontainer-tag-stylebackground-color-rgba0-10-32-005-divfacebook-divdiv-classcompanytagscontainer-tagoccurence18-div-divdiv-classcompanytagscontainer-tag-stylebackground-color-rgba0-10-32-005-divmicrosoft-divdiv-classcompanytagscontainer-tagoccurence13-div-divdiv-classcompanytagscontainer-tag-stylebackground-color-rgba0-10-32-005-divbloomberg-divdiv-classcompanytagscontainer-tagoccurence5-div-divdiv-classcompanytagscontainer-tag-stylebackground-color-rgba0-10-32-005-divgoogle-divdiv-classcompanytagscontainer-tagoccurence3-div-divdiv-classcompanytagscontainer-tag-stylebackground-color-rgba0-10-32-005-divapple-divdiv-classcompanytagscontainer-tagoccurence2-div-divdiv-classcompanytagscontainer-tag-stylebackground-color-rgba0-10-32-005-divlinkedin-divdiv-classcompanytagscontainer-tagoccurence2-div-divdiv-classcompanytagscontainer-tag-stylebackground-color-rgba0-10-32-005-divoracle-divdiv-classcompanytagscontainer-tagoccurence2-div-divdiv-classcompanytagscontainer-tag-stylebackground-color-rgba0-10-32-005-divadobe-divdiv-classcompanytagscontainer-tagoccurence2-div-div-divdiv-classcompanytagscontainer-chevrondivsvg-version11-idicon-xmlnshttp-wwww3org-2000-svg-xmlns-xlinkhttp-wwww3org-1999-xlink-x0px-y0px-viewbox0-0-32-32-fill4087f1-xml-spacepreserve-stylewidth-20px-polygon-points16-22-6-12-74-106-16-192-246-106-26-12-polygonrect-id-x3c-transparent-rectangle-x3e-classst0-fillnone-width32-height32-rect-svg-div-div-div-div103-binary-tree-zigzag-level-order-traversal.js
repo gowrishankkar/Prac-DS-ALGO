@@ -46,7 +46,7 @@ var zigzagLevelOrder = function(root) {
            console.log('node', node)
             node?.left && s.push(node.left);
             node?.right &&  s.push(node.right);
-             level.push(node.val);
+            level.push(node.val);
         }
         console.log('level', level)
         res.push(dir ? level : level.reverse());
