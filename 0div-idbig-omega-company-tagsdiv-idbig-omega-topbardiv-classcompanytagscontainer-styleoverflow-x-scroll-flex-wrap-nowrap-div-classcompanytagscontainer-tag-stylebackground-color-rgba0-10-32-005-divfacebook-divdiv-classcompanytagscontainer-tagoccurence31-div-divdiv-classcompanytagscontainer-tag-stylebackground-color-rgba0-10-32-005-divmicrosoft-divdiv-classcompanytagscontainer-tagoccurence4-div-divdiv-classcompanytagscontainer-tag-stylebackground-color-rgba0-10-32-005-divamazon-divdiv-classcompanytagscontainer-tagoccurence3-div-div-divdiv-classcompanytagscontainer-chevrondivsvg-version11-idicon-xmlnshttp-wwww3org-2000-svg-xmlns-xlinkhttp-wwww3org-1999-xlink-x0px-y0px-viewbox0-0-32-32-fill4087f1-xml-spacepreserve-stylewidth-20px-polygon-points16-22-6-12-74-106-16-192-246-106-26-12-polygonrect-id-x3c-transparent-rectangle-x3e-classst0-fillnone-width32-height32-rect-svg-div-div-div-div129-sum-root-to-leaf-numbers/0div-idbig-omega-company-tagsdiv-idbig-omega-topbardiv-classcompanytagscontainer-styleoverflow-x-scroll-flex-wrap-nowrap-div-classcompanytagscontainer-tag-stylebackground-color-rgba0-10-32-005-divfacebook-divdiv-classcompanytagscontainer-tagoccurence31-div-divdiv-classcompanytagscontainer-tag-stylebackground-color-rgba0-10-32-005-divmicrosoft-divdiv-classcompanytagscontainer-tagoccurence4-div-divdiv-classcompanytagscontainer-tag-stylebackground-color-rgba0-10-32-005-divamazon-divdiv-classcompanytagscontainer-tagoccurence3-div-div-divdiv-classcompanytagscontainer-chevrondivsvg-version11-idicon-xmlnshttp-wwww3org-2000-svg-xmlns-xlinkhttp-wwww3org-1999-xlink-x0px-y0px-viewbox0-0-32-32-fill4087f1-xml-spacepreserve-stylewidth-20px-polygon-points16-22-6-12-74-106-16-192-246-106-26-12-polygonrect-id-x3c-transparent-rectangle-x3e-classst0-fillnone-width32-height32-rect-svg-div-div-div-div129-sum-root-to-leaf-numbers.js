@@ -11,21 +11,15 @@
  * @return {number}
  */
 var sumNumbers = function(root) {
-    let sum = []
-   
-    let res = {val : 0}
-   dfs(root, '', res)
-    function dfs(node, currSum , res){
+   let res = {val : 0}, currSum = 0
+   dfs(root, currSum, res)
+   function dfs(node, currSum, res){
         if(!node) return '';
-        if(!node.left && !node.right) { 
-            let num =`${currSum}${node.val}` 
-            res.val = res.val +  Number(num)
-                                       sum.push(Number(num) )
-                                      }
-        dfs(node.left, `${currSum}${node.val}` , res)
-        dfs(node.right,  `${currSum}${node.val}` , res)
+        if(!node.left && !node.right) res.val = res.val + Number(`${currSum}${node.val}`)
+        currSum = `${currSum}${node.val}`
+        dfs(node.left, currSum, res)
+        dfs(node.right, currSum, res)
         
     }
-    console.log('sum', sum , res)
     return res.val;
 };
