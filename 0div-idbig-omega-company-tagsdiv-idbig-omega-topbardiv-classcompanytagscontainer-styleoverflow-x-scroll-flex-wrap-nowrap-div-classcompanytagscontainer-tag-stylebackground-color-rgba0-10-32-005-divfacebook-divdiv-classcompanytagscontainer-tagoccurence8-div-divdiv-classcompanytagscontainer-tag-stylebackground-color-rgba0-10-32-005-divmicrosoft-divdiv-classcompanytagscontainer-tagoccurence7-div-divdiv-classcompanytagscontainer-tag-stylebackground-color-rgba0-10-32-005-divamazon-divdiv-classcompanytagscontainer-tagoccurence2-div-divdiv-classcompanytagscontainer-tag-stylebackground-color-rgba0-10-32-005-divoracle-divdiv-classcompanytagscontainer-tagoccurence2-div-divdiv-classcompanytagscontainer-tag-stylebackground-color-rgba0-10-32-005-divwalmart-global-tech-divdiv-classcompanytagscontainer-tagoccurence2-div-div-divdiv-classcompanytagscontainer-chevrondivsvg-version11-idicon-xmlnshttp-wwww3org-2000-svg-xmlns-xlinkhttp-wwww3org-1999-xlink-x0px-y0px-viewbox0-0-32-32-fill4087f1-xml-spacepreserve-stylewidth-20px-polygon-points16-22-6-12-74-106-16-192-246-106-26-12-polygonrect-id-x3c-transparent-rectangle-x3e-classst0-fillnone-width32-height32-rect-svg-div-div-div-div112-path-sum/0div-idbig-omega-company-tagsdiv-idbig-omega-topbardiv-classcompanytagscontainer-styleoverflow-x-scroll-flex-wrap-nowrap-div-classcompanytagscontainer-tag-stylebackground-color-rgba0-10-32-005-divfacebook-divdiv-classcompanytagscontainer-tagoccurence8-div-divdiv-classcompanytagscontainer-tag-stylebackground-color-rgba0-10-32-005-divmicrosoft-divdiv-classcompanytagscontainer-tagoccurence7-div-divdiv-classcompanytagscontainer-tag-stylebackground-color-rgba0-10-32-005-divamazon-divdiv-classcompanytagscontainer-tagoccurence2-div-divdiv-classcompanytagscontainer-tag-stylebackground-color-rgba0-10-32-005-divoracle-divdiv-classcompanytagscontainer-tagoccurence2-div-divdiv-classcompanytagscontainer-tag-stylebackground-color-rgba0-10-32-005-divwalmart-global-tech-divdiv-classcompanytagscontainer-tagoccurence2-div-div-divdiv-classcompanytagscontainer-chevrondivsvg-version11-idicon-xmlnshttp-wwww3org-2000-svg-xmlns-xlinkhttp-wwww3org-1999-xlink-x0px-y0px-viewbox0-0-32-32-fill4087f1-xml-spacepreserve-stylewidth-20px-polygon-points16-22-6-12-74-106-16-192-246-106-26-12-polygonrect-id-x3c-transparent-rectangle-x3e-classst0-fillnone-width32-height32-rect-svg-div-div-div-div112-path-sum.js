@@ -24,3 +24,18 @@ var hasPathSum = function(root, targetSum) {
     
     return sum.includes(targetSum)    
 };
+
+
+// var hasPathSum = function(root, targetSum) {
+//     let sum = []
+//     let max = {data : 0}
+//     dfs(root, max)
+//     function dfs(node, max){
+//         if(!node) return;
+//         let left = Math.max(0, dfs(node.left, max))
+//         let right = Math.max(0, dfs(node.right, max))
+//         max.data = Math.max(max.data, left + right + node.val);
+//         return Math.max(left , right) + node.val
+//     }
+//     return max.data ;    
+// };
