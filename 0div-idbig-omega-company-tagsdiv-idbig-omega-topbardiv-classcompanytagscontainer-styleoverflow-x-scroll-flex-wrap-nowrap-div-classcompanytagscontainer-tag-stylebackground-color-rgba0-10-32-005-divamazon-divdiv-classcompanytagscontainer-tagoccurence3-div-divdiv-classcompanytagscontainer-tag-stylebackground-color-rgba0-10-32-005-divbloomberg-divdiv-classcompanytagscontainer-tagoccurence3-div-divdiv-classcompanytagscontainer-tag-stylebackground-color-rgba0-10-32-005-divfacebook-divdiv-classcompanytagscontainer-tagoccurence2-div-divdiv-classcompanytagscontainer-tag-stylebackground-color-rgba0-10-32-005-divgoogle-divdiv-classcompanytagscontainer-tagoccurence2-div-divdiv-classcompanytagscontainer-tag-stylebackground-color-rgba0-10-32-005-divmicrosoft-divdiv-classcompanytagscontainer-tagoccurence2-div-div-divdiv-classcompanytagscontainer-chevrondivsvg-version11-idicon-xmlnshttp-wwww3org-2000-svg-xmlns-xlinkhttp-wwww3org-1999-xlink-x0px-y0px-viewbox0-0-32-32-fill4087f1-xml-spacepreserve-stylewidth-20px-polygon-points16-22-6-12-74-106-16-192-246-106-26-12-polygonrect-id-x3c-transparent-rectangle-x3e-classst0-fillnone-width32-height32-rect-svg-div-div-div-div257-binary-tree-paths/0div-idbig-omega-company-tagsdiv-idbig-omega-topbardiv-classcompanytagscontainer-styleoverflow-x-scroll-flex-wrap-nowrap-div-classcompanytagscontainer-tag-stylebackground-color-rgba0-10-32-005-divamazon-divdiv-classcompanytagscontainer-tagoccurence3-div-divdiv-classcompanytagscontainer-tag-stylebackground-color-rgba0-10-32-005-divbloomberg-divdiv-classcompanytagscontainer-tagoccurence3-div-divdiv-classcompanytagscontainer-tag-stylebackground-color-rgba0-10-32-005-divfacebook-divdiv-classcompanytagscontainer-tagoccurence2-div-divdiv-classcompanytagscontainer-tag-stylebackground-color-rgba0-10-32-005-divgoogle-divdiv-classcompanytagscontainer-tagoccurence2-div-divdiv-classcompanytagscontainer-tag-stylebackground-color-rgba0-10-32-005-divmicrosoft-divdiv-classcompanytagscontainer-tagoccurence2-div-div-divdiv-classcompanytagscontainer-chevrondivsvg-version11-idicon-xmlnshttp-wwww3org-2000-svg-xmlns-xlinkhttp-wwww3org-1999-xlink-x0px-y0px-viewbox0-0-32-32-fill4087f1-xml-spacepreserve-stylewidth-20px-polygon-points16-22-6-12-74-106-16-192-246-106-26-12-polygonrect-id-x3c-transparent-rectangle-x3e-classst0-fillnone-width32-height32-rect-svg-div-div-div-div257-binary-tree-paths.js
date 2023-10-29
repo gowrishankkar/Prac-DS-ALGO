@@ -26,20 +26,20 @@
 //     return res;
 // };
 
-var binaryTreePaths = function(root) {
-    let res = [];
-    function DFS(root, curr){
-        if(!root) return;
-        if(!root.left && !root.right){
-            res.push(curr + root.val);
-            return;
-        }
-        DFS(root.left, curr + root.val + "->");
-        DFS(root.right, curr + root.val + "->");
-    }
-    DFS(root, "");
-    return res;
-};
+// var binaryTreePaths = function(root) {
+//     let res = [];
+//     function DFS(root, curr){
+//         if(!root) return;
+//         if(!root.left && !root.right){
+//             res.push(curr + root.val);
+//             return;
+//         }
+//         DFS(root.left, curr + root.val + "->");
+//         DFS(root.right, curr + root.val + "->");
+//     }
+//     DFS(root, "");
+//     return res;
+// };
 
 var binaryTreePaths = function(root) {
     let res= [];
