@@ -37,20 +37,42 @@
 // }
 
 
+//  var rightSideView = function(root) {
+//     const isBaseCase = root === null;
+//     if (isBaseCase) return [];
 
- var rightSideView = function(root) {
+//     let res = [];
+//     bfs(root, 0, res );
+//     return res;
+ 
+//  };
+
+// const bfs = (root, level, res) => {
+//     if(!root) return;
+//     if(res.length == level) res.push(root.val);
+//     bfs(root.right, level + 1, res);
+//     bfs(root.left, level + 1, res);
+// }
+    
+    
+     var rightSideView = function(root) {
     const isBaseCase = root === null;
     if (isBaseCase) return [];
 
     let res = [];
-    bfs(root, 0, res );
+         let map = {}
+    bfs(root, 0, res , map);
     return res;
  
  };
 
-const bfs = (root, level, res) => {
-    if(!root) return;
-    if(res.length == level) res.push(root.val);
-    bfs(root.right, level + 1, res);
-    bfs(root.left, level + 1, res);
-}
+
+	const bfs = (root, level, res, map) => {
+			if (!root) return;
+			if (!map[level]) {
+				res.push(root.val);
+				map[level] = true;
+			}
+			bfs(root.right, level + 1, res, map);
+			bfs(root.left, level + 1, res, map);
+		}
