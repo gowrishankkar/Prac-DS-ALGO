@@ -11,23 +11,32 @@
  * @param {number} val
  * @return {TreeNode}
  */
-var searchBST = function(A, B) {
+// var searchBST = function(A, B) {
     
-    let n = getNode(A, B)
-    function getNode(A, B){
-        if (!A) {
-            return null;
-        }
-        if (A.val == B) {
-            return A;
-        }
-        if (A.val > B) {
-            return getNode(A.left, B);
-        } else {
-            return getNode(A.right, B);
-        }
+//     let n = getNode(A, B)
+//     function getNode(A, B){
+//         if (!A) {
+//             return null;
+//         }
+//         if (A.val == B) {
+//             return A;
+//         }
+//         if (A.val > B) {
+//             return getNode(A.left, B);
+//         } else {
+//             return getNode(A.right, B);
+//         }
+//     }
+//     console.log('n', n)
+//     return n 
+     
+// };
+
+
+var searchBST = function(A, B) {
+    while(A !==null && A.val !== B){
+        A = B < A.val ? A.left : A.right;
     }
-    console.log('n', n)
-    return n 
+    return A;
      
 };
