@@ -33,10 +33,30 @@
 // };
 
 
-var searchBST = function(A, B) {
-    while(A !==null && A.val !== B){
-        A = B < A.val ? A.left : A.right;
-    }
-    return A;
+// var searchBST = function(A, B) {
+//     while(A !==null && A.val !== B){
+//         A = B < A.val ? A.left : A.right;
+//     }
+//     return A;
      
+// };
+
+
+var searchBST = function(root, val) {
+    let treeNode = null
+    const recursiv = (root, val) => {
+        if(root.val === val) {
+            treeNode = root
+            return
+        }
+        if(root && root.right) {
+            recursiv(root.right, val)
+        }
+        if(root && root.left) {
+            recursiv(root.left, val)
+        }
+    }
+    recursiv(root,val)
+
+    return treeNode
 };
