@@ -10,43 +10,43 @@
  * @param {TreeNode} root
  * @return {number}
  */
-// var countNodes = function(root) {
+var countNodes = function(root) {
     
-//     if(!root) return 0;
+    if(!root) return 0;
     
-//     let left = getLeftHeight(root);
-//     let right = getRightHeight(root);
+    let left = getLeftHeight(root);
+    let right = getRightHeight(root);
     
-//     if(left == right) return 2<<left - 1;
+    if(left == right) return Math.pow(2, left) - 1;
     
-//     return 1 + countNodes(root.left) + countNodes(root.right);
+    return 1 + countNodes(root.left) + countNodes(root.right);
     
-// };
+};
 
-// var getLeftHeight = (node) =>{
-//     let h = 0;
-//     while(node){
-//         h++;
-//         node = node.left;
-//     }
-//     return h;
-// }
+var getLeftHeight = (node) =>{
+    let h = 0;
+    while(node){
+        h++;
+        node = node.left;
+    }
+    return h;
+}
 
-// var getRightHeight = (node) =>{
-//     let h = 0;
-//     while(node){
-//         h++;
-//         node = node.right;
-//     }
-//     return h;
-// }
+var getRightHeight = (node) =>{
+    let h = 0;
+    while(node){
+        h++;
+        node = node.right;
+    }
+    return h;
+}
 
 
 
 
 // O(n)
-var countNodes = function(root) {
-    if(!root) return null
-    return 1 + countNodes(root.left) + countNodes(root.right);
+// var countNodes = function(root) {
+//     if(!root) return null
+//     return 1 + countNodes(root.left) + countNodes(root.right);
     
-};
+// };
