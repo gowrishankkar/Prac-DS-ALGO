@@ -12,6 +12,6 @@
  */
 var checkTree = function(root) {
     if(!root) return false;
-    return root.val == (root.left.val + root.right.val)
+    return root.val === root.left.val + root.right.val; 
     
 };
