@@ -13,10 +13,8 @@
  */
 
 var getMap = (root) =>{
-    
-    let q= [];
+    let q = [root];
     let map = {};
-    q.push(root)
     while(q.length){
         let node = q.shift();
         if(node.left) {
@@ -42,27 +40,24 @@ var distanceK = function(root, target, k) {
         let size = q.length;
         if(currLevel == k) break;
         for(let i = 0; i < size ; i++){
-              let node = q.shift();
-            if(node.left && !visited[node.left.val]){
+            let node = q.shift();
+            if(node.left && !visited.hasOwnProperty(node.left.val)){
                  visited[node.left.val] = true;
                 q.push(node.left)
             }
-            if(node.right && !visited[node.right.val]){
+            if(node.right && !visited.hasOwnProperty(node.right.val)){
                  visited[node.right.val] = true;
                 q.push(node.right)
             }
             
             const parent = map[node.val];
-            // console.log('parent', Boolean(parent), parent.val)
             if(parent && !visited.hasOwnProperty(parent.val)){
                  visited[parent.val] = true;
                 q.push(parent)
             }  
         }
-      
         currLevel++;
     }
-      console.log('visited', visited, q)
     return q.map((ele) => ele.val);
 
     
