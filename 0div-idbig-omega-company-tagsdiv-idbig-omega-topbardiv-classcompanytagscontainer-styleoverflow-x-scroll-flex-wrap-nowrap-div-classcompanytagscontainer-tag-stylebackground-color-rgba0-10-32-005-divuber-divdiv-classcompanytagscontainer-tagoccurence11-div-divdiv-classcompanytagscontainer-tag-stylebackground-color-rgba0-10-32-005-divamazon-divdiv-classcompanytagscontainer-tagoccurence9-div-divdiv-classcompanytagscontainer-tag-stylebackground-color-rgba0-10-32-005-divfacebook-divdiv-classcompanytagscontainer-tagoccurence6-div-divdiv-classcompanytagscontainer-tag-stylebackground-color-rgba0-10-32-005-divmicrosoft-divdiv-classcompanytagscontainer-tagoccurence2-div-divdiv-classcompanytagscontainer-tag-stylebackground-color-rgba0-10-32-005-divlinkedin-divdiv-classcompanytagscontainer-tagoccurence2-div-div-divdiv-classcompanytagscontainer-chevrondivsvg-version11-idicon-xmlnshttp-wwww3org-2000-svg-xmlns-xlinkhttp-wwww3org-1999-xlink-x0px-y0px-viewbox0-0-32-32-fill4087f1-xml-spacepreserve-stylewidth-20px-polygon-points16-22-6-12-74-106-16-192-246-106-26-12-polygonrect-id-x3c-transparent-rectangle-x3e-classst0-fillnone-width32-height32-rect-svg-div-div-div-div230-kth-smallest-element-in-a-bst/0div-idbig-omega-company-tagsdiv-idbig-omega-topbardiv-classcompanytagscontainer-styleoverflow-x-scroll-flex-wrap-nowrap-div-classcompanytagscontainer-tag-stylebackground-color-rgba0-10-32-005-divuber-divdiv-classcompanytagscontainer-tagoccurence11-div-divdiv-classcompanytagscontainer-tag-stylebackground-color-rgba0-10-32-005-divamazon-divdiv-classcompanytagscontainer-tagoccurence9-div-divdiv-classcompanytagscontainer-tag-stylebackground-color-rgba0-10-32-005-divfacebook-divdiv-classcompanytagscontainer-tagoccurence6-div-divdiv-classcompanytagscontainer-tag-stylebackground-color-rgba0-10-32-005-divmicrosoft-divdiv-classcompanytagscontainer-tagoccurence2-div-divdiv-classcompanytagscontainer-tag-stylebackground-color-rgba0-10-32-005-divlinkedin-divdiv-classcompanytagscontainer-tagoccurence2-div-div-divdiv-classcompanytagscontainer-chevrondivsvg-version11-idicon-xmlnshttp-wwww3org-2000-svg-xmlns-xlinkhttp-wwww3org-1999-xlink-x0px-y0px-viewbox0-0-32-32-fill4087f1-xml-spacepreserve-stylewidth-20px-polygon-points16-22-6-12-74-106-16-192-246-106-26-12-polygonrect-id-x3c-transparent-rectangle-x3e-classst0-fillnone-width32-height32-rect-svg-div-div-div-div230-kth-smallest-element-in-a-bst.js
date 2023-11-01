@@ -19,7 +19,10 @@ var kthSmallest = function(root, k) {
             if (A === null) return;
             inorder(A.left);
             c++
-            if (c == k) ans = A.val
+            if (c == k) {
+                ans = A.val;
+                return;
+            }
             inorder(A.right);
         }
         inorder(root)
