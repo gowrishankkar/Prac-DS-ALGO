@@ -32,15 +32,32 @@
 // };
 
 
-var findTarget = function (root, k) {
-  let set = new Set();
-  let nodeStack = [root];
-  while (nodeStack.length) {
-    let node = nodeStack.pop();
-    if (set.has(node.val)) return true;
-    set.add(k - node.val)
-    if (node.right) nodeStack.push(node.right);
-    if (node.left) nodeStack.push(node.left);
-  }
-  return false;
-}
+// var findTarget = function (root, k) {
+//   let set = new Set();
+//   let nodeStack = [root];
+//   while (nodeStack.length) {
+//     let node = nodeStack.pop();
+//     if (set.has(node.val)) return true;
+//     set.add(k - node.val)
+//     if (node.right) nodeStack.push(node.right);
+//     if (node.left) nodeStack.push(node.left);
+//   }
+//   return false;
+// }
+
+
+var findTarget = function(root, k) {
+    let stack = [root]
+    let map = {}
+    
+    while (stack.length > 0) {
+        let cur = stack.pop()
+        
+        if (map[k - cur.val] === true) return true
+        map[cur.val] = true;
+        
+        if (cur.left) stack.push(cur.left)
+        if (cur.right) stack.push(cur.right)
+    }
+    return false
+};
