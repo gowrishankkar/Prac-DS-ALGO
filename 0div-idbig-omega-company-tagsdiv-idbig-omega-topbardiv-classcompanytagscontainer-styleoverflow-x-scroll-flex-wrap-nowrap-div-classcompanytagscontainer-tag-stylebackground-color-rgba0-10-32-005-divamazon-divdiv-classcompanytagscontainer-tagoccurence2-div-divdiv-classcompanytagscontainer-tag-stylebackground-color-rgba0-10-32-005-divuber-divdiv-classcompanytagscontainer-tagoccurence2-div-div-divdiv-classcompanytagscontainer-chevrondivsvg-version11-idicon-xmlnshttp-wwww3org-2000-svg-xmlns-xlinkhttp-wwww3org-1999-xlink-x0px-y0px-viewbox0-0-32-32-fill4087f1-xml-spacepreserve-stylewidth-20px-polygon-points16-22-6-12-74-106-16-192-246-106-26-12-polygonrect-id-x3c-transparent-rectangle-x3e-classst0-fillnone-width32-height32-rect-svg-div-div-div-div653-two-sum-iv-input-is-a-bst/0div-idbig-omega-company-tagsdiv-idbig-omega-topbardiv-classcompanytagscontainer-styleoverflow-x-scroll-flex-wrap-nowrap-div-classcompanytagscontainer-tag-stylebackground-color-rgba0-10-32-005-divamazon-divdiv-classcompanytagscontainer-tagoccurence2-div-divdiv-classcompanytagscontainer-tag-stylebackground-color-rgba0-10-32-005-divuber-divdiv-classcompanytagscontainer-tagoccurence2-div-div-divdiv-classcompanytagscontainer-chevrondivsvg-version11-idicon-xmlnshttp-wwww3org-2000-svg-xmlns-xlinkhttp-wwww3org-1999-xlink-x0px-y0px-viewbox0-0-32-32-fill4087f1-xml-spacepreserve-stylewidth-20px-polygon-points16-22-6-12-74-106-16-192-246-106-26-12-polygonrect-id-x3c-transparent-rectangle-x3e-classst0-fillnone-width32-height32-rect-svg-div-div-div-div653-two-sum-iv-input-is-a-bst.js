@@ -11,22 +11,36 @@
  * @param {number} k
  * @return {boolean}
  */
-var findTarget = function(root, k) {
-       if(!root) {
-        return false;
-    }
-    const map = new Set();
-    const dfs = (node) => {
-        if(!node) {
-            return false;
-        }
-        const curr = k-node.val;
-        if(map.has(curr)) {
-            return true;
-        }
-        map.add(node.val);
-        return dfs(node.left) || dfs(node.right);
-    };
+// var findTarget = function(root, k) {
+//        if(!root) {
+//         return false;
+//     }
+//     const map = new Set();
+//     const dfs = (node) => {
+//         if(!node) {
+//             return false;
+//         }
+//         const curr = k-node.val;
+//         if(map.has(curr)) {
+//             return true;
+//         }
+//         map.add(node.val);
+//         return dfs(node.left) || dfs(node.right);
+//     };
     
-    return dfs(root);
-};
+//     return dfs(root);
+// };
+
+
+var findTarget = function (root, k) {
+  let set = new Set();
+  let nodeStack = [root];
+  while (nodeStack.length) {
+    let node = nodeStack.pop();
+    if (set.has(node.val)) return true;
+    set.add(k - node.val)
+    if (node.right) nodeStack.push(node.right);
+    if (node.left) nodeStack.push(node.left);
+  }
+  return false;
+}
