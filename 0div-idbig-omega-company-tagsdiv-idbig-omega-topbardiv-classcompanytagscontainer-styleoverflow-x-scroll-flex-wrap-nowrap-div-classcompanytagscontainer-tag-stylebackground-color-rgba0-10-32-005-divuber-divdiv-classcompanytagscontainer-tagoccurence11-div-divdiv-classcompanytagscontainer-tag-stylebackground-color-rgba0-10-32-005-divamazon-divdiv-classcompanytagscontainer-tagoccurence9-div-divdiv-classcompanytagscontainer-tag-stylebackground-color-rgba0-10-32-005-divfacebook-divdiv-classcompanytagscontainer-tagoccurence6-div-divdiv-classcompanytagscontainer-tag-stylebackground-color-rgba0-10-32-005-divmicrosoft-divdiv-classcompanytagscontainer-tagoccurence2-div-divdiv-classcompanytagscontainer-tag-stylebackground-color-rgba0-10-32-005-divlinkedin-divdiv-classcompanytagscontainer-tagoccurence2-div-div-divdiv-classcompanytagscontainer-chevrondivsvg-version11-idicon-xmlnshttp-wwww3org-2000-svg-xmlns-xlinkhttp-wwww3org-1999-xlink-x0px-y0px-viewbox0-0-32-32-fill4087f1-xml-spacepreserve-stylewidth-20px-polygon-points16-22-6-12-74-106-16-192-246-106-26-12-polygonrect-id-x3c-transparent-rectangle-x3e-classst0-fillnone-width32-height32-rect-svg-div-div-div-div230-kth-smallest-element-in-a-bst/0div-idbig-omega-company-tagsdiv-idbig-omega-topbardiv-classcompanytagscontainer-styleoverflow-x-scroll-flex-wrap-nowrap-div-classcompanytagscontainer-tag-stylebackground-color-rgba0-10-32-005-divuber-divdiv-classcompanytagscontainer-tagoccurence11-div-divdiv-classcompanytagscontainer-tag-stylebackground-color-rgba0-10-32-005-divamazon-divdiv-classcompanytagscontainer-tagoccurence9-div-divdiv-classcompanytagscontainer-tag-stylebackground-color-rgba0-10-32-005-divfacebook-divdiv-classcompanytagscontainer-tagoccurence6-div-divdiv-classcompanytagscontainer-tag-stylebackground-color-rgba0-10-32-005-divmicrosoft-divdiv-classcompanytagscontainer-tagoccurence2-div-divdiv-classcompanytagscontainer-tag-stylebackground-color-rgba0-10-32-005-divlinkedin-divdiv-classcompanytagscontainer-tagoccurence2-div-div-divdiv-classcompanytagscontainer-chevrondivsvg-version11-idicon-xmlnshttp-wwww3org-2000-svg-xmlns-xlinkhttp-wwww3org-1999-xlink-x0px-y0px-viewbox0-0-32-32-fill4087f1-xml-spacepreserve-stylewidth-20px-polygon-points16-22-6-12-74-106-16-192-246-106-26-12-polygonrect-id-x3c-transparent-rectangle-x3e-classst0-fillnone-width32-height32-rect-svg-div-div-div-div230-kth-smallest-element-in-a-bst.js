@@ -16,7 +16,7 @@ var kthSmallest = function(root, k) {
         let ans = 0;
         // let result = []
         function inorder(A) {
-            if (A === null) return;
+            if (A){
             inorder(A.left);
             c++
             if (c == k) {
@@ -24,7 +24,25 @@ var kthSmallest = function(root, k) {
                 return;
             }
             inorder(A.right);
+            }
         }
         inorder(root)
         return ans
+};
+
+var kthSmallest = function(root, k) {
+    
+    let sortedArr=[]
+    inOrder(root, sortedArr)
+
+    function inOrder(node, sortedArr){
+        if(node){
+            inOrder(node.left, sortedArr)
+            if(sortedArr.length===k )return 
+            sortedArr.push(node.val)
+            inOrder(node.right,sortedArr)
+        }
+    }
+
+    return sortedArr[k-1]
 };
