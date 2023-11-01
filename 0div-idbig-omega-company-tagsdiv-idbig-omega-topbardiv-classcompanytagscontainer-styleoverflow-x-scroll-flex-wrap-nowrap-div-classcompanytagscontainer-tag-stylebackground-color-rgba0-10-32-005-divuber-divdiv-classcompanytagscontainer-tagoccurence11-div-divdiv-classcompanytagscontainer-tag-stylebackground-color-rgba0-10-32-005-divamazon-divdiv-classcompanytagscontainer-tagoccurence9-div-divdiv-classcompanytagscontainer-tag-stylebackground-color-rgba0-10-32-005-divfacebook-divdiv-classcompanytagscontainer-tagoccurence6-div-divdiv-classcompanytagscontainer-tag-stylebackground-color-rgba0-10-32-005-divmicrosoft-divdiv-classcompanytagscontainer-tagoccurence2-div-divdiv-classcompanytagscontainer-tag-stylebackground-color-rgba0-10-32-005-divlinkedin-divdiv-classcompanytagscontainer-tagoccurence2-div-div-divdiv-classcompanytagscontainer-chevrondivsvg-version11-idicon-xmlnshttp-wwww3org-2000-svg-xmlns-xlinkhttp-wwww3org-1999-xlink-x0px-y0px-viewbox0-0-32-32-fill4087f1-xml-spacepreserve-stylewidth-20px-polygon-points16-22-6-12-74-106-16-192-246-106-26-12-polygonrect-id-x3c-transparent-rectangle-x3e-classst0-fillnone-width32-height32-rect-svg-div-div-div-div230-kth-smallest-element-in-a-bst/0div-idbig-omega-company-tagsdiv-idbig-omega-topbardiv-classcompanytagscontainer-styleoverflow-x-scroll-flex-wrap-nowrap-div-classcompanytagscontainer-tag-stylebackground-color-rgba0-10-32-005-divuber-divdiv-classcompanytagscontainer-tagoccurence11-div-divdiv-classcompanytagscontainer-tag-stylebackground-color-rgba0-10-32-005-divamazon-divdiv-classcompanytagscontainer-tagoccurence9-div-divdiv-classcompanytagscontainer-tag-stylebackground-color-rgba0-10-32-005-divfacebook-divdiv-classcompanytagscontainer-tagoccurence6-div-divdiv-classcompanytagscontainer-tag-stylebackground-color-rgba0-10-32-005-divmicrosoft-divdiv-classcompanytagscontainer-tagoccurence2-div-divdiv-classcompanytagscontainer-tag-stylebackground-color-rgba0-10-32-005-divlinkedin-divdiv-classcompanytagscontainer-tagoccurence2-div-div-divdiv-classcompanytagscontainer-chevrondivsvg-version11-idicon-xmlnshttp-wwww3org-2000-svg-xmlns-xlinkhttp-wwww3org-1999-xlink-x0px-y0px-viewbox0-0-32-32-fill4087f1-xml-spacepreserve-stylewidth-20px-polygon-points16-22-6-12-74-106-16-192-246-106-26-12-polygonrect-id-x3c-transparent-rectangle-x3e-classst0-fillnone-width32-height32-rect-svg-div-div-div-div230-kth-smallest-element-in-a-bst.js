@@ -12,22 +12,18 @@
  * @return {number}
  */
 var kthSmallest = function(root, k) {
-        let c = 0;
-        let ans = 0;
+        let ans = [];
         // let result = []
         function inorder(A) {
             if (A){
-            inorder(A.left);
-            c++
-            if (c == k) {
-                ans = A.val;
-                return;
-            }
-            inorder(A.right);
+                inorder(A.left);
+                if (ans.length == k) return;
+                ans.push(A.val)
+                inorder(A.right);
             }
         }
         inorder(root)
-        return ans
+        return ans[k-1]
 };
 
 // var kthSmallest = function(root, k) {
