@@ -14,15 +14,15 @@
 var kthSmallest = function(root, k) {
         let ans = [];
         // let result = []
-        function inorder(A) {
+        function inorder(A, ans) {
             if (A){
-                inorder(A.left);
+                inorder(A.left, ans);
                 if (ans.length == k) return;
                 ans.push(A.val)
-                inorder(A.right);
+                inorder(A.right, ans);
             }
         }
-        inorder(root)
+        inorder(root, ans)
         return ans[k-1]
 };
 
