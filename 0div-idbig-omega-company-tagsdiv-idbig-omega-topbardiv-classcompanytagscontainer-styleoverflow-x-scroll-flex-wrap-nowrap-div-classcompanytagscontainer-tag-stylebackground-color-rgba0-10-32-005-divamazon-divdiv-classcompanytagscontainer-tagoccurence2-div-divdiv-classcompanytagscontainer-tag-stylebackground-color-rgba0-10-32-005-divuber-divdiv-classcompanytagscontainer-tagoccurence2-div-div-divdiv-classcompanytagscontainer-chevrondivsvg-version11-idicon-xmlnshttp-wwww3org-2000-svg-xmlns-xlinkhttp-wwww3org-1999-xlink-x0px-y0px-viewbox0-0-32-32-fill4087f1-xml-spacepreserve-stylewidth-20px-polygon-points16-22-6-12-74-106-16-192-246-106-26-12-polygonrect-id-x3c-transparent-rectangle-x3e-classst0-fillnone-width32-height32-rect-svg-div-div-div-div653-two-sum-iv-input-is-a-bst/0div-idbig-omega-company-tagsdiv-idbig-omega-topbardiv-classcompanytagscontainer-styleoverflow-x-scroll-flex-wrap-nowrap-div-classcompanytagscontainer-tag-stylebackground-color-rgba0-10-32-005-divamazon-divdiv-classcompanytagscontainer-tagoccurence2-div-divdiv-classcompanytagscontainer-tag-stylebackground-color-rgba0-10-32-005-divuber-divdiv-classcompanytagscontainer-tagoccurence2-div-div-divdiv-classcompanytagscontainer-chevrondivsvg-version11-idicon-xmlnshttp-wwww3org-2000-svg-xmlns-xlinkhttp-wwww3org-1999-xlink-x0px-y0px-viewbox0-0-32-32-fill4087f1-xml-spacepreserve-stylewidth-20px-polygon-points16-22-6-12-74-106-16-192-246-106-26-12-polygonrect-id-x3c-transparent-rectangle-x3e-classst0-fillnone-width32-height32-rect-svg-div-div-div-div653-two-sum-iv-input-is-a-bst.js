@@ -53,7 +53,7 @@ var findTarget = function(root, k) {
     while (stack.length > 0) {
         let cur = stack.pop()
         
-        if (map[k - cur.val] === true) return true
+        if (map[k - cur.val]) return true
         map[cur.val] = true;
         
         if (cur.left) stack.push(cur.left)
