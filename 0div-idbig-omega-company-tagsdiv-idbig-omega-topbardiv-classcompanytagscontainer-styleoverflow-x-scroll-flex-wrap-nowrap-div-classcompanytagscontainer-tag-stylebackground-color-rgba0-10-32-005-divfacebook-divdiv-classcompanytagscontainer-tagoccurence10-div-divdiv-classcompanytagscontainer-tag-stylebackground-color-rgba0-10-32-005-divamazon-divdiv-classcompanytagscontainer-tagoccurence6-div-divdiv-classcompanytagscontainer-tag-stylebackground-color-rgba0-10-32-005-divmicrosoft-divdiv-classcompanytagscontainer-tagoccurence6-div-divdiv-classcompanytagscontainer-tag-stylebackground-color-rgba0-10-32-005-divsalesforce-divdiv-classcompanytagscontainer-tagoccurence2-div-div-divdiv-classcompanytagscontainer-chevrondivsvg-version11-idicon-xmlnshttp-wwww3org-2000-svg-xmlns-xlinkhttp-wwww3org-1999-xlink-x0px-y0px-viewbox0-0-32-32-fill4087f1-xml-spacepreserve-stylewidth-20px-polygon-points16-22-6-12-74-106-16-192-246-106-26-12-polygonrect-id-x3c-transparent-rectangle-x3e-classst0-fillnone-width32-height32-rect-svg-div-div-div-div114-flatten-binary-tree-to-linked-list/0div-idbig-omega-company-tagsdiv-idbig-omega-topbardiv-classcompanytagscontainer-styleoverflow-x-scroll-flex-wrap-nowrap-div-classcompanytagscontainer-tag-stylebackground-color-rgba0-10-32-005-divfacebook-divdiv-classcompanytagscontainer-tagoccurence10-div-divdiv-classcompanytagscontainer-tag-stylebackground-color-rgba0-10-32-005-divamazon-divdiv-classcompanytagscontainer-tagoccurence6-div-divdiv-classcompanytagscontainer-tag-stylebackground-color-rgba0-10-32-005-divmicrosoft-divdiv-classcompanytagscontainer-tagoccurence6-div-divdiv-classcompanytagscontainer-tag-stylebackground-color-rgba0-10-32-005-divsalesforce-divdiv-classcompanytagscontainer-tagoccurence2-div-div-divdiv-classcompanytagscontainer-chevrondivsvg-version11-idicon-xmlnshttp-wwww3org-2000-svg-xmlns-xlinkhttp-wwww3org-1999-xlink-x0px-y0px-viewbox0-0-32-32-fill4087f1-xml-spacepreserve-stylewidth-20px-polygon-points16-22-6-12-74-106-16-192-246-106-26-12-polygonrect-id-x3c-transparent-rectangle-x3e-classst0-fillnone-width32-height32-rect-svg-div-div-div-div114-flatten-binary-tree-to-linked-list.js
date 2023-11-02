@@ -26,18 +26,38 @@
 
 
 
+// var flatten = function(root) {
+//     if(!root) return [];
+//     let prev = null;
+//     let flat = (node) => {
+//         if(!node) return;
+//         flat(node.right);
+//         flat(node.left);
+//         node.right = prev;
+//         node.left = null;
+//         prev = node;
+//     } 
+//     return flat(root);
+// };
+
+
+
 var flatten = function(root) {
     if(!root) return [];
-    let prev = null;
-    let flat = (node) => {
-        if(!node) return;
-        flat(node.right);
-        flat(node.left);
-        node.right = prev;
-        node.left = null;
-        prev = node;
-    } 
+    let curr = root;
+    while(curr){
+        if(curr.left){
+            let prev = curr.left;
+            while(prev.right) prev = prev.right;
+            prev.right = curr.right;
+            curr.right = curr.left;
+            
+        }
+        curr.left = null;
+        curr = curr.right;
+    
+    }
+    return curr;
    
-    return flat(root);
 };
 
