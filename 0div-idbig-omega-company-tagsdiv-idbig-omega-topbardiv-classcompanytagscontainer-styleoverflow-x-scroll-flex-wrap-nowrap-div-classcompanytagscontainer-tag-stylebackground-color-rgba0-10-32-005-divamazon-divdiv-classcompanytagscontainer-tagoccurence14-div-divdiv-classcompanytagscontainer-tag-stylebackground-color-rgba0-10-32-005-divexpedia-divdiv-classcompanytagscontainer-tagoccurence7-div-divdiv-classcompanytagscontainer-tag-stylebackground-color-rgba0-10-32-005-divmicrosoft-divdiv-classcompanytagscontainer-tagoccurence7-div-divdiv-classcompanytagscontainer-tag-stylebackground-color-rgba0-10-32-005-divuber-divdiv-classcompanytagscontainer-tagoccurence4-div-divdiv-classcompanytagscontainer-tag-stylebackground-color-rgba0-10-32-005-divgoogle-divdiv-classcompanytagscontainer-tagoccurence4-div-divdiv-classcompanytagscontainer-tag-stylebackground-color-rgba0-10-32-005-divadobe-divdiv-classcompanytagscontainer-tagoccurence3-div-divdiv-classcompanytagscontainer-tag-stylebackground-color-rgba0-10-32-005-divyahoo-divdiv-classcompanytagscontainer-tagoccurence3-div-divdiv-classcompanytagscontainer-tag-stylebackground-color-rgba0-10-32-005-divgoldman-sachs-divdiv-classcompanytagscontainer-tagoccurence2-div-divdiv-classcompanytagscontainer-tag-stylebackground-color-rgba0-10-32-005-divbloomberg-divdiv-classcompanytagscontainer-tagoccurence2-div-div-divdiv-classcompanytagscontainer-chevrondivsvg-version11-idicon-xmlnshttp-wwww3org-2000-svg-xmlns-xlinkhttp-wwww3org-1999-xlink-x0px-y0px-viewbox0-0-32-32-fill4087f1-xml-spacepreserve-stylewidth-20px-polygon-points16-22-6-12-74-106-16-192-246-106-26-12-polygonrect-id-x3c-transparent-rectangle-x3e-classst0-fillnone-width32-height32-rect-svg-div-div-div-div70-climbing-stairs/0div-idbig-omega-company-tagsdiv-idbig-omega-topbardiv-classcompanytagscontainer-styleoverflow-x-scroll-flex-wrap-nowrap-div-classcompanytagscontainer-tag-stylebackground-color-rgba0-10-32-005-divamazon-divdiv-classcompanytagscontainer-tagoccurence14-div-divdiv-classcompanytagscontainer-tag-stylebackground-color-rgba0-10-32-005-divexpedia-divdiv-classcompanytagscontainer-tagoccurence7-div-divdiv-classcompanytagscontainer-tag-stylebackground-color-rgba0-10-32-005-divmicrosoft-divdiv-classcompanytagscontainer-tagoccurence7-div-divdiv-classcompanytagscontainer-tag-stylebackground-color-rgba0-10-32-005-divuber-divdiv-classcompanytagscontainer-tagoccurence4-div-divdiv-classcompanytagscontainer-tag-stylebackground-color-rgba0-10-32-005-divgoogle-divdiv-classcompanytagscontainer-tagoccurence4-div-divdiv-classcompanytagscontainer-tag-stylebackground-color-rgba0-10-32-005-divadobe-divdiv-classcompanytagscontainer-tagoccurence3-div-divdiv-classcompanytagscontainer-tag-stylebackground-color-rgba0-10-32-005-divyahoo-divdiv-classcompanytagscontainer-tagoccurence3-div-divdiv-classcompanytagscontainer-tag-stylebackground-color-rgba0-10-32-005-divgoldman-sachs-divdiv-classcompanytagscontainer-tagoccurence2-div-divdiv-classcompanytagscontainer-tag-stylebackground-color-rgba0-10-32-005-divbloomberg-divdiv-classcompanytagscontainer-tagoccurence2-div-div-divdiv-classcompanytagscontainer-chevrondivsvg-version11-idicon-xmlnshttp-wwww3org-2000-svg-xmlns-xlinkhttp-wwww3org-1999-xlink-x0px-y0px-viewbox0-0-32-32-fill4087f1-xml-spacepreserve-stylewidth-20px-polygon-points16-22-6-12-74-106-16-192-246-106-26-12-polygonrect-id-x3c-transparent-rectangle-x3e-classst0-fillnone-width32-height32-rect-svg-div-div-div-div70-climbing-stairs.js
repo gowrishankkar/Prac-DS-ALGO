@@ -20,14 +20,29 @@
 //     return memo[index];
 // };
 
-var climbStairs = (n, index = 0) => {
-    let one = 1;
-    let two = 1;
-    for(let i = 0; i<n-1; i++){
-        let temp = one;
-        one = one + two;
-        two = temp;
+// var climbStairs = (n, index = 0) => {
+//     let one = 1;
+//     let two = 1;
+//     for(let i = 0; i<n-1; i++){
+//         let temp = one;
+//         one = one + two;
+//         two = temp;
 
+//     }
+//     return one
+// };
+
+
+var climbStairs = function(n) {
+    let dp = new Array(n + 1).fill(0)
+    dp[n] = 1
+    dp[n-1] = 1
+    console.log(dp)
+
+    for(i=n-2; i>=0; i--){
+        dp[i] = dp[i+1] + dp[i+2]
     }
-    return one
+
+    return dp[0]
+   
 };
