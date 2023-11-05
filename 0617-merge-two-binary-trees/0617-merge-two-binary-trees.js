@@ -13,7 +13,6 @@
  */
 var mergeTrees = function(root1, root2) {
     if(!root1 && !root2) return null;
-    
     let v1 = root1 ? root1.val : 0;
     let v2 = root2 ? root2.val : 0;
     let root = new TreeNode(v1 + v2);
