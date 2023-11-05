@@ -10,32 +10,33 @@
  * @param {TreeNode} root
  * @return {number}
  */
+// var minDiffInBST = function(root) {
+//     let minArr = []
+//     let BST = (root) => {
+//         if (root == null) return
+//         BST(root.left)
+//         minArr.push(root.val)
+//         BST(root.right)
+//     }
+//     BST(root)
+//     let res = Number.MAX_VALUE
+//     for(let i = 0; i < minArr.length - 1; i++) {
+//       res = Math.min(res, minArr[i + 1] - minArr[i])
+//     }
+//     return res
+// };
+
 var minDiffInBST = function(root) {
-    let minArr = []
-    
-    
+    var res = Number.MAX_VALUE, prev = null;
     let BST = (root) => {
-        
         if (root == null) return
-        
         BST(root.left)
-        minArr.push(root.val)
+        if(prev){
+              res = Math.min(res, root.val - prev.val)
+        }
+        prev = root;
         BST(root.right)
     }
-    
-
     BST(root)
-    
-    let res = Number.MAX_VALUE
-  
-    for(let i = 0; i < minArr.length - 1; i++) {
-
-        res = Math.min(res, minArr[i + 1] - minArr[i])
-    }
-    
-    return res
-        
-    
-    
-    
+    return res;
 };
