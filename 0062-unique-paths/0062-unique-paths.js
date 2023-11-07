@@ -15,7 +15,8 @@ var uniquePaths = function(m, n) {
     }
     // let dp = new Array(m).fill(null).map(()=>Array(81).fill('q'))
         let dp = new Array(m).fill(-1).map(()=>Array(n).fill(-1))
-        console.log(dp)
-    return test(m - 1, n - 1, dp);
-    
+        
+    const data =  test(m - 1, n - 1, dp);
+    console.log(dp)
+    return data
 };
