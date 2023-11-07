@@ -3,21 +3,24 @@
  * @param {number} target
  * @return {number}
  */
- var findTargetSumWays = (nums, target, index = 0, sum = 0) => {
-    const isBaseCase = (index === nums.length);
-    if (isBaseCase) {
-        const isTarget = (sum === target);
-        if (isTarget) return 1;
-
-        return 0;
+var findTargetSumWays = function(nums, target) {
+  const map = new Map()
+  const backtraking = (target, index)=>{
+    let key = target+'.'+index
+    if(index === nums.length){
+      if(target === 0) return 1
+      return 0
     }
+    if(map.has(key)) return map.get(key)
 
-    return dfs(nums, target, index, sum);/* Time O(2^N) | Space O(HEIGHT) */
-}
+    let res = 0
+    let max = backtraking(target + nums[index], index+1)
+    let min = backtraking(target - nums[index], index+1)
+    res += max+min
 
-var dfs = (nums, target, index, sum) => {
-    const left = findTargetSumWays(nums, target, (index + 1), (sum + nums[index])); /* Time O(2^N) | Space O(HEIGHT) */
-    const right = findTargetSumWays(nums, target, (index + 1), (sum - nums[index]));/* Time O(2^N) | Space O(HEIGHT) */
+    map.set(key, res)
+    return res
+  }
 
-    return (left + right);
-}
+  return backtraking(target, 0)
+};
