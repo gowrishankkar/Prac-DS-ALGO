@@ -52,8 +52,6 @@ var climbStairs = function(n) {
         if( i < 0) return 0;
         if(dp[i]) return dp[i]
         return dp[i] = test(i - 1) + test(i - 2)
-        
-        
     }
     return test(n)
 };
