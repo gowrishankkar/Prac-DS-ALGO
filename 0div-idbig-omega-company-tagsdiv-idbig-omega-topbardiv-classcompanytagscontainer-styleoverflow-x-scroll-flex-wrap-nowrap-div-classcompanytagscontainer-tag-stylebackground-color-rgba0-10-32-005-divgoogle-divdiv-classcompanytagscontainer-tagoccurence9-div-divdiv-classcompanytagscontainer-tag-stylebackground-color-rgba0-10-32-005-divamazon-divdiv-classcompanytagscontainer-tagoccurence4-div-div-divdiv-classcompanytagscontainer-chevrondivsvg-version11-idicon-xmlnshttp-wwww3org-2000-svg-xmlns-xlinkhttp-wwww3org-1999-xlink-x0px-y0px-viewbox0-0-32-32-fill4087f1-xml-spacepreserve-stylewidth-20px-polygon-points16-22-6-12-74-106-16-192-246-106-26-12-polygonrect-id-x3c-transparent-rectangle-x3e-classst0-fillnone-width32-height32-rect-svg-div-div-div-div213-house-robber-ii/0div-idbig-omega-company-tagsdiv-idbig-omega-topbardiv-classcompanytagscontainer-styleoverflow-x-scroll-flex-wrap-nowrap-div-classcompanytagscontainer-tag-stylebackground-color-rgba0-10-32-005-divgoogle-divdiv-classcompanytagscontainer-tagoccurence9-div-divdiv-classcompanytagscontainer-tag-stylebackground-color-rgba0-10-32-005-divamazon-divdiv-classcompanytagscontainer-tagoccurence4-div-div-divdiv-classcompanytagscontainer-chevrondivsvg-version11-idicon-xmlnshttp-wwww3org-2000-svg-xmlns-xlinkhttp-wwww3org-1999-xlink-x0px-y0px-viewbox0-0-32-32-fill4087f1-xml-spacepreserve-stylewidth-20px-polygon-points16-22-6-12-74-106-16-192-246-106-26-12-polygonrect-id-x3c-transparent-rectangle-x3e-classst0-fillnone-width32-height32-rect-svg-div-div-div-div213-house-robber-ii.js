@@ -6,20 +6,20 @@ var rob = function(nums) {
     
     
     var rob1 = (arr) => {
-        function solveUtil(n, arr, dp) {
-            dp[0] = arr[0];
-            for (let i = 1; i < n; i++) {
-                let pick = arr[i];
-                if (i > 1) {
-                    pick += dp[i - 2];
-                }
-                const nonPick = dp[i - 1];
-                dp[i] = Math.max(pick, nonPick);
+        let n = arr.length;
+        let prev = arr[0];
+        let prev2 = 0;
+        for (let i = 1; i < n; i++) {
+            let pick = arr[i];
+            if (i > 1) {
+                pick += prev2;
             }
-            return dp[n - 1];
+            const nonPick = prev;
+            const cur_i = Math.max(pick, nonPick);
+            prev2 = prev;
+            prev = cur_i;
         }
-        const dp = new Array(arr.length).fill(-1);
-        return solveUtil(arr.length, arr, dp);
+        return prev;
     };
     
     
