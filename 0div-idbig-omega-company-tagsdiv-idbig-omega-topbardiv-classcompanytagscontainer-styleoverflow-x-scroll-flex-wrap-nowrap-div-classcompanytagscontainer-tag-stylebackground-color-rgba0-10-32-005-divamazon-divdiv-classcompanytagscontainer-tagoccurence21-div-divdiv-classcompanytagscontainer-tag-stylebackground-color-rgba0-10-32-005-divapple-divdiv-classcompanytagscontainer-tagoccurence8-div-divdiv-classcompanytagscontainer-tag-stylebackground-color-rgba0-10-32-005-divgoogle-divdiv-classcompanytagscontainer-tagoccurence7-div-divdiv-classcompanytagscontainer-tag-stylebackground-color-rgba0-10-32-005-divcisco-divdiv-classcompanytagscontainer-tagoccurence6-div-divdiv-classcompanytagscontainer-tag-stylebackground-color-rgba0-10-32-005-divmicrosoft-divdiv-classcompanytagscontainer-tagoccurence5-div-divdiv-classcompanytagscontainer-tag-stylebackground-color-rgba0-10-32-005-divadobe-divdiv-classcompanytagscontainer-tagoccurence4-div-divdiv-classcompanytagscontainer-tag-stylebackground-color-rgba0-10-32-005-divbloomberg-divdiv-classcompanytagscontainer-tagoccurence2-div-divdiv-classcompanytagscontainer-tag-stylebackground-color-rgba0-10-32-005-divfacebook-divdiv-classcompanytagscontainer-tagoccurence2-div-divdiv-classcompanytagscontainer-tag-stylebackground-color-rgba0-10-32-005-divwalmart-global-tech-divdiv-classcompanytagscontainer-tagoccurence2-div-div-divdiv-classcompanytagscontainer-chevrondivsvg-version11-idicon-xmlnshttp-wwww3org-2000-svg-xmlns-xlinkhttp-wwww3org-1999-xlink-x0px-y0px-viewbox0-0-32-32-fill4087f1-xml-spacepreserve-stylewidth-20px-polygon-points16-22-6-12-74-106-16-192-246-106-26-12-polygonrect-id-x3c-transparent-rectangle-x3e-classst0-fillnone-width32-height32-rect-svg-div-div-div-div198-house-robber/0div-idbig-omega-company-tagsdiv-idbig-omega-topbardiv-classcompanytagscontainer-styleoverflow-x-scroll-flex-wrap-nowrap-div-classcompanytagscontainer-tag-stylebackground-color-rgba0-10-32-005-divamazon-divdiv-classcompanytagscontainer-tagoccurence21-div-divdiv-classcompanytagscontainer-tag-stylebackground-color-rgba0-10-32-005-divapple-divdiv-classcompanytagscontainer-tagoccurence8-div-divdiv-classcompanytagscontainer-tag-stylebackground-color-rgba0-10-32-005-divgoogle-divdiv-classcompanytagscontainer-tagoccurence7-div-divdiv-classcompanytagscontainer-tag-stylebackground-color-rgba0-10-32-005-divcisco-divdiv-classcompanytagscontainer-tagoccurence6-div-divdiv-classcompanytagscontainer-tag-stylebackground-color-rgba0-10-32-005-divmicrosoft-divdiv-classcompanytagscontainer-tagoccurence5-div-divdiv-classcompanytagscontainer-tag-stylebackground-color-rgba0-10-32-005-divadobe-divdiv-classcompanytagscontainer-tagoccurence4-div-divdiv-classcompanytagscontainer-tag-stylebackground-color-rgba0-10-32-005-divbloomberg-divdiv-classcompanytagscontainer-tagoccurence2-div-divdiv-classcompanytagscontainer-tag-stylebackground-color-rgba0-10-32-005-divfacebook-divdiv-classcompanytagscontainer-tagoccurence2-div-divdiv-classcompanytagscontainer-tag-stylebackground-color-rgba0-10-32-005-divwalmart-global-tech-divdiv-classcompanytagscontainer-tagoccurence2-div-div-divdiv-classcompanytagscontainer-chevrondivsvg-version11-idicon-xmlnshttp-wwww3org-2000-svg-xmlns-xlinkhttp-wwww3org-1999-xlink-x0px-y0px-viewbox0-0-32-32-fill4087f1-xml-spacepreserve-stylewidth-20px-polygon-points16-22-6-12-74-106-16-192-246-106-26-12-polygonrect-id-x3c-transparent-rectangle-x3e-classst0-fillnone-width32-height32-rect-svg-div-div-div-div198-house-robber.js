@@ -48,20 +48,20 @@
 
 
 
-var rob = (nums) => {
-    const dp = new Array(nums.length).fill(-1);
-    var solveUtil = (ind, arr, dp) => {
-        if (ind === 0) return arr[ind];
-        if (ind < 0 ) return 0;
-        if (dp[ind] !== -1) return dp[ind];
-        const pick = arr[ind] + solveUtil(ind - 2, arr, dp);
-        const nonPick = 0 + solveUtil(ind - 1, arr, dp);
-        dp[ind] = Math.max(pick, nonPick);
-        return dp[ind]
-    }
+// var rob = (nums) => {
+//     const dp = new Array(nums.length).fill(-1);
+//     var solveUtil = (ind, arr, dp) => {
+//         if (ind === 0) return arr[ind];
+//         if (ind < 0 ) return 0;
+//         if (dp[ind] !== -1) return dp[ind];
+//         const pick = arr[ind] + solveUtil(ind - 2, arr, dp);
+//         const nonPick = 0 + solveUtil(ind - 1, arr, dp);
+//         dp[ind] = Math.max(pick, nonPick);
+//         return dp[ind]
+//     }
 
-    return solveUtil(nums.length - 1, nums, dp);
-};
+//     return solveUtil(nums.length - 1, nums, dp);
+// };
 
 
 
