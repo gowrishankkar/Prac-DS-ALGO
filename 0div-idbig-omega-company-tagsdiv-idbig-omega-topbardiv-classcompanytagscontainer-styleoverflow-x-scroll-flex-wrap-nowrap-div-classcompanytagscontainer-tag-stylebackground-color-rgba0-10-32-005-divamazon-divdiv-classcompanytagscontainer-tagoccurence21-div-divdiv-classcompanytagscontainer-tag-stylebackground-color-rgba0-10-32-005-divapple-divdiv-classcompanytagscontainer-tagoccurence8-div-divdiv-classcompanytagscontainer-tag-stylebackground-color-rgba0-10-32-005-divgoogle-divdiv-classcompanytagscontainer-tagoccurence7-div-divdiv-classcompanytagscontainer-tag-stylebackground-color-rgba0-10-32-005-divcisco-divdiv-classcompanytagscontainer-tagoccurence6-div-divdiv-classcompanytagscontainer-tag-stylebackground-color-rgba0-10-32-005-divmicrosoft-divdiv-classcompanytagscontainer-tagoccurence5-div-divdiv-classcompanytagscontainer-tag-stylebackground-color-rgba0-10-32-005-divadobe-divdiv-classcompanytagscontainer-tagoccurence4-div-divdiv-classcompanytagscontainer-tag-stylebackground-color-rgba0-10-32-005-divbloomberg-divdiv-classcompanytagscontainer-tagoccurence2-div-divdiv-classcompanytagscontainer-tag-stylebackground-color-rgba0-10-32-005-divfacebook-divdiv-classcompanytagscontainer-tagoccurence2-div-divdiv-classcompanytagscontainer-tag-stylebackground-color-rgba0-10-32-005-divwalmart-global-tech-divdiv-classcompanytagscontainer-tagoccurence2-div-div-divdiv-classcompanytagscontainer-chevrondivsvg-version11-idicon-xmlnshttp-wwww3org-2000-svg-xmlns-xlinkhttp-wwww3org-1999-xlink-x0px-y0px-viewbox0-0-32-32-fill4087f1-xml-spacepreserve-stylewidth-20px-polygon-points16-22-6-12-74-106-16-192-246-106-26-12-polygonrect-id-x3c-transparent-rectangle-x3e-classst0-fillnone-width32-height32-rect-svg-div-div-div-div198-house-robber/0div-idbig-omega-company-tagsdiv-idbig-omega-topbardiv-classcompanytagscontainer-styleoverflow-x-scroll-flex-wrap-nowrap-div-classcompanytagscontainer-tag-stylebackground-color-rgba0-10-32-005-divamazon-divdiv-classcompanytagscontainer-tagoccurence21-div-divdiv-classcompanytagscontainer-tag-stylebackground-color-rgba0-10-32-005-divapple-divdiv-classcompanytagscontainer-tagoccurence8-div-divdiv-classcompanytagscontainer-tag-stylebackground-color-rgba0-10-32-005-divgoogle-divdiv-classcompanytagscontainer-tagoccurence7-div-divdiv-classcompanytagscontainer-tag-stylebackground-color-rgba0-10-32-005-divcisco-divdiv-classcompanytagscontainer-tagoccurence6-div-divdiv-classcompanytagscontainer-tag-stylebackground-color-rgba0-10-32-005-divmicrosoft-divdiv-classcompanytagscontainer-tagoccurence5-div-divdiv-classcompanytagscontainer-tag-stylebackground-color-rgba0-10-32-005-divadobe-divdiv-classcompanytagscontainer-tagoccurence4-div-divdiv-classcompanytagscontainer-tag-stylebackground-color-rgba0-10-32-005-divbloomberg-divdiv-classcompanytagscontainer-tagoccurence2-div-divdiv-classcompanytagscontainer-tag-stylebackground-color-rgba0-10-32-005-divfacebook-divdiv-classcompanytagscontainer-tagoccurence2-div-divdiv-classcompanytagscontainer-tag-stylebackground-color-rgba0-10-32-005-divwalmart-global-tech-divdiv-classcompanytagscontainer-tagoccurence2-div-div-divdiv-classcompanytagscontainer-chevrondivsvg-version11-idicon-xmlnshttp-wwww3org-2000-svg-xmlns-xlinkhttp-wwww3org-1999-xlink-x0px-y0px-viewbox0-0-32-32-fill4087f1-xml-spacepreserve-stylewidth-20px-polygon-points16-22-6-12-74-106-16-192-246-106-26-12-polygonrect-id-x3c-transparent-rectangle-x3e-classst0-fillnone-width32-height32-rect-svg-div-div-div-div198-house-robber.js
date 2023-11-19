@@ -66,6 +66,23 @@
 
 
 
+// var rob = (arr) => {
+//     function solveUtil(n, arr, dp) {
+//         dp[0] = arr[0];
+//         for (let i = 1; i < n; i++) {
+//             let pick = arr[i];
+//             if (i > 1) {
+//                 pick += dp[i - 2];
+//             }
+//             const nonPick = dp[i - 1];
+//             dp[i] = Math.max(pick, nonPick);
+//         }
+//         return dp[n - 1];
+//     }
+//     const dp = new Array(arr.length).fill(-1);
+//     return solveUtil(arr.length, arr, dp);
+// };
+
 var rob = (arr) => {
     function solveUtil(n, arr, dp) {
         dp[0] = arr[0];
