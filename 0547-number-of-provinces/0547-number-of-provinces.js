@@ -8,7 +8,6 @@ var findCircleNum = function(isConnected) {
     let vis = new Array(n).fill(false);
     let count = 0;
     for(let i = 0; i < n; i++){
-        // console.log('vis', vis)
         if(!vis[i]){
             count++;
             dfs(i, list, vis);
@@ -35,14 +34,7 @@ var generateAdjList = (m) => {
 
 var dfs = (node, aList, vis) => {
     vis[node] = 1;
-    // for(let i = 0; i < aList.length ; i++){
-    //     if(!vis[aList[i]]){
-    //         dfs(aList[i], aList, vis);
-    //     }
-    // }
-    console.log('aList[node]', aList[node])
     aList[node].forEach((ele) =>{
-        console.log('ele', ele)
         if(!vis[ele]){
             dfs(ele, aList, vis);
         }
