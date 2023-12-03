@@ -20,11 +20,7 @@ var orangesRotting = function(grid) {
         }
     }
     if(!flag) return 0;
-    var getNeighbors = (currRow, n, currCol, m, vis, grid) => [ [ 0, 1 ], [ 0, -1 ], [ 1, 0 ], [ -1, 0 ] ]
-    .map(([ r, c ]) => [ (currRow + r), (currCol + c) ])
-    .filter(([ r, c ]) => (0 <= r) && (r < n) && (0 <= c) && (c < m) && vis[r][c] !== 2 && grid[r][c] == 1)
 
-   
     let tMin = 0;
     while(q.length){
         let [r, c, t] = q.shift();
@@ -48,7 +44,11 @@ var orangesRotting = function(grid) {
 
 
 };
+    var getNeighbors = (currRow, n, currCol, m, vis, grid) => [ [ 0, 1 ], [ 0, -1 ], [ 1, 0 ], [ -1, 0 ] ]
+    .map(([ r, c ]) => [ (currRow + r), (currCol + c) ])
+    .filter(([ r, c ]) => (0 <= r) && (r < n) && (0 <= c) && (c < m) && vis[r][c] !== 2 && grid[r][c] == 1)
 
+   
 
 
 // var orangesRotting = function(grid) {
