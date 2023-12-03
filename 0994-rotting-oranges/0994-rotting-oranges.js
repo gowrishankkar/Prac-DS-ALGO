@@ -22,7 +22,7 @@ var orangesRotting = function(grid) {
     .map(([ r, c ]) => [ (currRow + r), (currCol + c) ])
     .filter(([ r, c ]) => (0 <= r) && (r < n) && (0 <= c) && (c < m) && vis[r][c] !== 2 && grid[r][c] == 1)
 
-    
+   
     let tMin = 0;
     while(q.length){
         let [r, c, t] = q.shift();
@@ -34,10 +34,8 @@ var orangesRotting = function(grid) {
         
     }
     
-
     for(let i = 0; i< n; i++){
         for(let j = 0; j< m; j++){
-            console.log('vis[i][j] ', vis[i][j] )
             if(vis[i][j] !== 2 && grid[i][j] == 1){
                 return -1;
             }
