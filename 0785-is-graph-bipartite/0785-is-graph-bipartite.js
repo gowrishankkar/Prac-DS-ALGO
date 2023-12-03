@@ -4,8 +4,6 @@
  */
 var isBipartite = function(graph) {
     let color = new Array(graph.length).fill(-1)
-    
-    
     const check =(graph, color, start) =>{
         let q = [];
         q.push(start)
@@ -27,12 +25,11 @@ var isBipartite = function(graph) {
         }
         return true
     }
+    
     for(let i = 0; i <graph.length ; i++){
-        if(color[i] === -1){
-            if(check(graph, color, i) === false) return false
-        } 
+        if(color[i] === -1 && !check(graph, color, i)) return false
     }
     return true
-    // console.log('color', color)
+
     
 };
