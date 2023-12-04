@@ -3,45 +3,32 @@
  * @return {number[]}
  */
 var eventualSafeNodes = function(graph) {
-    let n = graph.length;
-    let vis = new Array(n);
-    vis.fill(-1);
-    let pathVis = [...vis];
-    let ans = [];
-
-    function dfs(node){
-         vis[node] = 1;
-         pathVis[node] = 1;
-         let adjList = graph[node];
-         let cycle = false;
-         for(let i=0; i<adjList.length; i++){
-             let adjNode = adjList[i];
-             if(vis[adjNode] == -1){
-                 if(dfs(adjNode) == true){
-                     cycle = true
-                 }
-                 else{
-                     cycle = cycle | false;
-                 }
-             }
-             else if(pathVis[adjNode] == 1){
-                cycle = true;
-             }
-         }
-         if(cycle){
-             return true;
-         }
-         pathVis[node] = -1;
-         ans.push(node);
-         return false;
+    let vis = new Array(graph.length).fill(0);
+    let pv = new Array(graph.length).fill(0);
+    let check = new Array(graph.length).fill(0);
+    for(let i = 0; i <graph.length ; i++){
+        if(vis[i] === 0) dfs(i, vis, pv, check, graph)
     }
-
-    for(let i=0; i<n; i++){
-        if(vis[i] == -1){
-            dfs(i);
-        }
-        
+    let res = []
+    console.log('check', check)
+    for(let i = 0; i <check.length ; i++){
+        if(check[i]) res.push(i)
     }
-
-    return ans.sort((a,b)=>a-b);
+    return res;
 };
+
+
+var dfs = (node, vis, pv, check, graph) => {
+    vis[node] = 1;
+    pv[node] = 1;
+    for (let neighbor of graph[node]){
+        if (vis[neighbor] === 0 && dfs(neighbor, vis, pv, check, graph)){
+            return true
+        } else if (pv[neighbor]){
+            return true;
+        }
+    }
+    check[node] = 1;
+    pv[node] = 0;
+    return false
+}
