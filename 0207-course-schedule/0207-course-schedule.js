@@ -34,12 +34,12 @@ var canFinish = function(numCourses, prerequisites) {
     while(q.length){
         let node = q.shift();
         topo.push(node)
-        if (graph.has(v)) {
+        // if (graph.has(v)) {
             for(let it in adj[node]){
                 inDegree[it]--;
                 if(inDegree[it] == 0) q.push(it)
             }
-        }
+        // }
         
     }
     console.log('topo', topo)
