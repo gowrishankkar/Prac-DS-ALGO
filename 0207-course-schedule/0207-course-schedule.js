@@ -4,7 +4,7 @@
  * @return {boolean}
  */
 var canFinish = function(numCourses, prerequisites) {
-    let adj = [];
+    let adj = new Array(numCourses).fill([]);
     let q = [];
     let topo = [];
     let inDegree = new Array(numCourses).fill(0);
@@ -13,20 +13,15 @@ var canFinish = function(numCourses, prerequisites) {
         adj.push([]);
     }
     
-    for(const pre of prerequisites){
-        if(!adj[pre[0]]) adj[pre[0]] = []
-        adj[pre[0]].push(pre[1])
+    for(const [e, v] of prerequisites){
+        // if(!adj[pre[0]]) adj[pre[0]] = []
+        adj[e].push(v)
     }
     
     for(const [e, v] of prerequisites){
-        if(!graph.has(v)) {
-            graph.set(v, [])
-        }
-        graph.get(v).push(e)
-         inDegree[e]++
+        inDegree[e]++
     }
     
-
     for(let i = 0; i< numCourses ; i++){
         if(inDegree[i] == 0) q.push(i)
     }
@@ -34,15 +29,11 @@ var canFinish = function(numCourses, prerequisites) {
     while(q.length){
         let node = q.shift();
         topo.push(node)
-        // if (graph.has(v)) {
-            for(let it in adj[node]){
-                inDegree[it]--;
-                if(inDegree[it] == 0) q.push(it)
-            }
-        // }
-        
+        for(let it in adj[node]){
+            inDegree[it]--;
+            if(inDegree[it] == 0) q.push(it)
+        }
     }
-    console.log('topo', topo)
     return topo.length === numCourses ;
     
 };
