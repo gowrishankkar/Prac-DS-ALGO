@@ -4,24 +4,21 @@
  * @return {boolean}
  */
 var canFinish = function(numCourses, prerequisites) {
-    let adj = new Array(numCourses).fill([]);
-    let q = [];
-    let topo = [];
-    let inDegree = new Array(numCourses).fill(0);
+    let adj = new Array(numCourses).fill([]),
+    q = [],
+    topo = [],
+    inDegree = new Array(numCourses).fill(0);
     
     for(let i = 0; i < numCourses; i++){
         adj.push([]);
     }
     
     for(const [e, v] of prerequisites){
-        // if(!adj[pre[0]]) adj[pre[0]] = []
-        adj[e].push(v)
+       adj[e].push(v);
+       inDegree[e]++
+        
     }
-    
-    for(const [e, v] of prerequisites){
-        inDegree[e]++
-    }
-    
+
     for(let i = 0; i< numCourses ; i++){
         if(inDegree[i] == 0) q.push(i)
     }
