@@ -1,70 +1,88 @@
-
 /**
- * https://leetcode.com/problems/course-schedule/
- * Time O(V + E) | Space O(V + E)
  * @param {number} numCourses
  * @param {number[][]} prerequisites
  * @return {boolean}
  */
 var canFinish = function(numCourses, prerequisites) {
-    const { graph, visited, path }  = buildGraph(numCourses, prerequisites);
+    let adj = [];
+    let q = [];
+    let topo = [];
+    let inDegree = new Array(numCourses).fill(0);
+    
+    for(let i = 0; i < numCourses; i++){
+        adj.push([]);
+    }
+    
+    for(const pre of prerequisites){
+        if(!adj[pre[0]]) adj[pre[0]] = []
+        adj[pre[0]].push(pre[1])
+    }
+    
+    for(const [e, v] of prerequisites){
+        if(!graph.has(v)) {
+            graph.set(v, [])
+        }
+        graph.get(v).push(e)
+         inDegree[e]++
+    }
+    
 
-    for (let currCourse = 0; currCourse < numCourses; currCourse++) {
-        if (isCyclic(currCourse, graph, visited, path)) return false;
+    for(let i = 0; i< numCourses ; i++){
+        if(inDegree[i] == 0) q.push(i)
     }
 
-    return true;
-}
+    while(q.length){
+        let node = q.shift();
+        topo.push(node)
+        if (graph.has(v)) {
+            for(let it in adj[node]){
+                inDegree[it]--;
+                if(inDegree[it] == 0) q.push(it)
+            }
+        }
+        
+    }
+    console.log('topo', topo)
+    return topo.length === numCourses ;
+    
+};
 
-var initGraph = (numCourses) => ({
-    graph: new Array(numCourses).fill().map(() => []),
-    visited: new Array(numCourses).fill(false),
-    path: new Array(numCourses).fill(false)
-})
 
-var buildGraph = (numCourses, prerequisites) => {
-    const { graph, visited, path } = initGraph(numCourses);
+var canFinish = function(numCourses, prerequisites) {
+    let coursesOrder = [],
+        graph = new Map(),
+        inDegree = Array(numCourses).fill(0),
+        queue = []
 
-    for (const [ src, dst ] of prerequisites) {
-        const neighbors = (graph[dst] || []);
+    for(let [e, v] of prerequisites)   {
+        if(!graph.has(v)) {
+            graph.set(v, [])
+        }
 
-        neighbors.push(src);
+        graph.get(v).push(e)
+        inDegree[e]++
+    } 
 
-        graph[dst] = neighbors;
+    for(let i = 0; i < inDegree.length; i++) {
+        if (inDegree[i] === 0) {
+            queue.push(i)
+        }
     }
 
-    return { graph, visited, path };
-}
+    while(queue.length > 0) {
+        let v = queue.shift()
 
-var isCyclic = (currCourse, graph, visited, path) => {
-    const isVisited = visited[currCourse]
-    if (isVisited) return false;
+        if (graph.has(v)) {
+            for(let e of graph.get(v)) {
+                inDegree[e]--
+                if(inDegree[e] === 0) {
+                    queue.push(e)
+                }
+            }
+        }
 
-    const hasSeen = path[currCourse]
-    if (hasSeen) return true;
-
-    const isMissingNext = !(currCourse in graph)
-    if (isMissingNext) return false;
-
-    const _isCyclic = backTrack(currCourse, graph, visited, path);
-
-    visited[currCourse] = true;
-
-    return _isCyclic
-}
-
-var backTrack = (currCourse, graph, visited, path) => {
-    path[currCourse] = true;
-        const _hasCycle = hasCycle(currCourse, graph, visited, path)
-    path[currCourse] = false;
-
-    return _hasCycle
-}
-
-var hasCycle = (currCourse, graph, visited, path) => {
-    for (const neighbor of graph[currCourse]) {
-        if (isCyclic(neighbor, graph, visited, path)) return true;
+        coursesOrder.push(v)
     }
 
-    return false
-}
+    return numCourses === coursesOrder.length
+};
