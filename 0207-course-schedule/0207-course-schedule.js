@@ -8,11 +8,7 @@ var canFinish = function(numCourses, prerequisites) {
     q = [],
     topo = [],
     inDegree = new Array(numCourses).fill(0);
-    
-    for(let i = 0; i < numCourses; i++){
-        adj.push([]);
-    }
-    
+
     for(const [e, v] of prerequisites){
        adj[e].push(v);
        inDegree[e]++
