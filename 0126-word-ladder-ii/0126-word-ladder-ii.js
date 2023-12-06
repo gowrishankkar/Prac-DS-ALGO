@@ -28,12 +28,9 @@
 
 var findLadders = function(beginWord, endWord, wordList) {
     let n = beginWord.length;
-    let q = [];
-    let map = {}
+    let q = [], map = {}, set = new Set([...wordList]), ans = [];;
     q.push(beginWord);
     map[beginWord] = 1
-    let set = new Set([...wordList]);
-   
     set.delete(beginWord);
     while(q.length){
         let word =  q.shift();
@@ -52,8 +49,6 @@ var findLadders = function(beginWord, endWord, wordList) {
             }
         }
     }
-
-    let ans = [];
     if(map[endWord]){
         let seq = [];
         dfs(endWord, seq, map, beginWord, ans)
