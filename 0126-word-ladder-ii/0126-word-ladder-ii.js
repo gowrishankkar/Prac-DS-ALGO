@@ -5,6 +5,26 @@
  * @return {string[][]}
  */
 
+ const dfs = (word, seq, map, start, ans) => {
+    if(word === start){
+        seq.reverse()
+        ans.push([start, ...seq])
+        return;
+    }
+    let step = map[word];
+    for(let i = 0; i < start.length ; i++){
+        for (const char of 'abcdefghijklmnopqrstuvwxyz') {
+            let newWord =  word.split('')
+            newWord[i] = char;
+            newWord = newWord.join('')
+            if(map[newWord] && map[newWord] + 1 === step){
+                seq = [...seq, word];
+                dfs(newWord, seq, map, start, ans)
+                seq.pop()
+            }
+        }
+    }
+}
 
 var findLadders = function(beginWord, endWord, wordList) {
     let n = beginWord.length;
@@ -32,27 +52,8 @@ var findLadders = function(beginWord, endWord, wordList) {
             }
         }
     }
-    const dfs = (word, seq, map, start, ans) => {
-        if(word === start){
-            seq.reverse()
-            ans.push([start, ...seq])
-            return;
-        }
-        let step = map[word];
-        for(let i = 0; i < start.length ; i++){
-            for (const char of 'abcdefghijklmnopqrstuvwxyz') {
-                let newWord =  word.split('')
-                newWord[i] = char;
-                newWord = newWord.join('')
-                if(map[newWord] && map[newWord] + 1 === step){
-                    seq = [...seq, word];
-                    dfs(newWord, seq, map, start, ans)
-                    seq.pop()
-                }
-            }
-        }
-    }
-     let ans = [];
+
+    let ans = [];
     if(map[endWord]){
         let seq = [];
         dfs(endWord, seq, map, beginWord, ans)
