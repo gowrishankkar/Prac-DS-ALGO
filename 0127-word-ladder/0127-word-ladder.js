@@ -4,6 +4,8 @@
  * @param {string[]} wordList
  * @return {number}
  */
+
+
 var ladderLength = function(beginWord, endWord, wordList) {
     const [ queue, wordSet, seen ] = [ new Queue([[ beginWord, 1 ]]), new Set(wordList), new Set([ beginWord ]) ];
 
