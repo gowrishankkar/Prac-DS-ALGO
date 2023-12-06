@@ -14,8 +14,10 @@ var ladderLength = function(beginWord, endWord, wordList) {
         let [word, step] =  q.shift();
         if(word === endWord) return step;
         for(let i = 0; i < n ; i++){
-            for (let j = 0; j < 26; j++) {
-                let newWord =  word.slice(0, i) + String.fromCharCode(j + 97) + word.slice(i+1);
+            for (const char of 'abcdefghijklmnopqrstuvwxyz') {
+                let newWord =  word.split('')
+                newWord[i] = char;
+                newWord = newWord.join('')
                 if(set.has(newWord)){
                    set.delete(newWord);
                    q.push([newWord, step + 1])
