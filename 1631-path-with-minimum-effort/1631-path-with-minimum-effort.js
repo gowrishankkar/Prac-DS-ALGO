@@ -74,7 +74,8 @@ var minimumEffortPath = function(heights) {
     });
     heap.enqueue([0, 0, 0]);
     
-    const dir = [0, 1, 0, -1, 0];
+    const dirx = [-1, 0, 1, 0];
+    const diry = [0, 1, 0, -1];    
         
     while(heap.size()) {
         const [max, x, y] = heap.dequeue().element;
@@ -84,8 +85,8 @@ var minimumEffortPath = function(heights) {
         if(vis[x][y]) continue;
         vis[x][y] = true;
         
-        for(let i = 1; i <= 4; i++) {
-            let a = x + dir[i], b = y + dir[i-1];
+        for(let i = 0; i < 4; i++) {
+            let a = x + dirx[i], b = y + diry[i];
             if(a >= 0 && b >= 0 && a < m && b < n) {
                 heap.enqueue([
                     Math.max(Math.abs(heights[x][y] - heights[a][b]), max),
