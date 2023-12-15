@@ -16,10 +16,10 @@ var countPaths = function(n, roads) {
     });
     let dis = new Array(n).fill(Infinity);
     let ways = new Array(n).fill(0);
-    dis[n-1] = 0;
-    ways[n-1] = 1;
+    dis[0] = 0;
+    ways[0] = 1;
 
-    heap.enqueue([n-1, 0]);
+    heap.enqueue([0, 0]);
     while(heap.size()) {
             const [n, cost] = heap.dequeue().element;
             for(let [nextNode, w] of adj[n]) {
@@ -35,7 +35,7 @@ var countPaths = function(n, roads) {
                 }
             }
         }
-    return ways[0] ;
+    return ways[n-1] ;
 };
 
 
