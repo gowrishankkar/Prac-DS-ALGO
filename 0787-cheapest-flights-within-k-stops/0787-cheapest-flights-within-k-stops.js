@@ -7,30 +7,29 @@
  * @return {number}
  */
 var findCheapestPrice = function(n, f, src, dst, k) {
-    let adj = new Array(n).fill(null).map(() => []);
     
+    let adj = new Array(n).fill(null).map(() => []);
     for(let i = 0; i<f.length ; i++){
-        adj[f[i][0]].push([f[i][1], f[i][2]])
+        let [node, adjN, dis] = f[i];
+        adj[node].push([adjN, dis]);
     }
-    let q= [];
-      const dist = new Array(n).fill(Infinity);
+    let q = [];
+   
+    let dist = new Array(n).fill(Infinity);
     dist[src] = 0;
-    q.push([0, src, 0])
+     q.push([0, src, 0]);
     while(q.length){
-        let [stop, n, cost] = q.shift();
-        if(stop > k) continue;
-        
-        for(let i of adj[n]){
-            let [adjNode, price] = i;
-            if(cost +price <dist[adjNode] && stop <=k){
-                dist[adjNode] = cost + price;
-                q.push([stop +1 , adjNode, cost + price])
+        let [stops, node, cost] = q.shift();
+        if(stops > k) continue;
+        for(let [an, e] of adj[node]){
+            let totalCost = cost + e;
+            if(totalCost <= dist[an] && stops <= k){
+                dist[an] = totalCost;
+                q.push([stops + 1, an, totalCost])
             }
         }
     }
-    
     return dist[dst] === Infinity ? -1 : dist[dst]
-    
-    
-    
 };
+
+
