@@ -1,8 +1,11 @@
-/**
- * @param {number} k
- * @param {number[]} nums
+/** 
+ * https://leetcode.com/problems/kth-largest-element-in-a-stream/
+ * Time O(N * (K * log(K))) | Space O(K)
+ * Your KthLargest object will be instantiated and called as such:
+ * var obj = new KthLargest(k, nums)
+ * var param_1 = obj.add(val)
  */
-class KthLargest {
+ class KthLargest {
     /**
      * @param {number} k
      * @param {number[]} nums
@@ -40,3 +43,4 @@ class KthLargest {
         return minHeap.front()?.element || 0
     }
 }
+
