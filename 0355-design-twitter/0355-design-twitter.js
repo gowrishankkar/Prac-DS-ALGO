@@ -1,4 +1,13 @@
-class Twitter {
+/** 
+ * https://leetcode.com/problems/design-twitter/
+ * Your Twitter object will be instantiated and called as such:
+ * var obj = new Twitter()
+ * obj.postTweet(userId,tweetId)
+ * var param_2 = obj.getNewsFeed(userId)
+ * obj.follow(followerId,followeeId)
+ * obj.unfollow(followerId,followeeId)
+ */
+ class Twitter {
     constructor () {
         this.tweets = [];
         this.following = new Map();
