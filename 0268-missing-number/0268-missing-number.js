@@ -16,26 +16,27 @@
 // };
 
 
+var missingNumber = function(a) {
+ const summation = (a.length * (a.length + 1)) / 2;
+  let s2 = 0;
+  for (let i = 0; i < a.length; i++) {
+    s2 += a[i];
+  }
+  return summation - s2;
+};
+
+
+
 // var missingNumber = function(a) {
-// const N = a.length;
-//  const summation = (N * (N + 1)) / 2;
+//     for (let i = 0; i <= a.length; i++) {
+//         if(!a.includes(i)) return i;
+//     }
 
-//   // Summation of all array elements:
-//   let s2 = 0;
-//   for (let i = 0; i < N - 1; i++) {
-//     s2 += a[i];
-//   }
-
-//   const missingNum = summation - s2;
-//   return missingNum;
 // };
 
 
-
-var missingNumber = function(a) {
-    for (let i = 0; i <= a.length; i++) {
-        if(!a.includes(i)) return i;
-    }
-
-};
-
+// var missingNumber = function (nums) {
+//     let sum = nums.reduce((acc, cur) => acc + cur);
+//     let trueSum = (nums.length * (nums.length + 1)) / 2;
+//     return trueSum - sum;
+// };
