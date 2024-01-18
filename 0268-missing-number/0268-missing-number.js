@@ -16,14 +16,14 @@
 // };
 
 
-var missingNumber = function(a) {
- const summation = (a.length * (a.length + 1)) / 2;
-  let s2 = 0;
-  for (let i = 0; i < a.length; i++) {
-    s2 += a[i];
-  }
-  return summation - s2;
-};
+// var missingNumber = function(a) {
+//  const summation = (a.length * (a.length + 1)) / 2;
+//   let s2 = 0;
+//   for (let i = 0; i < a.length; i++) {
+//     s2 += a[i];
+//   }
+//   return summation - s2;
+// };
 
 
 
@@ -35,8 +35,8 @@ var missingNumber = function(a) {
 // };
 
 
-// var missingNumber = function (nums) {
-//     let sum = nums.reduce((acc, cur) => acc + cur);
-//     let trueSum = (nums.length * (nums.length + 1)) / 2;
-//     return trueSum - sum;
-// };
+var missingNumber = function (nums) {
+    let sum = nums.reduce((acc, cur) => acc + cur);
+    let trueSum = (nums.length * (nums.length + 1)) / 2;
+    return trueSum - sum;
+};
