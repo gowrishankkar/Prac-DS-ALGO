@@ -33,10 +33,9 @@
 
 
 var missingNumber = function(a) {
-    let missingNum;
-  for (let i = 0; i <= a.length; i++) {
-    if(!a.includes(i)) return i;
-  }
+    for (let i = 0; i <= a.length; i++) {
+        if(!a.includes(i)) return i;
+    }
 
 };
 
