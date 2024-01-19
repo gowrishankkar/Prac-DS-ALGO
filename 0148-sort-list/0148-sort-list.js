@@ -9,46 +9,82 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var sortList = function(head) {
-     return sortL(head);
+var sortList = function (head) {
+
+    let length = 0;
+
+    let curr = head;
+
+    while (curr) {
+        length++;
+        curr = curr.next;
+    }
+
+    const dummy = new ListNode(0);
+    dummy.next = head;
+
+    for (var step = 1; step < length; step *= 2) {  //har len ki ll split and merge
+
+        let curr = dummy.next;
+        let tail = dummy;
+
+        while (curr) {
+            const oh = curr;
+            const b = split(oh, step);      //oh->      ..end    b->
+            curr = split(b, step);        //b-->       ..end    curr(updated for nextone)
+
+            tail = merge(oh, b, tail);   //oh->      ..end    //b-->       ..end 
+        }
+
+
+    }
+
+    return dummy.next
+
+
+};
+const merge = function (left, right, tail) {
+
+    let temp = tail;
+
+    while (left && right) {
+        if (left.val < right.val) {
+            temp.next = left;
+            left = left.next;
+        } else {
+            temp.next = right;
+            right = right.next;
+        }
+        temp = temp.next;
+    }
+
+    //if some extra left add it  
+    if (left) {
+        temp.next = left
+    }
+    if (right) {
+        temp.next = right
+    }
+
+
+    //now to go to end will return tails of merged sorted 2 list
+    while (temp.next)
+        temp = temp.next;
+
+    return temp;  
 };
 
-const merge = (l1, l2) => {
-    let dummy = new ListNode(),
-        head = dummy;
 
-    while (l1 && l2) {
-        // find the smaller node
-        if (l1.val <= l2.val) {
-            head.next = l1;
-            l1 = l1.next;
-        } else {
-            head.next = l2;
-            l2 = l2.next;
-        }
+const split = function (head, step) {
+
+    if (head === null)
+        return null;
+
+    for (let i = 1; i < step && head.next; i++) {
         head = head.next;
     }
-    // add the remaining nodes
-    head.next = l1 ? l1 : l2;
-    return dummy.next;
-}
 
-const sortL = head => {
-    if (!head || !head.next) {
-        return head;
-    }
-    let pre = head,
-        fast = head,
-        slow = head;
-    
-    // find the middle node
-    while (fast && fast.next) {
-        pre = slow;
-        slow = slow.next;
-        fast = fast.next.next;
-    }
-
-    pre.next = null;
-    return merge(sortL(head), sortL(slow));
+    const nexthead = head.next;
+    head.next = null;
+    return nexthead;  //return nexthead of this split list
 };
-
