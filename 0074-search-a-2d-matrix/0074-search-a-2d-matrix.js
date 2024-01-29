@@ -3,39 +3,20 @@
  * @param {number} target
  * @return {boolean}
  */
-// var searchMatrix = function(matrix, target) {
-//     let m = matrix;
-//     let num = target
-//      var low = 0, high = m.length * m[0].length - 1;
-//         var mid;
-//         while (low <= high) {
-//             mid = Math.floor((high - low) / 2 + low);
-//             var row = Math.floor(mid / m[0].length);
-//             var col = mid % m[0].length;
-//             if (m[row][col] > num)
-//                 high = mid - 1;
-//             else if (m[row][col] < num)
-//                 low = mid + 1;
-//             else return 1;
-//         }
-//         return 0;
-// };
-
 var searchMatrix = function(matrix, target) {
-    let m = 0;
-    let n = matrix[0].length - 1;
+     let n = matrix.length;
+    let m = matrix[0].length;
 
-    while (m <= matrix.length - 1 && n >= 0) {
-        const curNode = matrix[m][n];
+    // apply binary search:
+    let low = 0, high = n * m - 1;
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+        let row = Math.floor(mid / m);
+        let col = mid % m;
         
-        if (curNode === target) return true;
-        
-        if (curNode > target) {
-            n--;
-        } else {
-            m++;
-        }
+        if (matrix[row][col] === target) return true;
+        else if (matrix[row][col] < target) low = mid + 1;
+        else high = mid - 1;
     }
-
     return false;
 };
