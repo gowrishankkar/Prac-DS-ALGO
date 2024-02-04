@@ -1,20 +1,25 @@
-//  problem link https://leetcode.com/problems/majority-element
-// time complexity O(n)
-
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
 var majorityElement = function(nums) {
-    
-    const occuranceOfElement = new Map();
-    for(let i = 0; i < nums.length; i++) {
-        if(occuranceOfElement.has(nums[i])) {
-            let occurance = occuranceOfElement.get(nums[i]);
-            occuranceOfElement.set(nums[i], occurance+1);
+    let c = 0;
+    let ele;
+    for(let i = 0; i < nums.length; i++){
+        if(c === 0){
+            c = 1;
+            ele = nums[i]
+        } else if(nums[i] === ele){
+            c++;
         } else {
-            occuranceOfElement.set(nums[i], 1);
+            c--
         }
     }
-
-    for(let [key,value] of occuranceOfElement) {
-        if(value > nums.length / 2) return key;
+    
+    let count = 0;
+    for(let i = 0; i < nums.length; i++){
+        if(nums[i] === ele) count++
     }
-
+    if(count > nums.length / 2) return ele;
+    return -1; 
 };
