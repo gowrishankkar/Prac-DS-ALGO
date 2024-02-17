@@ -2,23 +2,26 @@
  * @param {number[]} nums
  * @return {number}
  */
-var findMin = function (nums) {
-    let [left, right] = [0, nums.length - 1];
+var findMin = function(arr) {
+      let low = 0, high = arr.length - 1;
+    let ans = Infinity;
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
 
-    while (left < right) {
-        const mid = (left + right) >> 1;
-        const guess = nums[mid];
-        const [leftNum, rightNum] = [nums[left], nums[right]];
+        // If left part is sorted:
+        if (arr[low] <= arr[mid]) {
+            // Keep the minimum:
+            ans = Math.min(ans, arr[low]);
 
-        const isTarget = leftNum < rightNum;
-        if (isTarget) return leftNum;
+            // Eliminate left half:
+            low = mid + 1;
+        } else { // If right part is sorted:
+            // Keep the minimum:
+            ans = Math.min(ans, arr[mid]);
 
-        const isTargetGreater = leftNum <= guess;
-        if (isTargetGreater) left = mid + 1;
-
-        const isTargetLess = guess < leftNum;
-        if (isTargetLess) right = mid;
+            // Eliminate right half:
+            high = mid - 1;
+        }
     }
-
-    return nums[left];
+    return ans;
 };
