@@ -24,14 +24,18 @@ var minDays = function(bloomDay, m, k) {
 var possible = (arr, day, m, k) => {
     let count = 0, bo = 0;
     for(let ele of arr){
-        if(ele <= day) count++;
-        else{
-            bo += Math.floor((count / k));
+        if(ele <= day) {
+            count++;
+            if(count === k){
+                bo++
+                count = 0
+            }
+           
+        }else {
             count = 0;
         }
     }
     console.log('count', count)
-     bo += Math.floor((count / k));
     console.log('bo', bo)
     return bo >= m
 }
