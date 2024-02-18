@@ -4,28 +4,24 @@
  * @return {number}
  */
 var shipWithinDays = function(weights, days) {
-    let l =  Math.max(...weights);
-    let h = 0;
-    for (let i = 0; i < weights.length; i++) {
-        h += weights[i];
+    let min = Math.max(...weights);
+    let max = weights.reduce((a, b) => a + b);
+    while (min < max) {
+        const mid = Math.floor((min + max) / 2);
+        let needed = 1;
+        let sum = 0;
+        for (let w of weights) {
+            if (sum + w > mid) {
+                needed++;
+                sum = 0;
+            }
+            sum += w;
+        }
+        if (needed > days) {
+            min = mid + 1;
+        } else {
+             max = mid;
+        }
     }
-
-    while(l <= h) {
-        let mid = l + Math.floor((h - l) / 2); 
-        let noD =  filter(weights, mid);
-        if(noD <= days) h = mid - 1;
-        else l = mid + 1;
-    }
-    return l;
+    return min;
 };
-
-var filter = (w, m) => {
-    let load = 0, days = 1;
-    for(let i = 0; i < w.length ; i++){
-        if(load + w[i] > m ){
-            days++;
-            load = w[i];
-        }else load += w[i]
-    }
-    return days;
-}
