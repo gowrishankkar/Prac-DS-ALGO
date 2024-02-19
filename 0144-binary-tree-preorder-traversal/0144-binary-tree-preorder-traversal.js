@@ -10,48 +10,12 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-// var preorderTraversal = function(root) {
-//     let result = [];
-// 		Traversal(root, result);
-// 		return result;
-    
-// };
+var preorderTraversal = function(root, res = []) {
+     if (root == null)
+            return [];
 
-// function Traversal(A, arrayToStore) {
-// 		if (A == null) return;
-// 		arrayToStore.push(A.data);
-// 		Traversal(A.left, arrayToStore);
-		
-// 		Traversal(A.right, arrayToStore);
-// 	}
-
-
-// var preorderTraversal = function(root) {
-//     let output = [];
-//     function foo (node) {
-//         if(!node) return;
-//         output.push(node.val);
-//         foo(node.left);
-//         foo(node.right);
-//     }
-//     foo(root);
-//     return output;
-// };
-
-
-var preorderTraversal = function(root) {
-    let output = [];
-    let stack = []
-    if(root ===  null) return [];
-    stack.push(root);
-   while(stack.length) {
-       
-       let node = stack.pop();
-       output.push(node.val)
-       if(node.right!== null) stack.push(node.right)
-       if(node.left!== null) stack.push(node.left)
-       
-    }
-
-    return output;
+        res.push(root.val);
+        preorderTraversal(root.left, res);
+        preorderTraversal(root.right, res);
+    return res;
 };
