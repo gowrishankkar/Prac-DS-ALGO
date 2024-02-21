@@ -10,38 +10,25 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
+var inorderTraversal = function(root) {
+    const result = [];
+    const stack = [];
+    let current = root;
 
-//  var inorderTraversal = function (root, list = []) {
+    while (current !== null || stack.length > 0) {
+        // Traverse to the leftmost node of the current subtree
+        while (current !== null) {
+            stack.push(current);
+            current = current.left;
+        }
 
-//     if (!root) return [];
-    
-//     inorderTraversal(root.left, list);
-//     list.push(root.val)
-//     inorderTraversal(root.right, list);
-    
-//     return list
-// };
+        // Visit the top node of the stack (leftmost node)
+        current = stack.pop();
+        result.push(current.val);
 
+        // Move to the right subtree
+        current = current.right;
+    }
 
- var inorderTraversal = function (root) {
-     let stack = [];
-     let result = [];
-      if (!root) return [];
-     let node = root;
-     
-     while(stack.length || node != null ){
-         while (node != null){
-             stack.push(node);
-             node = node.left
-         }
-             console.log('stack', stack)
-             let pop = stack.pop();
-             
-             result.push(pop.val);
-             node = pop.right
-         
-     }
-     
-     return result;
-
+    return result;
 };
