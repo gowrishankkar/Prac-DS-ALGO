@@ -11,28 +11,22 @@
  * @return {number[][]}
  */
 var levelOrder = function(root) {
-    const isBaseCase = root === null;
-    if (isBaseCase) return [];
-
-    return bfs([ root ]);
-};
-
-const bfs = (queue, levels = []) => {
-    while (queue.length) {
-        const level = [];
-
-        for (let i = (queue.length - 1); 0 <= i; i--) {
-            const node = queue.shift();
-
-            if (node.left) queue.push(node.left);
-            if (node.right) queue.push(node.right);
-
-            level.push(node.val);
+    let ans =[];
+    let s=[];
+    if(root === null) return [];
+    s.push(root);
+    while(s.length > 0){
+        let level =[];
+        let size=s.length;
+        for(let i=0; i<size;i++){
+           let node = s.shift();
+            if(node.left)
+                s.push(node.left); 
+            if(node.right)
+                s.push(node.right);
+            level.push(node.val)
         }
-
-        console.log('level', level)
-        levels.push(level);
+        ans.push(level);
     }
-
-    return levels;
-}
+    return ans;
+};
