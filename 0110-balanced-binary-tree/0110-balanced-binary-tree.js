@@ -10,28 +10,25 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isBalanced = function (root) {
-    const [ _height, _isBalanced ] = isRootBalanced(root);
+var isBalanced = function(root) {
+    let node = root;
+    if (node === null) {
+        return true;
+    }
 
-    return _isBalanced;
-};
+    const leftHeight = getHeight(node.left);
+    const rightHeight = getHeight(node.right);
 
-var isRootBalanced = (root) => {
-    const isBaseCase = root === null
-    if (isBaseCase) return [ -1, true ];
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+        return false;
+    }
 
-    return dfs(root)
+    return isBalanced(node.left) && isBalanced(node.right);
 }
 
-var dfs = (root) => {
-    const [ left, isLeftBalanced ] = isRootBalanced(root.left);
-    const [ right, isRightBalanced ] = isRootBalanced(root.right);
-    const [ height, difference ]  = [ Math.max(left, right), Math.abs(left - right) ];
-
-    const isAcceptableHeight = difference <= 1;
-    const _isBalanced = isLeftBalanced && isRightBalanced;
-
-    const _isRootBalanced = _isBalanced && isAcceptableHeight;
-
-    return [ (height + 1), _isRootBalanced ];
+function getHeight(node) {
+    if (node === null) {
+        return 0;
+    }
+    return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
 }
