@@ -11,32 +11,24 @@
  * @return {boolean}
  */
 var isBalanced = function(root) {
-    if (!root) return true;
-
-    let result = helper(root);
-    return result.isBalanced;
-};
-
-function helper(node) {
-    if (!node) return {
-        isBalanced: true,
-        height: -1
+    let node = root;
+    if (node === null) {
+        return true;
     }
 
-    let left = helper(node.left);
-    if (!left.isBalanced) return {
-        height: 0,
-        isBalanced: false
+    const leftHeight = getHeight(node.left);
+    const rightHeight = getHeight(node.right);
+
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+        return false;
     }
 
-    let right = helper(node.right);
-    if (!right.isBalanced) return {
-        height: 0,
-        isBalanced: false
+    return isBalanced(node.left) && isBalanced(node.right);
+}
+
+function getHeight(node) {
+    if (node === null) {
+        return 0;
     }
-
-    let height = 1 + Math.max(left.height, right.height);
-    let isBalanced = Math.abs(left.height - right.height) < 2;
-
-    return {height, isBalanced};
+    return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
 }
