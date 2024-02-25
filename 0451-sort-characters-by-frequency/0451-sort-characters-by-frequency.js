@@ -2,15 +2,23 @@
  * @param {string} s
  * @return {string}
  */
-var frequencySort = function (s) {
-  let a = {};
+var frequencySort = function(s) {
+    let map = new Map();
 
-  for (const b of s) {
-    a[b] = a[b] ? a[b] + 1 : 1;
-  }
+    for (const c of s) {
+        map.set(c, (map.get(c) || 0) + 1);
+    }
 
-  return Object.entries(a)
-    .sort((a, b) => b[1] - a[1])
-    .map((x) => x[0].repeat(x[1]))
-    .join("");
+    const arrMap = [...map];
+    arrMap.sort((a,b) => b[1] - a[1]);
+    
+
+    let result = arrMap.map(([c,f]) => {
+        
+        return c.repeat(f)
+    });
+
+
+    return result.join('');
+
 };
