@@ -11,21 +11,30 @@
  * @param {number} val
  * @return {TreeNode}
  */
-var searchBST = function(root, val) {
-    let treeNode = null
-    const recursiv = (root, val) => {
-        if(root.val === val) {
-            treeNode = root
-            return
-        }
-        if(root && root.right) {
-            recursiv(root.right, val)
-        }
-        if(root && root.left) {
-            recursiv(root.left, val)
-        }
-    }
-    recursiv(root,val)
+// var searchBST = function(root, val) {
+//     let treeNode = null
+//     const recursiv = (root, val) => {
+//         if(root.val === val) {
+//             treeNode = root
+//             return
+//         }
+//         if(root && root.right) {
+//             recursiv(root.right, val)
+//         }
+//         if(root && root.left) {
+//             recursiv(root.left, val)
+//         }
+//     }
+//     recursiv(root,val)
 
-    return treeNode
+//     return treeNode
+// };
+
+var searchBST = function(root, val) {
+    
+    while (root !== null && root.val !== val) {
+        root = root.val > val ? root.left : root.right;
+    }
+
+    return root;
 };
