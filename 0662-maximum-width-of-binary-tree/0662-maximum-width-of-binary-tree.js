@@ -23,7 +23,9 @@ var widthOfBinaryTree = function(root) {
 
   while (q.length > 0) {
     const offset = q[0][1] * 2;
-    ans = Math.max(ans, q[q.length - 1][1] - q[0][1] + 1);
+     let last = q[q.length - 1][1];
+     let first = q[0][1]
+    ans = Math.max(ans, last - first + 1);
     const sz = q.length;
     for (let i = 0; i < sz; i++) {
       const node = q[0][0];
