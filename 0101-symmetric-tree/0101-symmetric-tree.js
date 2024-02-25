@@ -38,13 +38,10 @@ var isSymmetric = function(root) {
 };
 
 var recurse = function(L, R) {
-    if (L == null && R == null) {
-        return true;
-    } else if (L == null || R == null) {
-        return false;
-    } else if (L.val != R.val) {
-        return false;
-    } else {
-        return (recurse(L.left, R.right) && recurse(L.right, R.left));
-    }
+    if (L == null && R == null) return true;
+    else if (L == null || R == null) return false;
+    else if (L.val != R.val) return false;
+    else return (recurse(L.left, R.right) && recurse(L.right, R.left));
+    
 };
+
