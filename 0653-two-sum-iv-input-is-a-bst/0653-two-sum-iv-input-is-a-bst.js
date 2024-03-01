@@ -12,15 +12,20 @@
  * @return {boolean}
  */
 var findTarget = function(root, k) {
-    let stack = [root]
-    let map = {}
-    
-    while (stack.length > 0) {
-        let cur = stack.pop()
-        if (map[k - cur.val]) return true
-        map[cur.val] = true;
-        if (cur.left) stack.push(cur.left)
-        if (cur.right) stack.push(cur.right)
+    const neededValues = new Set();
+    let hasSum = false;
+
+    function dfs(node) {
+        if (!node) return;
+        if (neededValues.has(node.val)) {
+            hasSum = true;
+        } else {
+                neededValues.add(k - node.val)
+                dfs(node.left)
+                dfs(node.right)
+        }
     }
-    return false
+
+    dfs(root)
+    return hasSum;
 };
