@@ -3,6 +3,7 @@
  * @param {number} k
  * @return {number}
  */
+
 var findKthPositive = function(arr, k) {
     if (!arr || arr.length < 1) {
         return k;
@@ -17,22 +18,3 @@ var findKthPositive = function(arr, k) {
     }
     return l + k;
 };
-
-// var findKthPositive = function(arr, k) {
-//     if (!arr || arr.length < 1) {
-//         return k;
-//     }
-
-//     let l = 0, r = arr.length - 1;
-//     while (l <= r) {
-//         const mid = l + Math.floor((r - l)/2);
-//         const target = mid + 1;
-//         if (arr[mid] - target >= k) {
-//             r = mid - 1;
-//         } else {
-//             l = mid + 1;
-//         }
-//     }
-
-//     return l + k;
-// };
