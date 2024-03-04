@@ -4,20 +4,27 @@
  * @return {number}
  */
 var smallestDivisor = function(nums, threshold) {
-    let l = 0, h = Math.max(...nums);
-    while(l <= h){
-        let mid = Math.floor((l+h)/2);
-        if(sumD(nums, mid) <= threshold) h = mid - 1;
-        else l = mid + 1;
+    let n = nums.length;
+    if(n > threshold) return -1;
+    let low = 1;
+    let high = Math.max(...nums);
+
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+        if (sumByD(nums, mid) <= threshold) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
     }
-    return l;
-    
+    return low;
 };
 
-const sumD = (arr, d) =>{
+function sumByD(arr, div) {
+    let n = arr.length; // size of array
     let sum = 0;
-    for(let ele of arr){
-        sum += Math.ceil(ele/d)
+    for (let i = 0; i < n; i++) {
+        sum += Math.ceil(arr[i] / div);
     }
     return sum;
 }
