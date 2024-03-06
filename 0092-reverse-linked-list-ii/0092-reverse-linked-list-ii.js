@@ -11,61 +11,31 @@
  * @param {number} right
  * @return {ListNode}
  */
-var reverseBetween = function (head, left, right) {
-    if (!head || !head.next || left === right) {
-        return head;
+var reverseBetween = function(head, left, right) {
+    let n = right - left + 1;
+    let countLeft = 1;
+    let leftList = head;
+    let prevLeft = new ListNode(0);
+    prevLeft.next = head;
+    let ans = prevLeft;
+    while (countLeft < left) {
+        prevLeft = leftList;
+        leftList = leftList.next;
+        countLeft += 1;
     }
-    let idx = 1;
-    let prevLower = null;
-    let curLower = head;
-    while (curLower && idx < left) {
-        prevLower = curLower;
-        curLower = curLower.next;
-        idx++;
+    
+    let prev = null
+    let curr = leftList;
+    let next = null;
+    while (n) {
+        next = leftList.next;
+        leftList.next = prev;
+        prev = leftList;
+        leftList = next;
+        n -= 1;
     }
-    let storedPrevLower = prevLower;
-    let storedCurLower = curLower;
-    let prevPtr = null;
-    let tmpPtr = null;
-    while (curLower && idx <= right) {
-        tmpPtr = curLower.next;
-        curLower.next = prevPtr;
-        prevPtr = curLower;
-        curLower = tmpPtr;
-        idx++;
-    }
-    if (storedPrevLower) {
-        storedPrevLower.next = prevPtr;
-    }
-    storedCurLower.next = curLower;
-    return storedPrevLower ? head : prevPtr;
+
+    prevLeft.next = prev;
+    curr.next = leftList;
+    return ans.next;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
