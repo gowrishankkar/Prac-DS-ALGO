@@ -1,6 +1,10 @@
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
 var nextGreaterElement = function(nums1, nums2) {
-    // O (n + m)
-    let nums1Idx = new Map(); {
+        let nums1Idx = new Map(); {
         let idx = 0;
         for(const n of nums1)
             nums1Idx.set(n, idx++);
@@ -25,4 +29,25 @@ var nextGreaterElement = function(nums1, nums2) {
     }
     
     return res;
-};79
+};
+
+var nextGreaterElement = function(nums1, nums2) {
+    let r = [];
+    let s = [];
+    let n =  nums2.length;
+    let arr = nums2
+    for(let i = n - 1; i >= 0; i--) {
+        if(!s.length) r.push(-1);
+        else if(s.length && s[s.length - 1] > arr[i]) r.push(s[s.length - 1])
+        else if(s.length && s[s.length - 1] <= arr[i]){
+            while(s.length && s[s.length - 1] <= arr[i]) s.pop();
+            if(!s.length) r.push(-1);
+            else r.push(s[s.length - 1]);
+        }
+        s.push(arr[i])
+    }
+    r.reverse();
+    let ans = [];
+    return nums1.map((ele) => { return r[nums2.indexOf(ele)]})
+
+}
