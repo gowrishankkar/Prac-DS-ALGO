@@ -3,32 +3,25 @@
  * @return {number[]}
  */
 var frequencySort = function(nums) {
-    let map = new Map();
+    let map = {}, ans = [];
     let minHeap = new MinPriorityQueue({
         compare: (w1, w2) => {
             if (w1.count < w2.count)  return -1;
             if (w1.count > w2.count)  return 1;
-            return w1.word < w2.word
+            return w1.num < w2.num
                 ? 1
                 : -1;		
         }
     });
-    let ans = new Array();
+    nums.forEach((num) =>  map[num] = (map[num] || 0) + 1 )
 
-    for(let i = 0; i < nums.length; i++){
-        if(map.has(nums[i]))
-            map.set(nums[i], map.get(nums[i])+1);
-        else
-            map.set(nums[i], 1);
-    }
-    for(let items of map){
-        minHeap.enqueue({ word: items[0], 
-		count:  items[1]},);
+    for(let [key, value] of Object.entries(map)){
+        minHeap.enqueue({ num: Number(key), count:  value},);
     }
 
     while(!minHeap.isEmpty()){
-        let { word, count} = minHeap.dequeue()
-        let arr = new Array(count).fill(word)
+        let { num, count} = minHeap.dequeue()
+        let arr = new Array(count).fill(num)
         ans.push(...arr);
     }
     return ans;
