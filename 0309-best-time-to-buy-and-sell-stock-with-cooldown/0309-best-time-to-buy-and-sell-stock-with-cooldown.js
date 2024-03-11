@@ -1,7 +1,3 @@
-/**
- * @param {number[]} prices
- * @return {number}
- */
  var maxProfit = (prices) => {
     let [ sold, held, reset ] = [ (-Infinity), (-Infinity), 0 ];
 
