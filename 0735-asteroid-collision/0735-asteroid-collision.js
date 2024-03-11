@@ -1,26 +1,23 @@
-/**
- * @param {number[]} asteroids
- * @return {number[]}
- */
-const asteroidCollision = (asteroids) => {
-    let stack = [];
+var asteroidCollision = function (aster) {
+    const stack = [], n = aster.length;
 
-    for (asteroid of asteroids) {
-        while (stack.length != 0 && asteroid < 0 && stack.at(-1) > 0) {
-            let diff = asteroid + stack.at(-1);
-
-            if (diff < 0) {
-                stack.pop();
-            } else if (diff > 0) {
-                asteroid = 0;
-            } else {
-                asteroid = 0;
-                stack.pop();
+    for (let i = 0; i < n; i++) {
+        if (stack.length && stack.at(-1) > 0 && aster[i] < 0) {
+            if (Math.abs(stack.at(-1)) <= Math.abs(aster[i])) {
+                while (stack.length && stack.at(-1) > 0 && Math.abs(stack.at(-1)) < Math.abs(aster[i])) {
+                    stack.pop();
+                }
+                if (!stack.length || stack.at(-1) < 0) {
+                    stack.push(aster[i]);
+                    continue;
+                }
+                if (Math.abs(stack.at(-1)) === Math.abs(aster[i])) {
+                    stack.pop();
+                }
             }
-        }
 
-        if (asteroid) {
-            stack.push(asteroid);
+        } else {
+            stack.push(aster[i]);
         }
     }
 
