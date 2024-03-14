@@ -1,45 +1,53 @@
 /**
  * @param {number} n
- * @return {number}
+ * @return {string[][]}
  */
-
-function totalNQueens(n, colSet = new Set(), posDiagSet = new Set(), negDiagSet = new Set()) {
-    const board = new Array(n).fill().map(() => new Array(n).fill('.'));
-
-    const result = dfs(board, n, colSet, posDiagSet, negDiagSet) 
-    return result.length;
-}
-
-const dfs = (board, n, colSet, posDiagSet, negDiagSet, row = 0, moves = []) => {
-    const isBaseCase = row === n;
-    if (isBaseCase) {
-        const rows = board.map((_row) => _row.join(''))
-
-        moves.push(rows);
-
-        return moves;
+var totalNQueens = function(n) {
+    let res = [];
+    
+    function isValid(board, row, col) {
+        // Check the column
+        for (let i = 0; i < row; i++) {
+            if (board[i][col] === 'Q') {
+                return false;
+            }
+        }
+        
+        // Check upper-left diagonal
+        for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] === 'Q') {
+                return false;
+            }
+        }
+        
+        // Check upper-right diagonal
+        for (let i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+            if (board[i][j] === 'Q') {
+                return false;
+            }
+        }
+        
+        return true;
     }
-
-    for (let col = 0; col < n; col++) {
-        const hasQueen = colSet.has(col) || posDiagSet.has(row + col) || negDiagSet.has(row - col)
-        if (hasQueen) continue;
-
-        backTrack(board, n, row, col, colSet, posDiagSet, negDiagSet, moves);
+    
+    function solve(board, row) {
+        if (row === n) {
+            return res.push(board.map(row => row.join('')));
+        }
+        
+        for (let col = 0; col < n; col++) {
+            if (isValid(board, row, col)) {
+                board[row][col] = 'Q';
+                solve(board, row + 1);
+                board[row][col] = '.';
+            }
+        }
     }
-
-    return moves
-}
-
-const backTrack = (board, n, row, col, colSet, posDiagSet, negDiagSet, moves) => {
-    colSet.add(col);
-    posDiagSet.add(row + col);
-    negDiagSet.add(row - col);
-    board[row][col] = "Q";
-
-        dfs(board, n, colSet, posDiagSet, negDiagSet, (row + 1), moves);
-
-    colSet.delete(col);
-    posDiagSet.delete(row + col);
-    negDiagSet.delete(row - col);
-    board[row][col] = ".";
-}
+    
+    // Initialize the board
+    const board = Array.from({length: n}, () => Array(n).fill('.'));
+    
+    solve(board, 0);
+    
+    return res.length;
+};
