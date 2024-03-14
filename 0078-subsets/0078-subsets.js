@@ -2,21 +2,24 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var subsets = function(nums) {
-    let A = nums
-       let result = []
-        A.sort((a, b) => a - b)
-        let subset = [];
-        const dfs = (index) => {
-            result.push(subset.slice());
+ var subsets = (nums) => {
+    nums.sort((a, b) => a -b);
 
-            for (let i = index; i < A.length; i++) {
-                subset.push(A[i]);
-                dfs(i + 1);
-                subset.pop()
-            }
+    return dfs(nums)
+}
 
-        }
-        dfs(0);
-        return result
-};
+var dfs = (nums, level = 0, set = [], subset = []) => {
+    subset.push(set.slice());
+
+    for (let i = level; i < nums.length; i++){
+        backTrack(nums, i, set, subset);
+    }
+
+    return subset
+}
+
+const backTrack = (nums, i, set, subset) => {
+    set.push(nums[i]);
+        dfs(nums, (i + 1), set, subset);
+    set.pop();
+}
