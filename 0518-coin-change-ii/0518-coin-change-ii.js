@@ -26,27 +26,51 @@
 // }
 
 
-var change = function(amount, coins) {
-      const dp = Array.from({ length: coins.length}, () => Array(amount + 1).fill(0));
-        for (let i = 0; i <= amount; i++) {
-            if (i % coins[0] === 0)
-                dp[0][i] = 1;
-            // Else condition is automatically fulfilled,
-            // as dp array is initialized to zero
-        }
+// var change = function(amount, coins) {
+//       const dp = Array.from({ length: coins.length}, () => Array(amount + 1).fill(0));
+//         for (let i = 0; i <= amount; i++) {
+//             if (i % coins[0] === 0)
+//                 dp[0][i] = 1;
+//             // Else condition is automatically fulfilled,
+//             // as dp array is initialized to zero
+//         }
 
     
+//     for(let i = 1; i < coins.length ; i++){
+//         for(let t = 0; t <= amount; t++){
+//             const notTaken = dp[i-1][t];
+//             let taken = 0;
+//             if(coins[i]<= t){
+//                 taken = dp[i][t - coins[i]];
+//             }
+//             dp[i][t] = taken + notTaken;
+//         }
+//     }
+    
+//         // console.table(dp)
+//     return dp[coins.length - 1][amount]
+// };
+
+
+var change = function(amount, coins) {
+      let dp = Array(amount + 1).fill(0);
+        for (let i = 0; i <= amount; i++) {
+            if (i % coins[0] === 0)
+                dp[i] = 1;
+        }
+
     for(let i = 1; i < coins.length ; i++){
+        let cur = new Array(amount + 1).fill(0);
         for(let t = 0; t <= amount; t++){
-            const notTaken = dp[i-1][t];
+            const notTaken = dp[t];
             let taken = 0;
             if(coins[i]<= t){
-                taken = dp[i][t - coins[i]];
+                taken = cur[t - coins[i]];
             }
-            dp[i][t] = taken + notTaken;
+            cur[t] = taken + notTaken;
         }
+        dp = [...cur];
+        
     }
-    
-        // console.table(dp)
-    return dp[coins.length - 1][amount]
+    return dp[amount]
 };
