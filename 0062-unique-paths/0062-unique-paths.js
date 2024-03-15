@@ -50,7 +50,7 @@ var uniquePaths = function(m, n) {
       dp[i][j] = up + left;
     }
   }
-
+    console.table(dp)
   // The result is stored in the bottom-right cell of the grid (m-1, n-1).
   return dp[m - 1][n - 1];
     // const data =  test(m - 1, n - 1, dp);
