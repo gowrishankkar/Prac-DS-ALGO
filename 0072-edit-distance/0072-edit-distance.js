@@ -3,42 +3,35 @@
  * @param {string} word2
  * @return {number}
  */
- var minDistance = (word1, word2) => {
-    const tabu = initTabu(word2);/* Time O(M) | Space O(M) */
+var minDistance = function(word1, word2) {
+    const n = word1.length;
+    const m = word2.length;
 
-    search(word1, word2, tabu);  /* Time O(N * M) | Space O(M) */
+    // Create a 2D array to store dynamic programming values
+    const dp = new Array(n).fill(null).map(() => new Array(m).fill(-1));
 
-    return tabu[word2.length];
-}
+    // Call the recursive utility function
+    return getDist(word1, word2, n - 1, m - 1, dp);
+};
 
-var initTabu = (word2) => {
-    const tabu = new Array((word2.length + 1)).fill(0);/* Time O(M) | Space O(M) */
-
-    for (let j = 1; (j <= word2.length); j++) {        /* Time O(M) */
-        tabu[j] = j;                                   /*           | Space O(M) */
+function getDist(s1, s2, i, j, dp){
+     if (i < 0) {
+        return j + 1;
     }
-
-    return tabu;
-}
-
-var search = (word1, word2, tabu) => {
-    for (let i = 1; (i <= word1.length); i++) {/* Time O(N) */
-        tabu[word2.length] = update(word1, word2, i, tabu);/* Time O(M) | Space (M) */
+    if (j < 0) {
+        return i + 1;
     }
-}
-
-const update = (word1, word2, i, tabu) => {
-    let temp = i;
-
-    for (let j = 1; (j <= word2.length); ++j) {/* Time O(M  */
-        const isEqual = (word1[(i - 1)] === word2[(j - 1)])
-        const cur = isEqual
-            ? tabu[(j - 1)]
-            : (Math.min(tabu[(j - 1)], tabu[j], temp) + 1);
-
-        tabu[(j - 1)] = temp;                      /* Space (M) */
-        temp = cur;
+    if (dp[i][j] !== -1) {
+        return dp[i][j];
     }
+    if (s1[i] === s2[j]) {
+        return dp[i][j] = getDist(s1, s2, i - 1, j - 1, dp);
+    }
+     return (dp[i][j] = 1 + Math.min(
+        getDist(s1, s2, i - 1, j - 1, dp),
+        getDist(s1, s2, i - 1, j, dp),
+        getDist(s1, s2, i, j - 1, dp)
+        
+    ));
 
-    return temp;
 }
