@@ -1,19 +1,19 @@
- var maxProfit = (prices) => {
-    let [ sold, held, reset ] = [ (-Infinity), (-Infinity), 0 ];
-
-    [ sold, reset ] = search(prices, sold, held, reset);/* Time O(N) */
-
-    return Math.max(sold, reset);
-}
-
-var search = (prices, sold, held, reset) => {
-    for (const price of prices) {/* Time O(N) */
-        const preSold = sold;
-
-        sold = (held + price);
-        held = Math.max(held, (reset - price));
-        reset = Math.max(reset, preSold);
+var maxProfit = function(A) {
+    let n = A.length;
+    let dp = new Array(n).fill(null).map(()=> new Array(2).fill(-1));
+    
+    function dfs(i, buy){
+        if(i >= n) return 0;
+        if(dp[i][buy] !== -1) return dp[i][buy];
+        let profit;
+        
+        if(buy){
+            profit =  Math.max( -A[i] + dfs(i + 1, 0), dfs(i+1, 1));
+        }else{
+            profit =  Math.max( A[i] + dfs(i + 2, 1), dfs(i+1, 0));
+        }
+        return dp[i][buy] = profit;
     }
-
-    return [ sold, reset ];
-}
+    
+    return dfs(0, 1)
+};
