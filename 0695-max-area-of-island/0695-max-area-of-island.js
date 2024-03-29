@@ -36,12 +36,12 @@ var maxAreaOfIsland = function(grid) {
         }
     }
 
-    let island = 2;
+    let island = 5;
     for (let x = 0; x < n; x++) {
         for (let y = 0; y < m; y++) {
             area = 0;
             if (grid[x][y] === 1) {
-                calculateArea(x, y, island++);
+                calculateArea(x, y, island);
 
                 if (area > 0) {
                     maxArea = Math.max(maxArea, area);
