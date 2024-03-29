@@ -18,19 +18,10 @@ var maxAreaOfIsland = function(grid) {
     const calculateArea = (x0, y0, marker) => {
         grid[x0][y0] = marker;
         area++;
-
         for (const [dx, dy] of directions) {
             const x = x0 + dx;
             const y = y0 + dy;
-
-            if (x < 0 || x >= n) {
-                continue;
-            };
-            if (y < 0 || y >= m) {
-                continue;;
-            }
-
-            if (grid[x][y] === 1) {
+            if (x < n && x >= 0 && y < m && y >= 0 && grid[x][y] === 1) {
                 calculateArea(x, y, marker);
             }
         }
