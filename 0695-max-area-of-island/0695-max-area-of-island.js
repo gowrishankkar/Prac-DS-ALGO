@@ -36,7 +36,7 @@ var maxAreaOfIsland = function(grid) {
         }
     }
 
-    let island = 5;
+    let island = 'test';
     for (let x = 0; x < n; x++) {
         for (let y = 0; y < m; y++) {
             area = 0;
