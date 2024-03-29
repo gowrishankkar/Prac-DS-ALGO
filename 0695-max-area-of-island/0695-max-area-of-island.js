@@ -2,47 +2,47 @@
  * @param {number[][]} grid
  * @return {number}
  */
-var maxAreaOfIsland = function(grid) {
-    if (grid.length === 0) {
-        return 0;
-    }
+// var maxAreaOfIsland = function(grid) {
+//     if (grid.length === 0) {
+//         return 0;
+//     }
 
-    const n = grid.length;
-    const m = grid[0].length;
+//     const n = grid.length;
+//     const m = grid[0].length;
 
-    let maxArea = 0;
-    let area = 0;
+//     let maxArea = 0;
+//     let area = 0;
 
-    const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+//     const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
-    const calculateArea = (x0, y0, marker) => {
-        grid[x0][y0] = marker;
-        area++;
-        for (const [dx, dy] of directions) {
-            const x = x0 + dx;
-            const y = y0 + dy;
-            if (x < n && x >= 0 && y < m && y >= 0 && grid[x][y] === 1) {
-                calculateArea(x, y, marker);
-            }
-        }
-    }
+//     const calculateArea = (x0, y0, marker) => {
+//         grid[x0][y0] = marker;
+//         area++;
+//         for (const [dx, dy] of directions) {
+//             const x = x0 + dx;
+//             const y = y0 + dy;
+//             if (x < n && x >= 0 && y < m && y >= 0 && grid[x][y] === 1) {
+//                 calculateArea(x, y, marker);
+//             }
+//         }
+//     }
 
-    let island = 'test';
-    for (let x = 0; x < n; x++) {
-        for (let y = 0; y < m; y++) {
-            area = 0;
-            if (grid[x][y] === 1) {
-                calculateArea(x, y, island);
+//     let island = 'test';
+//     for (let x = 0; x < n; x++) {
+//         for (let y = 0; y < m; y++) {
+//             area = 0;
+//             if (grid[x][y] === 1) {
+//                 calculateArea(x, y, island);
 
-                if (area > 0) {
-                    maxArea = Math.max(maxArea, area);
-                }
-            }
-        }
-    }
+//                 if (area > 0) {
+//                     maxArea = Math.max(maxArea, area);
+//                 }
+//             }
+//         }
+//     }
 
-    return maxArea;
-};
+//     return maxArea;
+// };
 
 // var maxAreaOfIsland = function(grid) {
 //     let maxArea = 0;
@@ -66,3 +66,19 @@ var maxAreaOfIsland = function(grid) {
 //     }
 //     return maxArea;
 // };
+
+
+var maxAreaOfIsland = function(grid) {
+    let ans = 0, n = grid.length, m = grid[0].length;
+    const fun = (i,j)=>{
+        if(i < 0 || j < 0 || i >= n || j >= m || !grid[i][j]) return 0;
+        grid[i][j] = 0;
+        return 1 + fun(i-1, j) + fun(i, j-1) + fun(i+1, j) + fun(i, j+1)
+    }
+    for(let i = 0; i < n; i++)
+        for(let j = 0; j < m; j++)
+            if(grid[i][j]) ans = Math.max(ans, fun(i, j))
+        
+    return ans
+    
+};
