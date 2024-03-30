@@ -2,72 +2,60 @@
  * @param {number[][]} heights
  * @return {number[][]}
  */
-var pacificAtlantic = function(heights) {
-    const [ pacificReachable, atlanticReachable ] = search(heights);   /* Time O(ROWS * COLS) | Space O(ROWS * COLS) */
+const pacificAtlantic = (matrix) => {
+  if (!matrix.length) return [];
+  
+  let numRows = matrix.length;
+  let numCols = matrix[0].length;
+  
+  //create two adjacency matrices for results of atlantic and pacific dfs
+  //(if a node can reach an ocean, it goes in that matrix)
+  const pacific = new Array(numRows).fill().map(() => Array(numCols).fill(false))
+  const atlantic = new Array(numRows).fill().map(() => Array(numCols).fill(false))
+  
+  /*KEY POINT: dfs will be run from the ocean inwards, not vice versa
+  (from the ocean-adjacent nodes to the highest point(s))*/
+  
+  //dfs works by marking successfully visited squares in matrix as true
+  //remember we're going from ocean inland
+  const dfs = (r, c, current, ocean) =>{ //r=row c=column ocean=pacific/atlantic current=the node we're checking
+    //base case: return if out of bounds
+    if (r < 0 || c < 0 || r >= numRows || c >= numCols) return;
+    //base case: return if our current node is larger than the surrounding nodes, because we are only marking node as true if it is larger than the next...remember we are working upwards to the highest point. This is a bit confusing, but look at the inputs: when we run this recursively, below, if N, S, E, or W are less than the current node, we'll return, because they need to be HIGHER to work upwards.
+    if (matrix[r][c] < current) return;
+    //base case: return if this node already marked (in ocean), thus already visited
+    if (ocean[r][c]) return;
+    //if we're here it means the conditions have been successfully met and thus we can reach the ocean, so we mark this node true (water can flow here) in that ocean
+    ocean[r][c] = true;
+    //call dfs recursively on each of the surrounding cells (ie N,S,E,W)
+    dfs(r+1, c, matrix[r][c], ocean);
+    dfs(r-1, c, matrix[r][c], ocean);
+    dfs(r, c+1, matrix[r][c], ocean);
+    dfs(r, c-1, matrix[r][c], ocean);
+  };
+  
+  /*the pacfic touches the top and left sides of the matrix (N & E)
+  and the atlantic touches the right and bottom sides (W & S)
+  thus...*/
+  //we run DFS for the top and bottom rows
+  for (let col=0; col < numCols; col++){
+   dfs(0, col, matrix[0][col], pacific);
+   dfs(numRows-1, col, matrix[numRows-1][col], atlantic);
+  }
+  //and for the first and last columns
+  for (let row = 0; row < numRows; row++){
+    dfs(row, 0, matrix[row][0], pacific)
+    dfs(row, numCols-1, matrix[row][numCols-1], atlantic)
+  }
 
-    return searchGrid(heights, pacificReachable, atlanticReachable);/* Time O(ROWS * COLS) | Space O(ROWS * COLS) */
+  //add to result if exists in both pacific and atlantic
+  let result = [];
+  for (let i=0; i < numRows; i++){
+    for (let j=0; j < numCols; j++){
+      if (atlantic[i][j] && pacific[i][j]){
+        result.push([i, j]);
+      }
+    }
+  }
+  return result;
 };
-
-var search = (heights) => {
-    const [ rows, cols ] = [ heights.length, heights[0].length ];
-    const [ pacificReachable, atlanticReachable ] = [ getMatrix(rows, cols), getMatrix(rows, cols) ];/* Time O(ROWS * COLS) | Space O(ROWS * COLS) */
-
-    searchRows(heights, rows, cols, pacificReachable, atlanticReachable);
-    searchCols(heights, rows, cols, pacificReachable, atlanticReachable);
-
-    return [ pacificReachable, atlanticReachable ];
-}
-
-var getMatrix = (rows, cols) => new Array(rows).fill()/* Time O(ROWS * COLS) | Space O(ROWS * COLS) */
-    .map(() => new Array(cols).fill(false));
-
-var searchRows = (heights, rows, cols, pacificReachable, atlanticReachable) => {
-   for (let row = 0; row < rows; row++) {/* Time O(ROWS) */
-        const [ pacificStart, atlanticStart ] = [ 0, (cols - 1) ];
-
-        dfs(row, pacificStart, rows, cols, pacificReachable, heights);   /* Space O(ROWS * COLS) */
-        dfs(row, atlanticStart, rows, cols, atlanticReachable, heights); /* Space O(ROWS * COLS) */
-    }
-}
-
-var searchCols = (heights, rows, cols, pacificReachable, atlanticReachable) => {
-    for (let col = 0; col < cols; col++) {/* Time O(COLS) */
-        const [ pacificStart, atlanticStart ] = [ 0, (rows - 1) ];
-
-        dfs(pacificStart, col, rows, cols, pacificReachable, heights);   /* Space O(ROWS * COLS) */
-        dfs(atlanticStart, col, rows, cols, atlanticReachable, heights); /* Space O(ROWS * COLS) */
-    }
-}
-
-const dfs = (row, col, rows, cols, isReachable, heights) => {
-    isReachable[row][col] = true;
-
-    for (const [ _row, _col ] of getNeighbors(row, rows, col, cols)) {
-        if (isReachable[_row][_col]) continue;
-
-        const isLower = heights[_row][_col] < heights[row][col];
-        if (isLower) continue;
-
-
-        dfs(_row, _col, rows, cols, isReachable, heights);              /* Space O(ROWS * COLS) */
-    }
-}
-
-var searchGrid = (heights, pacificReachable, atlanticReachable, intersection = []) => {
-    const [ rows, cols ] = [ heights.length, heights[0].length ];
-
-    for (let row = 0; row < rows; row++) {/* Time O(ROWS) */
-        for (let col = 0; col < cols; col++) {/* Time O(COLS) */
-            const isReachable = pacificReachable[row][col] && atlanticReachable[row][col]
-            if (!isReachable) continue
-
-            intersection.push([ row, col ]);                             /* Space O(ROWS * COLS) */
-        }
-    }
-
-    return intersection;
-}
-
-var getNeighbors = (row, rows, col, cols) => [ [ 0, 1 ], [ 0, -1 ], [ 1, 0 ], [ -1, 0 ] ]
-    .map(([ _row, _col ]) => [ (row + _row), (col + _col)])
-    .filter(([ _row, _col ]) => (0 <= _row) && (_row < rows) && (0 <= _col) && (_col < cols))
