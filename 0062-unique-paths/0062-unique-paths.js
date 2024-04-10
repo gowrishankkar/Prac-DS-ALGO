@@ -91,12 +91,8 @@ var uniquePaths = function(m, n) {
     }
     prev = [...curr]
   }
-    // console.table(dp)
   // The result is stored in the bottom-right cell of the grid (m-1, n-1).
   return prev[n - 1];
-    // const data =  test(m - 1, n - 1, dp);
-    // console.log(dp)
-    // return data
 }; 
 
 
