@@ -9,45 +9,35 @@
 /**
  * @param {TreeNode} root
  */
-class BSTIterator {
-    constructor (root) {
-        this.stack = [];   /*           | Space O(N) */
-        this.getLeft(root);/* Time O(N) | Space O(N)*/
-    }
+var BSTIterator = function(root) {
+    this.stack = [];
+    this.recurseLeft(root);
+};
 
-    /**
-     * Time O(N) | Space O(H)
-     * @return {number}
-     */
-    getLeft (root, { stack } = this) {
-        while (root !== null) {/* Time O(N) */
-            stack.push(root);      /* Space O(N) */
-            root = root.left;
-        }
-    }
+/**
+ * @return {number}
+ */
+BSTIterator.prototype.recurseLeft = function(node) {
+    if (!node) return;
+    this.stack.push(node);
+    this.recurseLeft(node.left);
+};
 
-    /**
-     * Time O(N) | Space O(N)
-     * @return the next smallest number
-     * @return {number}
-     */
-    next ({ stack } = this) {
-        const node = stack.pop();
+/**
+ * @return {number}
+ */
+BSTIterator.prototype.next = function() {
+    const node = this.stack.pop();
+    this.recurseLeft(node.right);
+    return node.val;
+};
 
-        if (node.right) this.getLeft(node.right);/* Time O(N) | Space O(N) */
-
-        return node.val;
-    };
-
-    /**
-     * Time O(1) | Space O(1)
-     * @return whether we have a next smallest number
-     * @return {boolean}
-     */
-    hasNext ({ stack } = this) {
-        return (stack.length !== 0);
-    }
-}
+/**
+ * @return {boolean}
+ */
+BSTIterator.prototype.hasNext = function() {
+    return !!this.stack.length;
+};
 
 /** 
  * Your BSTIterator object will be instantiated and called as such:
