@@ -10,31 +10,22 @@
  * @return {ListNode}
  */
 var removeNodes = function(head) {
-    //return head
-    const stack = [head.next];
-    const dummy = new ListNode(null, head);
-    const prev = [head];
-
-    while (stack.length) {
-        const node = stack.pop();
-        const pNode = prev.at(-1);
-
-        if (!node) continue;
-        if (node.val > pNode.val) {
-            while (prev.at(-1)) {
-                prev.at(-1).next = null;
-                prev.pop();
-                if (prev.length && prev.at(-1).val >= node.val ) {
-                    prev.at(-1).next = node;
-                    break;
-                }
-            }
-        } else {
-            prev.at(-1).next = node;
-        }
-        prev.push(node);
-        stack.push(node.next);
+    let stack = []
+    let p = head
+    while (p) {
+        while (stack.length > 0 && p.val > stack.at(-1))
+            stack.pop()
+        stack.push(p.val)
+        p = p.next
     }
-
-    return prev[0];
+    p = head
+    let n = stack.length
+    for (let i = 0; i < n; i++) {
+        p.val = stack[i]
+        if (i == n - 1)
+            p.next = null
+        else
+            p = p.next
+    }
+    return head
 };
