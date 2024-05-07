@@ -10,28 +10,27 @@
  * @return {ListNode}
  */
 var doubleIt = function(head) {
-      let value = ""
-    let curr = head
-    
-    while(curr){
-        value+=curr.val;
-        curr=curr.next
+    let current = head;
+    let number = '';
+    let i = 0;
+
+    while (current) {
+        number += current.val;
+        current = current.next;
     }
-    let double = BigInt(2) * BigInt(value)
-    double=double.toString()
-    curr = head
-    let index =0
-    let newHead = null
-    curr = newHead
-    while(index < double.length){
-        if(curr){
-            curr.next = new ListNode(double[index])
-            curr = curr.next
-        } else {
-            curr  = new ListNode(double[index])
-             newHead= curr
-        }  
-        index++ 
+
+    number = (BigInt(number)* 2n).toString();
+
+    current = head;
+
+    while (i < number.length) {
+        if (i !== number.length - 1  && !current.next) {
+            current.next = new ListNode();
+        }
+        current.val = number[i];
+        i++;
+        current = current.next;
     }
-    return newHead
+
+    return head;
 };
