@@ -3,23 +3,16 @@
  * @return {number[][]}
  */
  var subsets = (nums) => {
-    nums.sort((a, b) => a -b);
-
-    return dfs(nums)
-}
-
-var dfs = (nums, level = 0, set = [], subset = []) => {
-    subset.push(set.slice());
-
-    for (let i = level; i < nums.length; i++){
-        backTrack(nums, i, set, subset);
+    let result = []
+    function dfs(i, arr = []){
+        if(i === nums.length) {
+            result.push(arr)
+            return;
+        }
+        dfs(i + 1, arr)
+        dfs(i + 1, [...arr, nums[i]])
     }
+    dfs(0)
+    return result
+ }
 
-    return subset
-}
-
-const backTrack = (nums, i, set, subset) => {
-    set.push(nums[i]);
-        dfs(nums, (i + 1), set, subset);
-    set.pop();
-}
