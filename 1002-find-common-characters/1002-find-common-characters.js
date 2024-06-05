@@ -16,15 +16,13 @@
 //   return result;
 // };
 
-
 var commonChars = function(words) {
-    let result = [...words[0]];
-    for(let i = 1; i < words.length; i++) {
-      result = result.filter(c => {
-        const l = words[i].length;
-        words[i] = words[i].replace(c, '');
-        return l > words[i].length;
-      });
+    let res = []
+    for(let char of words[0]){
+        if(words.every(word=>word.includes(char))){
+            res.push(char)
+        };
+        words = words.map(word=>word.replace(char, ""))
     }
-    return result;
+    return res;
 };
