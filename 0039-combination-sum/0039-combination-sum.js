@@ -3,25 +3,30 @@
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum = function (candidates, target, index = 0, combination = [], combinations = []) {
-    const isBaseCase = target < 0;
-    if (isBaseCase) return combinations;
+var combinationSum = function(candidates, target) {
+    let ans = [];
+    let temp = []
+    findCombinations(0, candidates, target, ans, temp)
+    return ans;
+};
 
-    const isTarget = target === 0;
-    if (isTarget) return combinations.push(combination.slice());
-
-    for (let i = index; i < candidates.length; i++) {
-        backTrack(candidates, target, i, combination, combinations);
+function findCombinations(index, arr, target, ans, temp){
+    if(index == arr.length){
+       
+        if(target == 0){
+             console.log('temp', temp, target)
+            return ans.push([...temp]);
+        }
+        return;
     }
-
-    return combinations;
+    if(arr[index] <= target){
+        temp.push(arr[index]);
+         findCombinations(index, arr, target - arr[index], ans, temp);
+        temp.pop();
+    }
+    findCombinations(index + 1, arr, target, ans, temp);
 }
 
-const backTrack = (candidates, target, i, combination, combinations) => {
-    combination.push(candidates[i]);
-        combinationSum(candidates, (target - candidates[i]), i, combination, combinations);
-    combination.pop();
-}
 
 // var combinationSum = function (candidates, target){
 //     function dfs(candidate, target, idx, combination, result){
@@ -43,36 +48,5 @@ const backTrack = (candidates, target, i, combination, combinations) => {
 //     let combination = [];
  
 //     return dfs(candidates, target, idx, combination,result)
-    
-// }
-
-
-
-// var combinationSum = function (candidates, target){
-//     function dfs(candidates, target, index, combination, combinations){
-//         const isBaseCase = target < 0;
-//         if (isBaseCase) return combinations;
-
-//         const isTarget = target === 0;
-//         if (isTarget) return combinations.push(combination.slice());
-
-//         for (let i = index; i < candidates.length; i++) {
-//             backTrack(candidates, target, i, combination, combinations);
-//         }
-
-//         return combinations;
-//     }
-    
-//     const backTrack = (candidates, target, i, combination, combinations) => {
-//         combination.push(candidates[i]);
-//             combinationSum(candidates, (target - candidates[i]), i, combination, combinations);
-//         combination.pop();
-//     }
-    
-//     let idx = 0;
-//     let combinations = [];
-//     let combination = [];
- 
-//     return dfs(candidates, target, idx, combination,combinations)
     
 // }
