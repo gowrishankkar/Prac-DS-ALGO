@@ -10,6 +10,7 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
+
 var bstToGst = function(root) {
     const gt = (root) => {
         if (root.right)
